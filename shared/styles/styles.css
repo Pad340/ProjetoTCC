@@ -1,15 +1,37 @@
-/* ##### HMTL ##### */
 body {
-    font: 14px "Arial", sans-serif;
-    background: #e8e8e8;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
 }
 
-body header {
-
+header {
+    background-color: #585858;
+    color: white;
+    padding: 0.8em;
 }
 
-body footer {
-
+header nav ul {
+    list-style: none;
+    padding: 0;
 }
 
-/* ##### ClASSES ##### */
+header nav ul li {
+    display: inline;
+    margin-right: 1em;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+footer {
+    background-color: #585858;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
