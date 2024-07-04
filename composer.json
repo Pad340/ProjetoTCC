@@ -1,7 +1,18 @@
 {
+  "config": {
+    "vendor-dir": "vendor"
+  },
   "autoload": {
     "psr-4": {
-      "Core\\": "source/Core/"
-    }
+      "Core\\": "source/"
+    },
+    "files": [
+      "source/Boot/Config.php",
+      "source/Boot/Helpers.php"
+    ]
+  },
+  "require": {
+    "php": "^8.3",
+    "ext-pdo": "*"
   }
 }
