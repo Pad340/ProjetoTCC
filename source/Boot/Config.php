@@ -18,7 +18,6 @@ const URL_TEST = 'https://localhost/ProjetoTCC';
  * SITE
  */
 const SITE_NAME = 'ProjetoTCC';
-const SITE_TITLE = 'A definir';
 const SITE_DESC = 'A decidir';
 const SITE_LANG = 'pt_BR';
 

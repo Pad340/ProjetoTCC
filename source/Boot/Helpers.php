@@ -3,7 +3,6 @@
 namespace Core\Boot;
 class Helpers
 {
-
     /** Redireciona a página
      * @param string $url Local de destino
      * @return void

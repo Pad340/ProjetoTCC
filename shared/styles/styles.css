@@ -1,37 +1,8 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-}
-
-header {
-    background-color: #585858;
-    color: white;
-    padding: 0.8em;
-}
-
-header nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-header nav ul li {
-    display: inline;
-    margin-right: 1em;
-}
-
-header nav ul li a {
-    color: white;
+/* botao */
+.btn a{
     text-decoration: none;
-}
-
-footer {
-    background-color: #585858;
     color: white;
-    text-align: center;
-    padding: 1em;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    background-color: #4f9de6;
+    padding: 10px;
+    border-radius: 5px;
 }
