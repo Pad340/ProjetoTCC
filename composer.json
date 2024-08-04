@@ -1,0 +1,33 @@
+{
+  "name": "bruno/projetotcc",
+  "description": "Re-IFeitório",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Bruno H. Rohling",
+      "email": "brunorohling340@gmail.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Guilherme B. Alves",
+      "email": "guilhermebuzignani@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "config": {
+    "vendor-dir": "vendor"
+  },
+  "autoload": {
+    "psr-4": {
+      "Autoload\\": "source/"
+    },
+    "files": [
+      "source/Boot/Config.php",
+      "source/Boot/Helpers.php"
+    ]
+  },
+  "require": {
+    "php": "^8.0",
+    "ext-pdo": "^8.0"
+  }
+}

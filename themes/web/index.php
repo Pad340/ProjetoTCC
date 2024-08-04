@@ -2,7 +2,7 @@
 
 require_once "../../vendor/autoload.php";
 
-use Autoload\Core\Classes\User;
+use Autoload\Models\User;
 
 session_start();
 if (isset($_POST['submit'])) {

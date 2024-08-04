@@ -1,8 +1,7 @@
 <?php
 
-namespace Autoload\Core\Classes;
+namespace Autoload\Models;
 
-use Autoload\Boot\Helpers;
 use Autoload\Core\DB\DML\Select;
 
 class User

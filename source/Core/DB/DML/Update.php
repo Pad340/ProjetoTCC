@@ -2,7 +2,7 @@
 
 namespace Autoload\Core\DB\DML;
 
-use Autoload\Core\DB\Connect;
+use Autoload\Core\Connect;
 
 class Update extends Connect
 {
