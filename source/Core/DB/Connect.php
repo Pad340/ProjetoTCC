@@ -1,6 +1,6 @@
 <?php
 
-namespace Autoload\Core;
+namespace Autoload\Core\DB;
 
 use PDO;
 use PDOException;

@@ -10,7 +10,7 @@ const CONF_DB_NAME = "reifeitorio";
 /**
  * PROJECT URLs
  */
-const CONF_URL_BASE = "https://www.reifeitorio.com.br";
+const CONF_URL_BASE = "https://www.reifeitorio.com";
 const CONF_URL_TEST = "https://www.localhost/projetotcc";
 
 /**
@@ -30,10 +30,10 @@ const CONF_DATE_APP = "Y-m-d H:i:s";
 /**
  * PASSWORD
  */
+const CONF_PASSWD_ALGO = PASSWORD_DEFAULT;
+const CONF_PASSWD_OPTION = ['cost' => 10];
 const CONF_PASSWD_MIN_LEN = 8;
 const CONF_PASSWD_MAX_LEN = 40;
-const CONF_PASSWD_ALGO = PASSWORD_DEFAULT;
-const CONF_PASSWD_OPTION = ["cost" => 10];
 
 /**
  * VIEW

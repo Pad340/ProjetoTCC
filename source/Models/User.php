@@ -64,7 +64,7 @@ class User
      */
     private function isValidName(): bool
     {
-        if ((new Helpers())->alphabeticString($this->name)) {
+        if (alphabeticString($this->name)) {
             $this->message = 'Nome de usuário inválido.';
             return false;
         }
