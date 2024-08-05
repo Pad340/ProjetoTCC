@@ -1,7 +1,6 @@
 <?php
 
 require "vendor/autoload.php";
-use Autoload\Boot\Helpers;
 
 if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
 		$uri = 'https://';
@@ -9,6 +8,6 @@ if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
 		$uri = 'http://';
 	}
 	$uri .= $_SERVER['HTTP_HOST'];
-(new Helpers())->redirect($uri . "/projetotcc/themes/web/");
+redirect($uri . "/projetotcc/themes/web/");
 ?>
 Algo de errado aconteceu.

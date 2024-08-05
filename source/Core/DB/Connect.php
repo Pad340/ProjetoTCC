@@ -7,10 +7,10 @@ use PDOException;
 
 abstract class Connect
 {
-    private string $host = 'localhost';
-    private string $db_name = 'reifeitorio';
-    private string $username = 'root';
-    private string $password = '';
+    private string $host = CONF_DB_HOST;
+    private string $db_name = CONF_DB_NAME;
+    private string $username = CONF_DB_USER;
+    private string $password = CONF_DB_PASS;
 
     protected function getInstance(): ?PDO
     {
