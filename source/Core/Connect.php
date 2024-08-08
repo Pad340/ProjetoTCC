@@ -1,10 +1,13 @@
 <?php
 
-namespace Autoload\Core\DB;
+namespace Autoload\Core;
 
 use PDO;
 use PDOException;
 
+/**
+ * Faz a conexão com o BD e deixa para apenas as subclasses acessarem
+ */
 abstract class Connect
 {
     private string $host = CONF_DB_HOST;
@@ -12,6 +15,10 @@ abstract class Connect
     private string $username = CONF_DB_USER;
     private string $password = CONF_DB_PASS;
 
+    /**
+     * Faz a conexão com o BD.
+     * @return PDO|null
+     */
     protected function getInstance(): ?PDO
     {
         $conn = null;

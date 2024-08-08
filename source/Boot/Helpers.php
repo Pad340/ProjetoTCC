@@ -208,6 +208,16 @@ function url_back(): string
 }
 
 /**
+ * Retorna o URL atual.
+ * @return string
+ */
+function url_actual(): string
+{
+    $url = explode('?', $_SERVER['REQUEST_URI']);
+    return 'https://' . $_SERVER['HTTP_HOST'] . $url[0];
+}
+
+/**
  * Redireciona o navegador para a URL fornecida
  * @param string $url
  */
@@ -246,15 +256,15 @@ function date_fmt(?string $date, string $format = "d/m/Y H\hi"): string
 }
 
 /**
- * Formata uma data para o formato brasileiro
+ * Formata uma data para o formato brasileiro d/m/Y H:i:s
  * @param string|null $date
  * @return string Data atual se $date for null
  * @throws Exception
  */
-function date_fmt_br(?string $date): string
+function date_fmt_br(string $date = null): string
 {
     $date = (empty($date) ? "now" : $date);
-    return (new DateTime($date))->format(CONF_DATE_BR);
+    return (new DateTime($date))->format(CONF_DATE_FORMAT_BR);
 }
 
 /**
@@ -263,10 +273,10 @@ function date_fmt_br(?string $date): string
  * @return string Data atual se $date for null
  * @throws Exception
  */
-function date_fmt_app(?string $date): string
+function date_fmt_app(string $date = null): string
 {
     $date = (empty($date) ? "now" : $date);
-    return (new DateTime($date))->format(CONF_DATE_APP);
+    return (new DateTime($date))->format(CONF_DATE_FORMAT_APP);
 }
 
 /**
@@ -324,3 +334,4 @@ function passwd_rehash(string $hash): bool
 {
     return password_needs_rehash($hash, CONF_PASSWD_ALGO, CONF_PASSWD_OPTION);
 }
+

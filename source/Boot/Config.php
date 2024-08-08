@@ -24,16 +24,21 @@ const CONF_SITE_LANG = "pt_BR";
 /*
  * DATES
  */
-const CONF_DATE_BR = "d/m/Y H:i:s";
-const CONF_DATE_APP = "Y-m-d H:i:s";
+date_default_timezone_set('America/Sao_Paulo');
+const CONF_DATE_FORMAT_BR = "d/m/Y H:i:s";
+const CONF_DATE_FORMAT_APP = "Y-m-d H:i:s";
+
+define("CONF_DATE_BR", date(CONF_DATE_FORMAT_BR, time()));
+
+define("CONF_DATE_APP", date(CONF_DATE_FORMAT_APP, time()));
 
 /*
  * PASSWORD
  */
-const CONF_PASSWD_ALGO = PASSWORD_DEFAULT;
-const CONF_PASSWD_OPTION = ['cost' => 10];
 const CONF_PASSWD_MIN_LEN = 8;
 const CONF_PASSWD_MAX_LEN = 40;
+const CONF_PASSWD_ALGO = PASSWORD_DEFAULT;
+const CONF_PASSWD_OPTION = ['cost' => 10];
 
 /*
  * VIEW

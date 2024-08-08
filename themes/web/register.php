@@ -10,4 +10,4 @@
     <input type="password" name="confirmPassword" id="confirmPassword" required value=""> <br>
     <button type="submit" name="submit">Cadastrar-se</button>
 </form>
-<p>Já possui uma conta? Faça <a href="login.php">Login</a></p>
+<p>Já possui uma conta? Faça <a href="<?= url_actual() . '?login' ?>">Login</a></p>

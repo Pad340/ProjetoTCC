@@ -1,11 +1,10 @@
 <?php
 
-namespace Autoload\Core\DB\DML;
+namespace Autoload\Core\DB;
 
-use Autoload\Core\DB\Connect;
+use Autoload\Core\Connect;
 use PDO;
 use PDOException;
-use PDOStatement;
 
 class Insert extends Connect
 {
@@ -25,7 +24,7 @@ class Insert extends Connect
     /**
      * Insere dados na tabela $table
      * @param string $table Nome da tabela
-     * @param array $values Array associativo com as colunas e valores a serem inseridos
+     * @param array $values Array associativo com as colunas e valores a serem inseridos. Por exemplo: ['user_id' => 1, 'name' => 'Bruno']
      * @return bool
      */
     public function insert(string $table, array $values): bool
@@ -38,19 +37,15 @@ class Insert extends Connect
             return ":$key";
         }, array_keys($values)));
 
-        // Montando a query completa
         $query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
 
         try {
-            // Preparando a query
             $stmt = $this->conn->prepare($query);
 
-            // Bindando os valores aos placeholders
             foreach ($values as $key => $value) {
                 $stmt->bindValue(":$key", $value);
             }
 
-            // Executando a query
             return $stmt->execute();
         } catch (PDOException $e) {
             echo "Erro ao inserir dados: " . $e->getMessage();
@@ -60,10 +55,10 @@ class Insert extends Connect
 
     /**
      * Obtém o ID do último registro inserido
-     * @return string|null
+     * @return int
      */
-    public function getLastInsertId(): ?string
+    public function getLastInsertId(): int
     {
-        return $this->conn?->lastInsertId();
+        return $this->conn->lastInsertId();
     }
 }
