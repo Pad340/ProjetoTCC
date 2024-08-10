@@ -2,33 +2,34 @@
 
 namespace Autoload\Models;
 
-use Autoload\Core\DB\DML\Select;
+use Autoload\Core\DB\Insert;
+use Autoload\Core\DB\Select;
+use Autoload\Core\Session;
 
 class User
 {
+    private int $user_id;
     private string $name;
     private string $email;
     private string $password;
     private string $confirmPassword;
     private string $message = '';
-    const Entity = 'user';
+    const Table = 'user';
 
-    public function __construct(string $name, string $email, string $password, string $confirmPassword)
+    public function register(string $name, string $email, string $password): bool
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->password = $password;
-        $this->confirmPassword = $confirmPassword;
-    }
+        $user = $this->attempt($name, $email, $password);
+        if (!$user) return false;
 
-    public function register(): bool
-    {
-        if ($this->duplicate()) return false;
-        //PAREI AQUI
-        if ($this->isValidName()) return false;
+        $insert = new Insert();
 
-        //if ($this->isValidEmail()) return false;
-        if ($this->isValidPassword()) return false;
+        if (!$insert->insert(self::Table, $user)) {
+            $this->message = 'Ocorreu um erro ao cadastrar os dados.';
+            return false;
+        }
+
+        (new Session())->set("authUser", $insert->getLastInsertId());
+        $this->message = 'Cadastro realizado com sucesso!';
 
         return true;
     }
@@ -43,52 +44,57 @@ class User
     #####################
 
     /**
-     * Busca um registro no BD com o email enviado para verificar se o email já existe no sistema
-     * @return bool true caso exista uma duplicata
+     * Valida os dados do usuário
+     * @param string $name
+     * @param string $email
+     * @param string $password
+     * @return array|null
      */
-    private function duplicate(): bool
+    private function attempt(string $name, string $email, string $password): ?array
     {
+        // Name
+        if (is_numeric(filter_var(filter_var($name, FILTER_SANITIZE_SPECIAL_CHARS), FILTER_SANITIZE_NUMBER_INT))
+            || preg_match('/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/', $name)) {
+            $this->message = 'O nome não deve conter números e nem carácteres especiais.';
+            return null;
+        }
+        $name = str_title($name);
+
+        // Email
+        if (!is_email($email)) {
+            $this->message = 'O e-mail é de formato inválido.';
+            return null;
+        }
+
         $search = new Select();
-        $search->selectFirst(self::Entity, 'WHERE email = :email', "email={$this->email}");
+        $search->selectFirst(self::Table, 'WHERE email = :email', "email={$email}");
 
         if ($search->getRowCount() > 0) {
-            $this->message = 'Este e-mail já está cadastrado.';
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Verifica se existe apenas caracteres alfabéticos no nome
-     * @return bool
-     */
-    private function isValidName(): bool
-    {
-        if (alphabeticString($this->name)) {
-            $this->message = 'Nome de usuário inválido.';
-            return false;
-        }
-        return true;
-    }
-
-    private function isValidEmail(): bool
-    {
-        return true;
-    }
-
-    private function isValidPassword(): bool
-    {
-        echo 'to aqui';
-        if ($this->password !== $this->confirmPassword) {
-            $this->message = 'Confirme sua senha corretamente!';
-            return false;
+            $this->message = 'O e-mail informado já está cadastrado.';
+            return null;
         }
 
-//        $pattern = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d].\S{8,36}$/';
-//        if (preg_match($pattern, $this->password)) {
-//            return false;
-//        }
+        // Password
+        if (!(mb_strlen($password) >= CONF_PASSWD_MIN_LEN && mb_strlen($password) <= CONF_PASSWD_MAX_LEN)) {
+            $this->message = 'A senha deve ter entre ' . CONF_PASSWD_MIN_LEN . ' e ' . CONF_PASSWD_MAX_LEN . ' carácteres.';
+            return null;
+        }
 
-        return true;
+        if (!(is_numeric(filter_var($password, FILTER_SANITIZE_NUMBER_INT))
+            && preg_match('/[A-Z]/', $password)
+            && preg_match('/[a-z]/', $password)
+            && preg_match('/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/', $password))) {
+            $this->message = 'A senha deve conter pelo menos uma letra maiúscula, uma minúscula, um número e um carácter especial.';
+            return null;
+        }
+        $password = passwd($password);
+
+        return [
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+            'created_at' => CONF_DATE_APP,
+            'updated_at' => CONF_DATE_APP
+        ];
     }
 }

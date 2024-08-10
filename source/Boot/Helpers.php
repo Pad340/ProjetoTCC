@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * ####################
  * ###   VALIDATE   ###
  * ####################
@@ -9,7 +9,7 @@
 /**
  * Valida se o email é valido
  * @param string $email
- * @return bool
+ * @return bool FALSE se não for valido
  */
 function is_email(string $email): bool
 {
@@ -17,6 +17,7 @@ function is_email(string $email): bool
 }
 
 /**
+ * Verifica se a hash é valida e o tamanho da senha
  * @param string $password
  * @return bool
  */
@@ -29,13 +30,15 @@ function is_passwd(string $password): bool
     return false;
 }
 
-/**
+/*
  * ##################
  * ###   STRING   ###
  * ##################
  */
 
 /**
+ * Converte uma string em um "slug" amigável para URLs, substituindo caracteres especiais por seus equivalentes
+ * sem acentuação e convertendo espaços em hífens
  * @param string $string
  * @return string
  */
@@ -55,6 +58,7 @@ function str_slug(string $string): string
 }
 
 /**
+ * Converte uma string em "StudlyCase" (cada palavra começa com uma letra maiúscula, sem espaços ou hífens)
  * @param string $string
  * @return string
  */
@@ -69,6 +73,8 @@ function str_studly_case(string $string): string
 }
 
 /**
+ * Converte uma string em "camelCase" (sem espaços, com a primeira letra minúscula e cada palavra subsequente
+ * começando com uma letra maiúscula)
  * @param string $string
  * @return string
  */
@@ -78,6 +84,7 @@ function str_camel_case(string $string): string
 }
 
 /**
+ * Converte uma string para "Title Case" (cada palavra começa com uma letra maiúscula)
  * @param string $string
  * @return string
  */
@@ -87,17 +94,20 @@ function str_title(string $string): string
 }
 
 /**
+ * Formata texto de uma área de texto HTML para ser exibido como parágrafos HTML
  * @param string $text
  * @return string
  */
 function str_textarea(string $text): string
 {
-    $text = filter_var($text, FILTER_SANITIZE_STRIPPED);
+    $text = filter_var($text, FILTER_SANITIZE_SPECIAL_CHARS);
     $arrayReplace = ["&#10;", "&#10;&#10;", "&#10;&#10;&#10;", "&#10;&#10;&#10;&#10;", "&#10;&#10;&#10;&#10;&#10;"];
     return "<p>" . str_replace($arrayReplace, "</p><p>", $text) . "</p>";
 }
 
 /**
+ * Limita uma string a um número máximo de palavras, adicionando um ponteiro (como "...") no final se a string
+ * for truncada
  * @param string $string
  * @param int $limit
  * @param string $pointer
@@ -118,6 +128,8 @@ function str_limit_words(string $string, int $limit, string $pointer = "..."): s
 }
 
 /**
+ * Limita uma string a um número máximo de caracteres, adicionando um ponteiro (como "...") no final se a string
+ * for truncada
  * @param string $string
  * @param int $limit
  * @param string $pointer
@@ -135,7 +147,8 @@ function str_limit_chars(string $string, int $limit, string $pointer = "..."): s
 }
 
 /**
- * @param string|null $price
+ * Formata um valor numérico como um preço em formato brasileiro (com vírgula para decimais e ponto para milhares)
+ * @param string|null $price Se for null, define como 0
  * @return string
  */
 function str_price(?string $price): string
@@ -144,6 +157,7 @@ function str_price(?string $price): string
 }
 
 /**
+ * Sanitiza uma string de busca, removendo caracteres especiais, e retorna "all" se a string de busca estiver vazia
  * @param string|null $search
  * @return string
  */
@@ -157,13 +171,14 @@ function str_search(?string $search): string
     return (!empty($search) ? $search : "all");
 }
 
-/**
+/*
  * ###############
  * ###   URL   ###
  * ###############
  */
 
 /**
+ * Constrói uma URL completa baseada no ambiente de desenvolvimento ou produção e no caminho fornecido
  * @param string|null $path
  * @return string
  */
@@ -184,6 +199,7 @@ function url(string $path = null): string
 }
 
 /**
+ * Retorna a URL de referência anterior (a página de onde o usuário veio) ou a URL base se a referência não estiver disponível
  * @return string
  */
 function url_back(): string
@@ -192,6 +208,17 @@ function url_back(): string
 }
 
 /**
+ * Retorna o URL atual
+ * @return string
+ */
+function url_actual(): string
+{
+    $url = explode('?', $_SERVER['REQUEST_URI']);
+    return 'https://' . $_SERVER['HTTP_HOST'] . $url[0];
+}
+
+/**
+ * Redireciona o navegador para a URL fornecida
  * @param string $url
  */
 function redirect(string $url): void
@@ -216,9 +243,10 @@ function redirect(string $url): void
  */
 
 /**
+ * Formata uma data para um formato especificado
  * @param string|null $date
  * @param string $format
- * @return string
+ * @return string Data atual se $date for null
  * @throws Exception
  */
 function date_fmt(?string $date, string $format = "d/m/Y H\hi"): string
@@ -228,37 +256,36 @@ function date_fmt(?string $date, string $format = "d/m/Y H\hi"): string
 }
 
 /**
+ * Formata uma data para o formato brasileiro d/m/Y H:i:s
  * @param string|null $date
- * @return string
+ * @return string Data atual se $date for null
  * @throws Exception
  */
-function date_fmt_br(?string $date): string
+function date_fmt_br(string $date = null): string
 {
     $date = (empty($date) ? "now" : $date);
-    return (new DateTime($date))->format(CONF_DATE_BR);
+    return (new DateTime($date))->format(CONF_DATE_FORMAT_BR);
 }
 
 /**
+ * Formata uma data para o formato Y-m-d H:i:s
  * @param string|null $date
- * @return string
+ * @return string Data atual se $date for null
  * @throws Exception
  */
-function date_fmt_app(?string $date): string
+function date_fmt_app(string $date = null): string
 {
     $date = (empty($date) ? "now" : $date);
-    return (new DateTime($date))->format(CONF_DATE_APP);
+    return (new DateTime($date))->format(CONF_DATE_FORMAT_APP);
 }
 
 /**
- * @param string|null $date
- * @return string|null
+ * Converte uma data no formato brasileiro (dd/mm/yyyy) para o formato ISO (yyyy-mm-dd)
+ * @param string $date
+ * @return string
  */
-function date_fmt_back(?string $date): ?string
+function date_fmt_back(string $date): string
 {
-    if (!$date) {
-        return null;
-    }
-
     if (strpos($date, " ")) {
         $date = explode(" ", $date);
         return implode("-", array_reverse(explode("/", $date[0]))) . " " . $date[1];
@@ -267,13 +294,14 @@ function date_fmt_back(?string $date): ?string
     return implode("-", array_reverse(explode("/", $date)));
 }
 
-/**
+/*
  * ####################
  * ###   PASSWORD   ###
  * ####################
  */
 
 /**
+ * Hash de uma senha
  * @param string $password
  * @return string
  */
@@ -287,6 +315,7 @@ function passwd(string $password): string
 }
 
 /**
+ * Verifica se a senha fornecida corresponde ao hash armazenado
  * @param string $password
  * @param string $hash
  * @return bool
@@ -297,6 +326,7 @@ function passwd_verify(string $password, string $hash): bool
 }
 
 /**
+ * Verifica se o hash precisa ser re-hash
  * @param string $hash
  * @return bool
  */
@@ -304,3 +334,4 @@ function passwd_rehash(string $hash): bool
 {
     return password_needs_rehash($hash, CONF_PASSWD_ALGO, CONF_PASSWD_OPTION);
 }
+
