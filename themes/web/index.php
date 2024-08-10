@@ -2,18 +2,6 @@
 
 require_once "../../vendor/autoload.php";
 
-use Autoload\Models\User;
-
-if (isset($_POST['submit'])) {
-    $user = new User();
-    if ($_POST['password'] !== $_POST['confirmPassword']) {
-        echo 'Confirme sua senha corretamente!';
-    } else {
-        $user->register($_POST['name'], $_POST['email'], $_POST['password']);
-        echo $user->getMessage();
-    }
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

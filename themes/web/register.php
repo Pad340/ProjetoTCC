@@ -1,13 +1,27 @@
+<?php
+
+use Autoload\Models\User;
+
+if (isset($_POST['submit'])) {
+    $user = new User();
+    if ($_POST['password'] !== $_POST['confirmPassword']) {
+        echo 'Confirme sua senha corretamente!';
+    } else {
+        $user->register($_POST['name'], $_POST['email'], $_POST['password']);
+        echo $user->getMessage();
+    }
+}
+?>
 <h2>Aqui é o cadastro</h2>
 <form action="" method="post" autocomplete="off">
     <label for="name">Nome:</label>
-    <input type="text" name="name" id="name" required value=""> <br>
+    <input type="text" name="name" id="name" value="<?= $_POST['name'] ?? "" ?>" required>
     <label for="email">E-mail:</label>
-    <input type="email" name="email" id="email" required value=""> <br>
+    <input type="email" name="email" id="email" value="<?= $_POST['email'] ?? "" ?>" required>
     <label for="password">Senha:</label>
-    <input type="password" name="password" id="password" required value=""> <br>
+    <input type="password" name="password" id="password" required>
     <label for="confirmPassword">Confirme a senha:</label>
-    <input type="password" name="confirmPassword" id="confirmPassword" required value=""> <br>
+    <input type="password" name="confirmPassword" id="confirmPassword" required>
     <button type="submit" name="submit">Cadastrar-se</button>
 </form>
 <p>Já possui uma conta? Faça <a href="<?= url_actual() . '?login' ?>">Login</a></p>

@@ -208,7 +208,7 @@ function url_back(): string
 }
 
 /**
- * Retorna o URL atual.
+ * Retorna o URL atual
  * @return string
  */
 function url_actual(): string
