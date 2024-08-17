@@ -12,6 +12,12 @@ const CONF_DB_NAME = "reifeitorio";
  */
 const CONF_URL_BASE = "https://www.reifeitorio.com";
 const CONF_URL_TEST = "https://www.localhost/projetotcc";
+if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
+    $uri = 'https://';
+} else {
+    $uri = 'http://';
+}
+define('URI', $uri);
 
 /*
  * SITE
