@@ -5,17 +5,20 @@ namespace Autoload\Models;
 use Autoload\Core\DB\Insert;
 use Autoload\Core\DB\Select;
 use Autoload\Core\Session;
+use JetBrains\PhpStorm\NoReturn;
 
 class User
 {
-    private int $user_id;
-    private string $name;
-    private string $email;
-    private string $password;
-    private string $confirmPassword;
     private string $message = '';
     const Table = 'user';
 
+    /**
+     * Realiza o cadastro do usuário no sistema
+     * @param string $name
+     * @param string $email
+     * @param string $password
+     * @return bool
+     */
     public function register(string $name, string $email, string $password): bool
     {
         $user = $this->attempt($name, $email, $password);
@@ -29,11 +32,54 @@ class User
         }
 
         (new Session())->set("authUser", $insert->getLastInsertId());
-        $this->message = 'Cadastro realizado com sucesso!';
-
         return true;
     }
 
+    /**
+     * Realiza o login do usuário
+     * @param string $email
+     * @param string $password
+     * @return bool
+     */
+    public function login(string $email, string $password): bool
+    {
+        $findUser = new Select();
+        $user = $findUser->selectFirst(self::Table, 'WHERE email = :e', "e={$email}", 'user_id, password, status_account');
+
+        if (!$user) {
+            $this->message = 'O e-mail informado não está cadastrado no sistema.';
+            return false;
+        }
+
+        if ($user['status_account'] != 1) {
+            $this->message = 'Usuário inativo, entre em contato com um operador.';
+            return false;
+        }
+
+        if (!passwd_verify($password, $user['password'])) {
+            $this->message = 'E-mail ou senha incorretos.';
+            return false;
+        }
+
+        (new Session())->set("authUser", $user['user_id']);
+        return true;
+    }
+
+    /**
+     * Desloga o usuário do sistema.
+     * @return void
+     */
+    #[NoReturn] public function logout(): void
+    {
+        $session = new Session();
+        $session->unset('authUser');
+        redirect('../web/');
+    }
+
+    /**
+     * Mensagem de retorno das operações realizadas
+     * @return string
+     */
     public function getMessage(): string
     {
         return $this->message;
@@ -44,7 +90,7 @@ class User
     #####################
 
     /**
-     * Valida os dados do usuário
+     * Valida os dados do cadastro
      * @param string $name
      * @param string $email
      * @param string $password

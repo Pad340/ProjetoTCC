@@ -6,6 +6,8 @@
  * ####################
  */
 
+use JetBrains\PhpStorm\NoReturn;
+
 /**
  * Valida se o email é valido
  * @param string $email
@@ -177,35 +179,6 @@ function str_search(?string $search): string
  * ###############
  */
 
-/**
- * Constrói uma URL completa baseada no ambiente de desenvolvimento ou produção e no caminho fornecido
- * @param string|null $path
- * @return string
- */
-function url(string $path = null): string
-{
-    if (strpos($_SERVER['HTTP_HOST'], "localhost")) {
-        if ($path) {
-            return CONF_URL_TEST . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
-        }
-        return CONF_URL_TEST;
-    }
-
-    if ($path) {
-        return CONF_URL_BASE . "/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
-    }
-
-    return CONF_URL_BASE;
-}
-
-/**
- * Retorna a URL de referência anterior (a página de onde o usuário veio) ou a URL base se a referência não estiver disponível
- * @return string
- */
-function url_back(): string
-{
-    return ($_SERVER['HTTP_REFERER'] ?? url());
-}
 
 /**
  * Retorna o URL atual
@@ -221,13 +194,11 @@ function url_actual(): string
  * Redireciona o navegador para a URL fornecida
  * @param string $url
  */
-function redirect(string $url): void
+#[NoReturn] function redirect(string $url): void
 {
     header("HTTP/1.1 302 Redirect");
-    if (filter_var($url, FILTER_VALIDATE_URL)) {
-        header("Location: {$url}");
-        exit;
-    }
+    header("Location: {$url}");
+    exit;
 }
 
 /**
