@@ -7,14 +7,23 @@ require_once "../../vendor/autoload.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Re-IFeitório</title>
-    <link rel="stylesheet" href="../../shared/styles/styles.css"/>
+    <link rel="stylesheet" href="../../shared/styles/styles.css" />
+    <link rel="icon" href="../../storage/images/logoBarra.png">
 </head>
+
 <body>
-<h1>Bem vindo ao website</h1>
+
+    <div class="whiteLogo">
+        <img class="whiteLogo2" src="../../storage/images/whiteLogo.png" height="300">
+    </div>
+
+</body>
+
 
 <?php
 if (isset($_GET['login'])) {
@@ -29,4 +38,5 @@ if ($session->has('authUser')) {
 }
 ?>
 </body>
+
 </html>
