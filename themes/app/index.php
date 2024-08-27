@@ -1,9 +1,8 @@
 <?php
+require_once "../../vendor/autoload.php";
 
 use Autoload\Core\Session;
 use Autoload\Models\User;
-
-require_once "../../vendor/autoload.php";
 
 $session = new Session();
 
@@ -11,7 +10,8 @@ if (!$session->has('authUser')) {
     redirect('../web/');
 }
 
-if (isset($_GET['logout'])) {
+
+if (isset($_GET['page']) and $_GET['page'] == 'logout') {
     (new User())->logout();
 }
 
@@ -26,7 +26,24 @@ if (isset($_GET['logout'])) {
     <link rel="stylesheet" href="../../shared/styles/styles.css">
 </head>
 <body>
-<h1>Área logada</h1>
-<a href="?logout">Logout</a>
+<?php include 'includes/header.php'; // Inclui o cabeçalho ?>
+
+<main>
+    <?php
+    // Define a página padrão
+    $page = $_GET['page'] ?? 'home';
+
+    // Inclui o conteúdo da página com base no valor do parâmetro 'page'
+    $path = "pages/$page.php";
+
+    if (file_exists($path)) {
+        include $path;
+    } else {
+        echo "<p>Página não encontrada.</p>";
+    }
+    ?>
+</main>
+
+<?php include 'includes/footer.php'; // Inclui o rodapé?>
 </body>
 </html>
