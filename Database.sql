@@ -4,7 +4,7 @@ USE reifeitorio;
 
 CREATE TABLE `user`
 (
-    `user_id`        int(11)      NOT NULL,
+    `user_id`        int(11)      NOT NULL AUTO_INCREMENT,
     `name`           varchar(100) NOT NULL,
     `email`          varchar(50)  NOT NULL,
     `password`       varchar(75)  NOT NULL,
