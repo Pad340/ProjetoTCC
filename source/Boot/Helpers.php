@@ -179,6 +179,15 @@ function str_search(?string $search): string
  * ###############
  */
 
+/**
+ * Retorna o url do sistema.
+ * @param string $page
+ * @return string
+ */
+function url(string $page): string
+{
+    return "/projetotcc/themes/$page";
+}
 
 /**
  * Retorna o URL atual

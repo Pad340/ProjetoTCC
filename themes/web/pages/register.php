@@ -7,7 +7,9 @@ if (isset($_POST['register'])) {
         echo 'Confirme sua senha corretamente!';
     } else {
         $user = new User();
-        $user->register($_POST['name'], $_POST['email'], $_POST['password']);
+        if ($user->register($_POST['name'], $_POST['email'], $_POST['password'])) {
+            redirect('../app/');
+        }
         echo $user->getMessage();
     }
 }
@@ -15,7 +17,7 @@ if (isset($_POST['register'])) {
 
 <h2>Aqui é o cadastro</h2>
 
-<form action="./" method="post" autocomplete="off">
+<form action method="post" autocomplete="off">
     <label for="name">Nome:</label>
     <input type="text" name="name" id="name" value="<?= $_POST['name'] ?? "" ?>" required/>
 
@@ -31,4 +33,4 @@ if (isset($_POST['register'])) {
     <button type="submit" name="register">Cadastrar-se</button>
 </form>
 
-<p>Já possui uma conta? Faça <a href="<?= url_actual() . '?login' ?>">Login</a></p>
+<p>Já possui uma conta? Faça <a href="<?= url('web/login') ?>">Login</a></p>
