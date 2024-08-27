@@ -15,22 +15,25 @@ if (isset($_POST['register'])) {
 }
 ?>
 
-<h2>Aqui é o cadastro</h2>
+<div class="form-styling">
+    <h1 style="color:grey">Criar Conta</h1>
+    <form action method="post" autocomplete="off">
 
-<form action method="post" autocomplete="off">
-    <label for="name">Nome:</label>
-    <input type="text" name="name" id="name" value="<?= $_POST['name'] ?? "" ?>" required/>
+        <label for="name"></label>
+        <input type="text" name="name" id="name" value="<?= $_POST['name'] ?? "" ?>" placeholder="Nome" required/>
 
-    <label for="email">E-mail:</label>
-    <input type="email" name="email" id="email" value="<?= $_POST['email'] ?? "" ?>" required/>
+        <label for="email"></label>
+        <input type="email" name="email" id="email" value="<?= $_POST['email'] ?? "" ?>" placeholder="E-mail" required/>
 
-    <label for="password">Senha:</label>
-    <input type="password" name="password" id="password" required/>
+        <label for="password"></label>
+        <input type="password" name="password" id="password" placeholder="Senha" required/>
 
-    <label for="confirmPassword">Confirme a senha:</label>
-    <input type="password" name="confirmPassword" id="confirmPassword" required/>
+        <label for="confirmPassword"</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirmar Senha" required/>
 
-    <button type="submit" name="register">Cadastrar-se</button>
-</form>
+        <br/>
+        <button type="submit" name="register">Cadastrar-se</button>
 
-<p>Já possui uma conta? Faça <a href="<?= url('web/login') ?>">Login</a></p>
+    </form>
+    <p>Já possui uma conta? Faça <a href="<?= url('web/login') ?>">Login</a></p>
+</div>
