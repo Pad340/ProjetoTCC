@@ -99,8 +99,7 @@ class User
     private function attempt(string $name, string $email, string $password): ?array
     {
         // Name
-        if (is_numeric(filter_var(filter_var($name, FILTER_SANITIZE_SPECIAL_CHARS), FILTER_SANITIZE_NUMBER_INT))
-            || preg_match('/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/', $name)) {
+        if (!is_name($name)) {
             $this->message = 'O nome não deve conter números e nem carácteres especiais.';
             return null;
         }
@@ -127,9 +126,9 @@ class User
         }
 
         if (!(is_numeric(filter_var($password, FILTER_SANITIZE_NUMBER_INT))
-            && preg_match('/[A-Z]/', $password)
-            && preg_match('/[a-z]/', $password)
-            && preg_match('/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/', $password))) {
+            and preg_match('/[A-Z]/', $password)
+            and preg_match('/[a-z]/', $password)
+            and preg_match('/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/', $password))) {
             $this->message = 'A senha deve conter pelo menos uma letra maiúscula, uma minúscula, um número e um carácter especial.';
             return null;
         }

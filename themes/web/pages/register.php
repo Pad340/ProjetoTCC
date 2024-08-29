@@ -28,7 +28,7 @@ if (isset($_POST['register'])) {
         <label for="password"></label>
         <input type="password" name="password" id="password" placeholder="Senha" required/>
 
-        <label for="confirmPassword"</label>
+        <label for="confirmPassword"></label>
         <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirmar Senha" required/>
 
         <br/>
