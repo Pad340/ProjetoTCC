@@ -28,9 +28,11 @@ CREATE TABLE `category`
 
 CREATE TABLE `seller`
 (
-    `seller_id` int(11)      NOT NULL AUTO_INCREMENT,
-    `user_id`   int(11)      NOT NULL,
-    `name`      varchar(100) NOT NULL,
+    `seller_id`    int(11)      NOT NULL AUTO_INCREMENT,
+    `user_id`      int(11)      NOT NULL,
+    `name`         varchar(100) NOT NULL,
+    `cpf`          varchar(12)  NOT NULL,
+    `phone_number` varchar(12)  NOT NULL,
     PRIMARY KEY (`seller_id`),
     KEY `seller_user_idx` (`user_id`),
     CONSTRAINT `seller_user`
