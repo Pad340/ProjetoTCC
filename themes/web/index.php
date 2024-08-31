@@ -24,7 +24,7 @@ if ($session->has('authUser')) {
 <body>
 
 <div class="whiteLogo">
-    <img class="whiteLogo2" src="../../storage/images/whiteLogo.png" height="300">
+    <img class="whiteLogo2" src="../../storage/images/whiteLogo.png" alt="Logo" height="300"/>
 </div>
 
 <main>

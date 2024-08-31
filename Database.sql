@@ -28,16 +28,17 @@ CREATE TABLE `category`
 
 CREATE TABLE `seller`
 (
-    `seller_id` int(11)      NOT NULL AUTO_INCREMENT,
-    `user_id`   int(11)      NOT NULL,
-    `name`      varchar(100) NOT NULL,
+    `seller_id`      int(11)      NOT NULL AUTO_INCREMENT,
+    `user_id`        int(11)      NOT NULL,
+    `name`           varchar(100) NOT NULL,
+    `cpf`            varchar(12)  NOT NULL,
+    `phone_number`   varchar(13)  NOT NULL,
+    `created_at` datetime NOT NULL,
+    `updated_at` datetime NOT NULL,
+    `status_account` int(11)      NOT NULL DEFAULT 1 COMMENT '1 = Ativo',
     PRIMARY KEY (`seller_id`),
     KEY `seller_user_idx` (`user_id`),
-    CONSTRAINT `seller_user`
-        FOREIGN KEY (`user_id`)
-            REFERENCES `user` (`user_id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
+    CONSTRAINT `seller_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;

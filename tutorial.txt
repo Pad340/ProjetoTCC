@@ -1,0 +1,6 @@
+1- Instale o composer em composer.org;
+2- Reinicie sua IDE;
+3- Abra o terminal de sua IDE (utilizando o command prompt), digite o seguinte trecho: "composer install". Se aparecer em verde é porque deu bom.
+4- Abra o arquivo Database.sql, copie o sql e cole em seu banco de dados;
+5- Confira em Config.php se o host para conexão está correto para sua máquina. A padrão do projeto até então é localhost:3306;
+6- Aproveite (eu acho).

@@ -73,7 +73,7 @@ class Session
     /**
      * Verifica se o índice $key existe na sessão
      * @param string $key
-     * @return bool
+     * @return bool TRUE se existir
      */
     public function has(string $key): bool
     {

@@ -1,5 +1,7 @@
 <header>
-    <a href="<?= url('app/home') ?>"><img src="" alt="website-logo" width="20"/></a>
+    <a href="<?= url('app/home') ?>">
+        <img src="" alt="website-logo" width="20"/>
+    </a>
     <nav>
         <ul>
             <li><a href="<?= url('app/home') ?>">Home</a></li>

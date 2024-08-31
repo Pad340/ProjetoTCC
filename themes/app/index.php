@@ -2,6 +2,7 @@
 require_once "../../vendor/autoload.php";
 
 use Autoload\Core\Session;
+use Autoload\Models\Seller;
 use Autoload\Models\User;
 
 $session = new Session();
@@ -10,6 +11,9 @@ if (!$session->has('authUser')) {
     redirect('../web/');
 }
 
+if (!$session->has('authSeller')) {
+    (new Seller())->login();
+}
 
 if (isset($_GET['page']) and $_GET['page'] == 'logout') {
     (new User())->logout();
@@ -24,6 +28,8 @@ if (isset($_GET['page']) and $_GET['page'] == 'logout') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Re-IFeitório | App</title>
     <link rel="stylesheet" href="../../shared/styles/styles.css">
+    <script src="../../shared/js/jquery-3.7.1.min.js"></script>
+    <script src="../../shared/js/jquery.mask.min.js"></script>
 </head>
 <body>
 <?php include 'includes/header.php'; // Inclui o cabeçalho ?>
@@ -39,11 +45,11 @@ if (isset($_GET['page']) and $_GET['page'] == 'logout') {
     if (file_exists($path)) {
         include $path;
     } else {
-        echo "<p>Página não encontrada.</p>";
+        include 'pages/404.php';
     }
     ?>
 </main>
 
-<?php include 'includes/footer.php'; // Inclui o rodapé?>
+<?php include 'includes/footer.php'; // Inclui o rodapé ?>
 </body>
 </html>

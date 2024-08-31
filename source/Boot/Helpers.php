@@ -1,12 +1,77 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
 /*
  * ####################
  * ###   VALIDATE   ###
  * ####################
  */
 
-use JetBrains\PhpStorm\NoReturn;
+/**
+ * Valida se existe algum carácter especial ou número no nome.
+ * @param string $name
+ * @return bool TRUE se for valido
+ */
+function is_name(string $name): bool
+{
+    if (
+        is_numeric(filter_var(filter_var($name, FILTER_SANITIZE_SPECIAL_CHARS), FILTER_SANITIZE_NUMBER_INT))
+        or preg_match('/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/', $name)
+    ) {
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Valida o CPF de acordo com o algoritmo oficial utilizado pela Receita Federal do Brasil
+ * @param string $cpf
+ * @return bool TRUE se for valido
+ */
+function is_cpf(string $cpf): bool
+{
+    // Extrai somente os números
+    $cpf = preg_replace('/[^0-9]/i', '', $cpf);
+
+    // Verifica se foi informado todos os digitos corretamente
+    if (strlen($cpf) != 11) {
+        return false;
+    }
+
+    // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+    if (preg_match('/(\d)\1{10}/', $cpf)) {
+        return false;
+    }
+
+    // Faz o calculo para validar o CPF
+    for ($t = 9; $t < 11; $t++) {
+        for ($d = 0, $c = 0; $c < $t; $c++) {
+            $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * Retira os carácteres especiais para validar o tamanho da string
+ * @param string $phone
+ * @return bool
+ */
+function is_phone_number(string $phone): bool
+{
+    $phone = preg_replace('/\D/', '', $phone);
+
+    if (strlen($phone) == 10 || strlen($phone) == 11) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 /**
  * Valida se o email é valido
@@ -50,39 +115,20 @@ function str_slug(string $string): string
     $formats = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?;:.,\\\'<>°ºª';
     $replace = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr                                 ';
 
-    $slug = str_replace(["-----", "----", "---", "--"], "-",
-        str_replace(" ", "-",
-            trim(strtr(mb_convert_encoding($string, 'ISO-8859-1', 'UTF-8'),
-                mb_convert_encoding($formats, 'ISO-8859-1', 'UTF-8'), $replace))
+    $slug = str_replace(
+        ["-----", "----", "---", "--"],
+        "-",
+        str_replace(
+            " ",
+            "-",
+            trim(strtr(
+                mb_convert_encoding($string, 'ISO-8859-1', 'UTF-8'),
+                mb_convert_encoding($formats, 'ISO-8859-1', 'UTF-8'),
+                $replace
+            ))
         )
     );
     return $slug;
-}
-
-/**
- * Converte uma string em "StudlyCase" (cada palavra começa com uma letra maiúscula, sem espaços ou hífens)
- * @param string $string
- * @return string
- */
-function str_studly_case(string $string): string
-{
-    $string = str_slug($string);
-    $studlyCase = str_replace(" ", "",
-        mb_convert_case(str_replace("-", " ", $string), MB_CASE_TITLE)
-    );
-
-    return $studlyCase;
-}
-
-/**
- * Converte uma string em "camelCase" (sem espaços, com a primeira letra minúscula e cada palavra subsequente
- * começando com uma letra maiúscula)
- * @param string $string
- * @return string
- */
-function str_camel_case(string $string): string
-{
-    return lcfirst(str_studly_case($string));
 }
 
 /**
@@ -96,56 +142,33 @@ function str_title(string $string): string
 }
 
 /**
- * Formata texto de uma área de texto HTML para ser exibido como parágrafos HTML
- * @param string $text
+ * Deixa apenas a primeira letra da string maiúscula
+ * @param string $string
  * @return string
  */
-function str_textarea(string $text): string
+function str_first_letter_to_uppercase(string $string): string
 {
-    $text = filter_var($text, FILTER_SANITIZE_SPECIAL_CHARS);
-    $arrayReplace = ["&#10;", "&#10;&#10;", "&#10;&#10;&#10;", "&#10;&#10;&#10;&#10;", "&#10;&#10;&#10;&#10;&#10;"];
-    return "<p>" . str_replace($arrayReplace, "</p><p>", $text) . "</p>";
+    return ucfirst($string);
 }
 
 /**
- * Limita uma string a um número máximo de palavras, adicionando um ponteiro (como "...") no final se a string
- * for truncada
- * @param string $string
- * @param int $limit
- * @param string $pointer
+ * Retira os carácteres especiais do CPF, mantendo apenas os números
+ * @param string $cpf
  * @return string
  */
-function str_limit_words(string $string, int $limit, string $pointer = "..."): string
+function cpf_format(string $cpf): string
 {
-    $string = trim(filter_var($string, FILTER_SANITIZE_SPECIAL_CHARS));
-    $arrWords = explode(" ", $string);
-    $numWords = count($arrWords);
-
-    if ($numWords < $limit) {
-        return $string;
-    }
-
-    $words = implode(" ", array_slice($arrWords, 0, $limit));
-    return "{$words}{$pointer}";
+    return str_replace(['.', '-'], '', $cpf);
 }
 
 /**
- * Limita uma string a um número máximo de caracteres, adicionando um ponteiro (como "...") no final se a string
- * for truncada
- * @param string $string
- * @param int $limit
- * @param string $pointer
+ * Converte o telefone celular ou fixo para um formato (00)00000000 ou (00)000000000
+ * @param string $phone
  * @return string
  */
-function str_limit_chars(string $string, int $limit, string $pointer = "..."): string
+function phone_number_format(string $phone): string
 {
-    $string = trim(filter_var($string, FILTER_SANITIZE_SPECIAL_CHARS));
-    if (mb_strlen($string) <= $limit) {
-        return $string;
-    }
-
-    $chars = mb_substr($string, 0, mb_strrpos(mb_substr($string, 0, $limit), " "));
-    return "{$chars}{$pointer}";
+    return str_replace([' ', '-'], '', $phone);
 }
 
 /**
@@ -153,24 +176,9 @@ function str_limit_chars(string $string, int $limit, string $pointer = "..."): s
  * @param string|null $price Se for null, define como 0
  * @return string
  */
-function str_price(?string $price): string
+function brl_price_format(?string $price): string
 {
     return number_format((!empty($price) ? $price : 0), 2, ",", ".");
-}
-
-/**
- * Sanitiza uma string de busca, removendo caracteres especiais, e retorna "all" se a string de busca estiver vazia
- * @param string|null $search
- * @return string
- */
-function str_search(?string $search): string
-{
-    if (!$search) {
-        return "all";
-    }
-
-    $search = preg_replace("/[^a-z0-9A-Z\@\ ]/", "", $search);
-    return (!empty($search) ? $search : "all");
 }
 
 /*
@@ -308,4 +316,3 @@ function passwd_rehash(string $hash): bool
 {
     return password_needs_rehash($hash, CONF_PASSWD_ALGO, CONF_PASSWD_OPTION);
 }
-
