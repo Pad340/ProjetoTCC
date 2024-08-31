@@ -73,6 +73,9 @@ class User
     {
         $session = new Session();
         $session->unset('authUser');
+
+        if ($session->has("authSeller")) $session->unset('authSeller');
+
         redirect('../web/');
     }
 

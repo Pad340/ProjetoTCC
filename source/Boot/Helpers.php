@@ -8,6 +8,11 @@ use JetBrains\PhpStorm\NoReturn;
  * ####################
  */
 
+/**
+ * Valida se existe algum carácter especial ou número no nome.
+ * @param string $name
+ * @return bool TRUE se for valido
+ */
 function is_name(string $name): bool
 {
     if (
@@ -17,6 +22,55 @@ function is_name(string $name): bool
         return false;
     }
     return true;
+}
+
+/**
+ * Valida o CPF de acordo com o algoritmo oficial utilizado pela Receita Federal do Brasil
+ * @param string $cpf
+ * @return bool TRUE se for valido
+ */
+function is_cpf(string $cpf): bool
+{
+    // Extrai somente os números
+    $cpf = preg_replace('/[^0-9]/i', '', $cpf);
+
+    // Verifica se foi informado todos os digitos corretamente
+    if (strlen($cpf) != 11) {
+        return false;
+    }
+
+    // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+    if (preg_match('/(\d)\1{10}/', $cpf)) {
+        return false;
+    }
+
+    // Faz o calculo para validar o CPF
+    for ($t = 9; $t < 11; $t++) {
+        for ($d = 0, $c = 0; $c < $t; $c++) {
+            $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * Retira os carácteres especiais para validar o tamanho da string
+ * @param string $phone
+ * @return bool
+ */
+function is_phone_number(string $phone): bool
+{
+    $phone = preg_replace('/\D/', '', $phone);
+
+    if (strlen($phone) == 10 || strlen($phone) == 11) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /**
@@ -88,11 +142,41 @@ function str_title(string $string): string
 }
 
 /**
+ * Deixa apenas a primeira letra da string maiúscula
+ * @param string $string
+ * @return string
+ */
+function str_first_letter_to_uppercase(string $string): string
+{
+    return ucfirst($string);
+}
+
+/**
+ * Retira os carácteres especiais do CPF, mantendo apenas os números
+ * @param string $cpf
+ * @return string
+ */
+function cpf_format(string $cpf): string
+{
+    return str_replace(['.', '-'], '', $cpf);
+}
+
+/**
+ * Converte o telefone celular ou fixo para um formato (00)00000000 ou (00)000000000
+ * @param string $phone
+ * @return string
+ */
+function phone_number_format(string $phone): string
+{
+    return str_replace([' ', '-'], '', $phone);
+}
+
+/**
  * Formata um valor numérico como um preço em formato brasileiro (com vírgula para decimais e ponto para milhares)
  * @param string|null $price Se for null, define como 0
  * @return string
  */
-function str_price(?string $price): string
+function brl_price_format(?string $price): string
 {
     return number_format((!empty($price) ? $price : 0), 2, ",", ".");
 }

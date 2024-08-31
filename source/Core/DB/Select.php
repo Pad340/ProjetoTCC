@@ -61,14 +61,14 @@ class Select extends Connect
     /**
      * Busca registros na tabela $table
      * @param string $table Tabela em que ocorrerá a busca
-     * @param string $condition Filtro de busca. Ex: WHERE id=:id
+     * @param string $where Filtro de busca. Ex: WHERE id=:id
      * @param string $params Parâmetros passados para busca. Ex: 'id=1&email=example@mail.com'
      * @param string $columns Colunas que serão retornadas
      * @return false|mixed Primeiro registro encontrado
      */
-    public function selectFirst(string $table, string $condition = '', string $params = '', string $columns = '*'): mixed
+    public function selectFirst(string $table, string $where = '', string $params = '', string $columns = '*'): mixed
     {
-        $query = "SELECT {$columns} FROM {$table} {$condition}";
+        $query = "SELECT {$columns} FROM {$table} {$where}";
         $params = $this->parseParams($params);
 
         try {

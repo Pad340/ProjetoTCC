@@ -18,7 +18,7 @@ if (isset($_POST['login'])) {
 <div class="form-styling">
     <h1 style="color:grey">Fazer Login</h1>
 
-    <form action method="post" autocomplete="off">
+    <form action="" method="post" autocomplete="on">
 
         <label for="email"></label>
         <input type="email" name="email" id="email" placeholder="E-mail" required/>

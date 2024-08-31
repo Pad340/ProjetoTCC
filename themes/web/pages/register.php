@@ -17,7 +17,7 @@ if (isset($_POST['register'])) {
 
 <div class="form-styling">
     <h1 style="color:grey">Criar Conta</h1>
-    <form action method="post" autocomplete="off">
+    <form action="" method="post" autocomplete="off">
 
         <label for="name"></label>
         <input type="text" name="name" id="name" value="<?= $_POST['name'] ?? "" ?>" placeholder="Nome" required/>
