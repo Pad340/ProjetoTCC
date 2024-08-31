@@ -32,7 +32,7 @@ CREATE TABLE `seller`
     `user_id`        int(11)      NOT NULL,
     `name`           varchar(100) NOT NULL,
     `cpf`            varchar(12)  NOT NULL,
-    `phone_number`   varchar(12)  NOT NULL,
+    `phone_number`   varchar(13)  NOT NULL,
     `created_at` datetime NOT NULL,
     `updated_at` datetime NOT NULL,
     `status_account` int(11)      NOT NULL DEFAULT 1 COMMENT '1 = Ativo',
