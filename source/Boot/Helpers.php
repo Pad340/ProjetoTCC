@@ -173,18 +173,27 @@ function phone_number_format(string $phone): string
 
 /**
  * Formata um valor numérico como um preço em formato brasileiro (com vírgula para decimais e ponto para milhares)
- * @param string|null $price Se for null, define como 0
+ * @param string $price
  * @return string
  */
-function brl_price_format(?string $price): string
+function brl_price_format(string $price): string
 {
-    return number_format((!empty($price) ? $price : 0), 2, ",", ".");
+    return number_format($price, 2, ",");
+}
+
+/**
+ * Converte um preço que está em BRL para o formato decimal do banco de dados
+ * @param string $price
+ * @return string
+ */
+function brl_to_decimal(string $price): string {
+    return str_replace(',', '.', str_replace('.', '', $price));
 }
 
 /*
- * ###############
- * ###   URL   ###
- * ###############
+ * #########
+ * ## URL ##
+ * #########
  */
 
 /**
@@ -219,9 +228,9 @@ function url_actual(): string
 }
 
 /**
- * ################
- * ###   DATE   ###
- * ################
+ * ##########
+ * ## DATE ##
+ * ##########
  */
 
 /**
@@ -277,9 +286,9 @@ function date_fmt_back(string $date): string
 }
 
 /*
- * ####################
- * ###   PASSWORD   ###
- * ####################
+ * ##############
+ * ## PASSWORD ##
+ * ##############
  */
 
 /**

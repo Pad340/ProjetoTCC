@@ -44,13 +44,13 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
             <h2>Criar uma conta de vendedor</h2>
             <form action="" method="post" autocomplete="off">
                 <label for="seller_name">Nome de vendedor ou turma:</label>
-                <input type="text" name="seller_name" id="seller_name" required/>
+                <input type="text" name="seller_name" id="seller_name" required>
 
                 <label for="seller_cpf">CPF do vendedor ou responsável pelas vendas da turma:</label>
-                <input type="text" name="seller_cpf" id="seller_cpf" maxlength="14" required/>
+                <input type="text" name="seller_cpf" id="seller_cpf" maxlength="14" required>
 
                 <label for="phone_number">Número de telefone do vendedor ou responsável pelas vendas da turma:</label>
-                <input type="text" name="phone_number" id="phone_number" maxlength="15" required/>
+                <input type="text" name="phone_number" id="phone_number" maxlength="15" required>
 
                 <button type="submit" name="register_btn">Cadastrar</button>
             </form>

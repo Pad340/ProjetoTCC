@@ -20,18 +20,18 @@ if (isset($_POST['register'])) {
     <form action="" method="post" autocomplete="off">
 
         <label for="name"></label>
-        <input type="text" name="name" id="name" value="<?= $_POST['name'] ?? "" ?>" placeholder="Nome" required/>
+        <input type="text" name="name" id="name" value="<?= $_POST['name'] ?? "" ?>" placeholder="Nome" required>
 
         <label for="email"></label>
-        <input type="email" name="email" id="email" value="<?= $_POST['email'] ?? "" ?>" placeholder="E-mail" required/>
+        <input type="email" name="email" id="email" value="<?= $_POST['email'] ?? "" ?>" placeholder="E-mail" required>
 
         <label for="password"></label>
-        <input type="password" name="password" id="password" placeholder="Senha" required/>
+        <input type="password" name="password" id="password" placeholder="Senha" required>
 
         <label for="confirmPassword"></label>
-        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirmar Senha" required/>
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirmar Senha" required>
 
-        <br/>
+        <br>
         <button type="submit" name="register">Cadastrar-se</button>
 
     </form>

@@ -1,6 +1,6 @@
 <header>
     <a href="<?= url('app/home') ?>">
-        <img src="" alt="website-logo" width="20"/>
+        <img src="" alt="website-logo" width="20">
     </a>
     <nav>
         <ul>
