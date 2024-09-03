@@ -42,8 +42,12 @@ body {
     background-color: transparent;
 }
 
-.form-styling input:focus::placeholder {
-    color: transparent;
+.form-styling input:focus {
+    border-color: #ff5100;
+
+    &::placeholder {
+        color: transparent;
+    }
 }
 
 .form-styling button {

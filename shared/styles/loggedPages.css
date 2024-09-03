@@ -1,0 +1,130 @@
+@font-face {
+    src: url(../../storage/fonts/ModesticSans.ttf);
+    font-family: Modestic-Sans;
+}
+
+body {
+    font-family: Modestic-Sans;
+    background-image: url(../../storage/images/fundoIndexLogado.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    /* overflow: hidden; */
+}
+
+.navdiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 60px;
+}
+
+.navdiv>ul>li {
+    list-style: none;
+    display: inline-block;
+}
+
+.navdiv>ul>li>a {
+    font-size: 25px;
+    padding: 5px 30px;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navdiv > ul > li > a:hover,
+.navdiv > ul > li > .cart-div > a:hover,
+.navdiv > ul > li > .dropdown > .profile-div > h1:hover {
+    border-radius: 10px;
+    color: #ddd;
+}
+
+/* Carrinho  ------------ */
+.cart-div {
+    padding-left: 30px;
+    padding-right: 30px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.cart-div>a {
+    font-size: 25px;
+    text-decoration: none;
+    color: white;
+}
+
+.cartIcon {
+    height: 30px;
+    width: auto;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+/* Dropdown --------------------------------- */
+
+.profile-div {
+    display: inline-flex;
+    align-items: center;
+}
+
+.profile-div>h1 {
+    color: white;
+}
+
+.profileIcon {
+    height: 30px;
+    width: auto;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    padding: 10px;
+    text-align: left;
+    display: none;
+    position: absolute;
+    margin-top: -10px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    border-radius: 5px;
+    color: black;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content::before {
+    color: white;
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -10px;
+    left: 50%;
+    margin-left: -10px;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent white transparent;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
