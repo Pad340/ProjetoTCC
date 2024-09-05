@@ -147,8 +147,7 @@ class Product
         }
 
         // Verifica e valida o preço
-        var_dump($newPrice, $currentProduct['price']);
-        if ($newPrice != $currentProduct['price']) {
+        if (brl_to_decimal($newPrice) != $currentProduct['price']) {
             if (strlen($newPrice) > 12) {
                 $this->message = 'Preço muito elevado para cadastro.';
                 return null;

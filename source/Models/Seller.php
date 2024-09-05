@@ -63,8 +63,9 @@ class Seller
         $search = new Select();
         $result = $search->selectFirst(self::Table, 'WHERE user_id = :u', "u={$session->authUser}", 'seller_id');
 
-        if ($search->getRowCount() > 0) {
+        if ($result) {
             $update = new Update();
+            $disable = $update->update('product', ['status_product' => 1], 'seller_id = :id', [':id' => $result['seller_id']]);
             $disable = $update->update(self::Table, ['status_account' => 1, 'updated_at' => CONF_DATE_APP], 'seller_id = :id', [':id' => $result['seller_id']]);
 
             if ($disable) {
@@ -85,6 +86,7 @@ class Seller
     {
         $session = new Session();
         $update = new Update();
+        $disable = $update->update('product', ['status_product' => 0], 'seller_id = :id', [':id' => $session->authSeller]);
         $disable = $update->update(self::Table, ['status_account' => 0, 'updated_at' => CONF_DATE_APP], 'seller_id = :id', [':id' => $session->authSeller]);
 
         if ($disable) {

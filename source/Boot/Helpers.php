@@ -178,7 +178,7 @@ function phone_number_format(string $phone): string
  */
 function brl_price_format(string $price): string
 {
-    return number_format($price, 2, ",");
+    return number_format($price, 2, ",", ".");
 }
 
 /**

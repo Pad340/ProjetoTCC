@@ -11,7 +11,7 @@ if (isset($_POST['product_register_btn'])) {
 
 if (isset($_POST['update_product_btn'])) {
     $product = new Product();
-    $product->update($_POST['product_id'], $_POST['name'], $_POST['category'], $_POST['price'], $_POST['qtt_stock'], $_POST['status_product']);
+    $product->update($_POST['product_id'], $_POST['edit_name'], $_POST['edit_category'], $_POST['edit_price'], $_POST['edit_qtt_stock'], $_POST['edit_status_product']);
     echo $product->getMessage();
 }
 
@@ -25,6 +25,8 @@ $products = $search->executeQuery(
             WHERE p.status_product = :sp AND p.seller_id = :id',
     "sp=1&id={$session->authSeller}"
 );
+
+
 
 ?>
 
@@ -84,11 +86,12 @@ $products = $search->executeQuery(
                     </tr>
                     <?php
                     foreach ($products as $product) {
+                         $product['price'] = brl_price_format($product['price']);
                         ?>
                         <tr>
                             <td><?= $product['name'] ?></td>
                             <td><?= $product['category'] ?></td>
-                            <td><?= brl_price_format($product['price']) ?></td>
+                            <td><?= $product['price'] ?></td>
                             <td><?= $product['qtt_stock'] ?></td>
                             <td><?= $product['status_product'] == 1 ? 'Habilitado' : 'Desabilitado' ?></td>
                             <td>
@@ -147,10 +150,10 @@ $products = $search->executeQuery(
                     <form action="" method="post">
                         <input type="hidden" name="product_id" id="edit_product_id">
                         <label for="edit_name">Nome do produto:</label>
-                        <input type="text" name="name" id="edit_name" required>
+                        <input type="text" name="edit_name" id="edit_name" required>
 
                         <label for="edit_category">Categoria:</label>
-                        <select name="category" id="edit_category">
+                        <select name="edit_category" id="edit_category">
                             <option value="0" disabled selected>Escolha uma categoria</option>
                             <?php foreach ($categories as $category) { ?>
                                 <option value="<?= $category['category_id'] ?>"><?= $category['name'] ?></option>
@@ -158,13 +161,13 @@ $products = $search->executeQuery(
                         </select>
 
                         <label for="edit_price">Preço:</label>
-                        <input type="text" name="price" id="edit_price" required>
+                        <input type="text" name="edit_price" id="edit_price" maxlength="10" required>
 
                         <label for="edit_qtt_stock">Quantidade em estoque:</label>
-                        <input type="number" name="qtt_stock" id="edit_qtt_stock" required>
+                        <input type="number" name="edit_qtt_stock" id="edit_qtt_stock" required>
 
                         <label for="edit_status_product">Desativar produto?</label>
-                        <select name="status_product" id="edit_status_product">
+                        <select name="edit_status_product" id="edit_status_product">
                             <option value="1">Não</option>
                             <option value="0">Sim</option>
                         </select>
@@ -195,27 +198,21 @@ $products = $search->executeQuery(
         }
 
         function applyStockValidation(inputId, min = 0, max = 5000) {
+            console.log('oi')
             document.getElementById(inputId).addEventListener('input', function (e) {
                 let value = e.target.value;
 
                 // Remove qualquer caractere que não seja número
                 value = value.replace(/\D/g, '');
 
-                // Garante que o valor seja maior ou igual ao mínimo e não maior que o máximo
-                if (value < min) {
-                    e.target.value = min;
-                } else if (value > max) {
-                    e.target.value = max;
-                } else {
-                    e.target.value = value;
-                }
+                value = Math.max(min, Math.min(max, parseInt(value) || 0));
+
+                e.target.value = value;
             });
         }
 
         applyPriceMask('price');
-        applyPriceMask('edit_price');
         applyStockValidation('qtt_stock');
-        applyStockValidation('edit_qtt_stock');
 
         // Função para abrir o modal
         function openModal(product) {
@@ -226,6 +223,9 @@ $products = $search->executeQuery(
             document.getElementById('edit_category').value = product.category_id;
             document.getElementById('edit_price').value = product.price;
             document.getElementById('edit_qtt_stock').value = product.qtt_stock;
+
+            applyPriceMask('edit_price');
+            applyStockValidation('edit_qtt_stock');
 
             // Mostrar o modal
             document.getElementById('editModal').style.display = "block";
