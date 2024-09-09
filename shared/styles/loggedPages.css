@@ -4,15 +4,26 @@
 }
 
 body {
+    /* Flexbox pro header e footer */
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
     font-family: Modestic-Sans;
-    background-image: url(../../storage/images/fundoIndexLogado.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    height: 100vh;
-    /* overflow: hidden; */
+    overflow-x: hidden;
 }
 
+main {
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+/* Header =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+
 .navdiv {
+    background-color: #FF881C;
+    border-bottom: 18px #FFB776 solid;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -40,7 +51,7 @@ body {
     color: #ddd;
 }
 
-/* Carrinho  ------------ */
+/* Carrinho  -------------------------------- */
 .cart-div {
     padding-left: 30px;
     padding-right: 30px;
@@ -127,4 +138,20 @@ body {
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+/* Footer =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+
+.footer-div {
+    padding: 1rem;
+    font-size: 20px;
+    color: white;
+    background-color: #FF881C;
+    text-align: center;
+}
+
+/* Configuração da conta =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+
+.user-config {
+    text-align: center;
 }

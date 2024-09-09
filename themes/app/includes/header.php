@@ -21,7 +21,7 @@
                         </div>
                         <div class="dropdown-content">
                             <a href="<?= url('app/user-config') ?>">Configurações</a>
-                            <a href="<?= url('app/logout') ?>">Logout</a>
+                            <a href="<?= url('app/logout') ?>">Sair</a>
                         </div>
                     </div>
                 </li>
