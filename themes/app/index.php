@@ -46,7 +46,7 @@ if (isset($_GET['page']) and $_GET['page'] == 'logout') {
     if (file_exists($path)) {
         include $path;
     } else {
-        include 'pages/404.php';
+        redirect('pages/404.php');
     }
     ?>
 </main>

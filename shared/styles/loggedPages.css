@@ -29,6 +29,8 @@ main {
     justify-content: space-between;
     padding-left: 15px;
     padding-right: 60px;
+
+    color: #ffe7d3;
 }
 
 .navdiv>ul>li {
@@ -155,3 +157,5 @@ main {
 .user-config {
     text-align: center;
 }
+
+
