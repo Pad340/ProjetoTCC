@@ -5,7 +5,14 @@
     <nav>
         <ul>
             <li><a href="<?= url('app/home') ?>">Home</a></li>
-            <li><a href="<?= url('app/products') ?>">Seus produtos</a></li>
+
+            <?php if ($session->has('authSeller')) {
+                ?>
+                <li><a href="<?= url('app/products') ?>">Seus produtos</a></li>
+                <?php
+            }
+            ?>
+            
             <li><a href="<?= url('app/cart') ?>">Carrinho</a></li>
             <li>Conta
                 <ul>
