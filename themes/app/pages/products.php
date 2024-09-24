@@ -22,18 +22,14 @@ $products = $search->executeQuery(
     'SELECT p.product_id, p.name, p.category_id, c.name AS category, p.price, p.qtt_stock, p.status_product
             FROM product AS p
             LEFT JOIN category AS c ON c.category_id = p.category_id
-            WHERE p.status_product = :sp AND p.seller_id = :id',
-    "sp=1&id={$session->authSeller}"
+            WHERE p.seller_id = :id',
+    "id={$session->authSeller}"
 );
-
-
 
 ?>
 
 <div class="products">
-    <?php
-    if ($session->has('authSeller')) {
-        ?>
+    <?php if ($session->has('authSeller')) { ?>
 
         <h1>Seus produtos</h1>
 
@@ -48,13 +44,9 @@ $products = $search->executeQuery(
                 <select name="category" id="category">
 
                     <option value="0" disabled selected>Escolha uma categoria</option>
-                    <?php
-                    foreach ($categories as $category) {
-                        ?>
+                    <?php foreach ($categories as $category) { ?>
                         <option value="<?= $category['category_id'] ?>"><?= $category['name'] ?></option>
-                        <?php
-                    }
-                    ?>
+                    <?php } ?>
 
                 </select>
 
@@ -68,9 +60,7 @@ $products = $search->executeQuery(
             </form>
         </div>
 
-        <?php
-        if ($products) {
-            ?>
+        <?php if ($products) { ?>
 
             <div class="product-list">
                 <h2>Produtos cadastrados</h2>
@@ -84,9 +74,8 @@ $products = $search->executeQuery(
                         <th>Status</th>
                         <th></th>
                     </tr>
-                    <?php
-                    foreach ($products as $product) {
-                         $product['price'] = brl_price_format($product['price']);
+                    <?php foreach ($products as $product) {
+                        $product['price'] = brl_price_format($product['price']);
                         ?>
                         <tr>
                             <td><?= $product['name'] ?></td>
@@ -99,9 +88,7 @@ $products = $search->executeQuery(
                                    onclick='openModal(<?= json_encode($product) ?>)'>Editar</a>
                             </td>
                         </tr>
-                        <?php
-                    }
-                    ?>
+                    <?php } ?>
                 </table>
             </div>
 
@@ -198,7 +185,6 @@ $products = $search->executeQuery(
         }
 
         function applyStockValidation(inputId, min = 0, max = 5000) {
-            console.log('oi')
             document.getElementById(inputId).addEventListener('input', function (e) {
                 let value = e.target.value;
 
@@ -217,12 +203,31 @@ $products = $search->executeQuery(
         // Função para abrir o modal
         function openModal(product) {
 
+            console.log(product);
             // Preencher o formulário do modal com os dados do produto
             document.getElementById('edit_product_id').value = product.product_id;
             document.getElementById('edit_name').value = product.name;
             document.getElementById('edit_category').value = product.category_id;
             document.getElementById('edit_price').value = product.price;
             document.getElementById('edit_qtt_stock').value = product.qtt_stock;
+
+            // Ajustar o label e as opções de ativar/desativar produto com base no status atual
+            const statusLabel = document.querySelector('label[for="edit_status_product"]');
+            const statusSelect = document.getElementById('edit_status_product');
+
+            if (product.status_product === 0) { // Produto está desativado
+                statusLabel.textContent = 'Ativar produto?';
+                statusSelect.innerHTML = `
+                <option value="0" selected>Não</option>
+                <option value="1">Sim</option>
+                `;
+            } else { // Produto está ativo
+                statusLabel.textContent = 'Desativar produto?';
+                statusSelect.innerHTML = `
+                <option value="1" selected>Não</option>
+                <option value="0">Sim</option>
+                `;
+            }
 
             applyPriceMask('edit_price');
             applyStockValidation('edit_qtt_stock');
