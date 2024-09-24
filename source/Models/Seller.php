@@ -63,11 +63,12 @@ class Seller
         $search = new Select();
         $result = $search->selectFirst(self::Table, 'WHERE user_id = :u', "u={$session->authUser}", 'seller_id');
 
-        if ($search->getRowCount() > 0) {
-            $disable = new Update();
-            $disable->update(self::Table, ['status_account' => 1, 'updated_at' => CONF_DATE_APP], 'seller_id = :id', [':id' => $result['seller_id']]);
+        if ($result) {
+            $update = new Update();
+            $disable = $update->update('product', ['status_product' => 1], 'seller_id = :id', [':id' => $result['seller_id']]);
+            $disable = $update->update(self::Table, ['status_account' => 1, 'updated_at' => CONF_DATE_APP], 'seller_id = :id', [':id' => $result['seller_id']]);
 
-            if ($disable->getRowCount() > 0) {
+            if ($disable) {
                 $session->unset('authSeller');
                 $this->message = 'Sua conta de vendedor foi reativada com sucesso.';
                 return true;
@@ -84,10 +85,11 @@ class Seller
     public function disable(): bool
     {
         $session = new Session();
-        $disable = new Update();
-        $disable->update(self::Table, ['status_account' => 0, 'updated_at' => CONF_DATE_APP], 'seller_id = :id', [':id' => $session->authSeller]);
+        $update = new Update();
+        $disable = $update->update('product', ['status_product' => 0], 'seller_id = :id', [':id' => $session->authSeller]);
+        $disable = $update->update(self::Table, ['status_account' => 0, 'updated_at' => CONF_DATE_APP], 'seller_id = :id', [':id' => $session->authSeller]);
 
-        if ($disable->getRowCount() > 0) {
+        if ($disable) {
             $session->unset('authSeller');
             $this->message = 'Sua conta de vendedor foi desativada com sucesso.';
             return true;
@@ -114,9 +116,9 @@ class Seller
         $session = new Session();
 
         $search = new Select();
-        $search->selectFirst(self::Table, 'WHERE user_id = :u', "u={$session->authUser}");
+        $user = $search->selectFirst(self::Table, 'WHERE user_id = :u', "u={$session->authUser}");
 
-        if ($search->getRowCount() > 0) {
+        if ($user) {
             $this->message = 'Ocorreu um erro, o usuário já possui uma conta de vendedor.';
             return null;
         }
@@ -148,8 +150,8 @@ class Seller
         }
         $phone_number = phone_number_format($phone_number);
 
-        $search->selectFirst(self::Table, 'WHERE phone_number = :pn', "pn={$phone_number}");
-        if ($search->getRowCount() > 0) {
+        $number = $search->selectFirst(self::Table, 'WHERE phone_number = :pn', "pn={$phone_number}");
+        if ($number) {
             $this->message = 'O número de telefone informado já existe no sistema.';
             return null;
         }

@@ -26,6 +26,18 @@ CREATE TABLE `category`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 
+INSERT INTO `category` (`name`)
+VALUES ('Pratos Principais'),
+       ('Lanches'),
+       ('Salgados e Petiscos'),
+       ('Bebidas'),
+       ('Sobremesas'),
+       ('Vegetarianos e Veganos'),
+       ('Saudáveis'),
+       ('Comida Internacional'),
+       ('Padaria'),
+       ('Fast Food');
+
 CREATE TABLE `seller`
 (
     `seller_id`      int(11)      NOT NULL AUTO_INCREMENT,
@@ -33,8 +45,8 @@ CREATE TABLE `seller`
     `name`           varchar(100) NOT NULL,
     `cpf`            varchar(12)  NOT NULL,
     `phone_number`   varchar(13)  NOT NULL,
-    `created_at` datetime NOT NULL,
-    `updated_at` datetime NOT NULL,
+    `created_at`     datetime     NOT NULL,
+    `updated_at`     datetime     NOT NULL,
     `status_account` int(11)      NOT NULL DEFAULT 1 COMMENT '1 = Ativo',
     PRIMARY KEY (`seller_id`),
     KEY `seller_user_idx` (`user_id`),
@@ -46,12 +58,13 @@ CREATE TABLE `seller`
 
 CREATE TABLE `product`
 (
-    `product_id`  int(11)        NOT NULL AUTO_INCREMENT,
-    `name`        varchar(100)   NOT NULL,
-    `category_id` int(11)        NOT NULL,
-    `price`       decimal(10, 2) NOT NULL,
-    `qtt_stock`   int(11)        NOT NULL,
-    `seller_id`   int(11)        NOT NULL,
+    `product_id`     int(11)        NOT NULL AUTO_INCREMENT,
+    `name`           varchar(100)   NOT NULL,
+    `category_id`    int(11)        NOT NULL,
+    `price`          decimal(10, 2) NOT NULL,
+    `qtt_stock`      int(11)        NOT NULL,
+    `status_product` int(11)        NOT NULL DEFAULT 1 COMMENT '1 = Ativo',
+    `seller_id`      int(11)        NOT NULL,
     PRIMARY KEY (`product_id`),
     KEY `product_category_idx` (`category_id`),
     KEY `product_seller_idx` (`seller_id`),
@@ -66,5 +79,6 @@ CREATE TABLE `product`
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 2
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;

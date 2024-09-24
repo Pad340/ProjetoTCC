@@ -6,7 +6,9 @@
             </a>
             <ul>
                 <li><a href="<?= url('app/home') ?>">Home</a></li>
-                <li><a href="<?= url('app/products') ?>">Seus produtos</a></li>
+                <?php if ($session->has('authSeller')) {
+                  <li><a href="<?= url('app/products') ?>">Seus produtos</a></li>
+                <?php } ?>
                 <li>
                     <div class="cart-div">
                         <a href="<?= url('app/cart') ?>">Carrinho</a>

@@ -48,9 +48,7 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
             </div>
         </div>
     </div>
-    <?php
-    if (!$session->has('authSeller') and !$seller_result) {
-    ?>
+    <?php if (!$session->has('authSeller') and !$seller_result) { ?>
         <div class="SC-container">
             <div class="seller-form">
                 <h1 id="UC-text">Criar uma conta de vendedor</h1>
@@ -68,17 +66,15 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
                 </form>
             </div>
         </div>
-    <?php
-    } elseif ($seller_result['status_account'] == 0) {
-    ?>
+  
+    <?php } elseif ($seller_result['status_account'] == 0) { ?>
 
         <form action="" method="post">
             <button id="UC-button" type="submit" name="enable_btn">Reativar conta de vendedor</button>
         </form>
 
-    <?php
-    } else {
-    ?>
+    <?php } else { ?>
+  
         <div class="SC-container">
             <div class="UC-info">
                 <h1 id="UC-text">Configurações do vendedor</h1>
@@ -99,9 +95,9 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
                 <button id="UC-button" type="submit" name="disable_btn">Desativar conta de vendedor</button>
             </form>
         </div>
-    <?php
-    }
-    ?>
+  
+    <?php } ?>
+  
     <script>
         $(document).ready(function() {
             // Máscara para CPF

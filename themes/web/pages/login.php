@@ -21,12 +21,12 @@ if (isset($_POST['login'])) {
     <form action="" method="post" autocomplete="on">
 
         <label for="email"></label>
-        <input type="email" name="email" id="email" placeholder="E-mail" required/>
+        <input type="email" name="email" id="email" placeholder="E-mail" required>
 
         <label for="password"></label>
-        <input type="password" name="password" id="password" placeholder="Senha" required/>
+        <input type="password" name="password" id="password" placeholder="Senha" required>
 
-        <br/>
+        <br>
         <button type="submit" name="login">Logar-se</button>
 
     </form>
