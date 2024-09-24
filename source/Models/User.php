@@ -115,9 +115,9 @@ class User
         }
 
         $search = new Select();
-        $search->selectFirst(self::Table, 'WHERE email = :email', "email={$email}");
+        $mail = $search->selectFirst(self::Table, 'WHERE email = :email', "email={$email}", 'user_id');
 
-        if ($search->getRowCount() > 0) {
+        if ($mail) {
             $this->message = 'O e-mail informado já está cadastrado.';
             return null;
         }
