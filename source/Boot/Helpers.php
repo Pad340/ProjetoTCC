@@ -228,6 +228,16 @@ function url_actual(): string
 }
 
 /**
+ * Faz um recarregamento na página
+ * @param int $time Em segundos
+ * @return void
+ */
+function refresh(int $time): void
+{
+    echo "<meta http-equiv='refresh' content='$time'>";
+}
+
+/**
  * ##########
  * ## DATE ##
  * ##########
