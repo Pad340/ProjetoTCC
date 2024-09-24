@@ -46,9 +46,9 @@ main {
     transition: color 0.3s ease;
 }
 
-.navdiv > ul > li > a:hover,
-.navdiv > ul > li > .cart-div > a:hover,
-.navdiv > ul > li > .dropdown > .profile-div > h1:hover {
+.navdiv>ul>li>a:hover,
+.navdiv>ul>li>.cart-div>a:hover,
+.navdiv>ul>li>.dropdown>.profile-div>h1:hover {
     border-radius: 10px;
     color: #ddd;
 }
@@ -158,20 +158,22 @@ main {
 .UC-main {
     width: 100vw;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 .UC-container {
     width: 80vw;
-    margin: 50px 0px;
+    margin-top: 50px 0px;
     padding: 10px 45px;
-    background-color: #FF881C;
+    background-color: #ffe5be;
     border-radius: 10px;
 }
+
 .UC-info {
     font-size: 18px;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 #UC-text {
@@ -180,17 +182,13 @@ main {
 
 #UC-button {
     text-align: center;
-    font-size: 18px;
-    padding: 20px 40px;
-    border: none;
+    font-size: 20px;
+    padding: 15px 20px;
     border-radius: 10px;
-    background: white;
-    color: #FF881C;
-
+    background-color: white;
 }
 
-.UC-text-div {
-}
+.UC-text-div {}
 
 .UC-text-div>h2 {
     margin: 0;
@@ -199,13 +197,35 @@ main {
 .UC-text-div>p {
     margin-top: 5px;
     padding: 10px 15px;
-    border-bottom: 2px white solid;
+    border-bottom: 2px rgb(0, 0, 0) solid;
+}
+.UC-member-div>p {
+    margin-top: 5px;
+    padding: 0 15px;
 }
 
+.seller-form>form>input {
+    outline: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    font-size: 20px;
+    padding: 5px 15px;
+    margin: 7px 0;
+    width: 60%;
+    background-color: transparent;
+}
 
+.seller-form>form>label {
+    margin: 10px 0;
+    font-size: 23px;
 
+}
 
-
-
-
-
+.SC-container {
+    width: 80vw;
+    margin: 50px 0px;
+    padding: 10px 45px;
+    background-color: #ffe5be;
+    border-radius: 10px;
+}
