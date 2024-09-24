@@ -6,7 +6,7 @@
             </a>
             <ul>
                 <li><a href="<?= url('app/home') ?>">Home</a></li>
-                <?php if ($session->has('authSeller')) {
+                <?php if ($session->has('authSeller')) { ?>
                   <li><a href="<?= url('app/products') ?>">Seus produtos</a></li>
                 <?php } ?>
                 <li>
