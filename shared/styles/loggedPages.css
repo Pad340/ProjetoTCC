@@ -154,8 +154,58 @@ main {
 
 /* Configuração da conta =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
-.user-config {
+
+.UC-main {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.UC-container {
+    width: 80vw;
+    margin: 50px 0px;
+    padding: 10px 45px;
+    background-color: #FF881C;
+    border-radius: 10px;
+}
+.UC-info {
+    font-size: 18px;
+    color: white;
+}
+
+#UC-text {
     text-align: center;
 }
+
+#UC-button {
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #FF881C;
+
+}
+
+.UC-text-div {
+}
+
+.UC-text-div>h2 {
+    margin: 0;
+}
+
+.UC-text-div>p {
+    margin-top: 5px;
+    padding: 10px 15px;
+    border-bottom: 2px white solid;
+}
+
+
+
+
+
+
 
 

@@ -62,6 +62,6 @@
     <div class="errorPage">
         <h1 class="error-code">404</h1>
         <p class="error-message">Ops! Página não encontrada.</p>
-        <p class="suggestion">Tente checar o URL, ou volte para a <a href="../../app/">página principal.</a></p>
+        <p class="suggestion">Tente revisar o URL, ou volte para a <a href="../../app/">página principal.</a></p>
     </div>
 </body>
