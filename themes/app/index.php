@@ -27,6 +27,8 @@ if (isset($_GET['page']) and $_GET['page'] == 'logout') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Re-IFeitório | App</title>
+    <link rel="stylesheet" href="../../shared/styles/loggedPages.css">
+    <link rel="icon" href="../../storage/images/logoBarra.png"/>
     <script src="../../shared/js/jquery-3.7.1.min.js"></script>
     <script src="../../shared/js/jquery.mask.min.js"></script>
 </head>
@@ -44,7 +46,7 @@ if (isset($_GET['page']) and $_GET['page'] == 'logout') {
     if (file_exists($path)) {
         include $path;
     } else {
-        include 'pages/404.php';
+        redirect('pages/404.php');
     }
     ?>
 </main>

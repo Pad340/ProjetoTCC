@@ -17,8 +17,8 @@ if ($session->has('authUser')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Re-IFeitório</title>
-    <link rel="stylesheet" href="../../shared/styles/styles.css">
-    <link rel="icon" href="../../storage/images/logoBarra.png">
+    <link rel="stylesheet" href="../../shared/styles/unloggedPages.css"/>
+    <link rel="icon" href="../../storage/images/logoBarra.png"/>
 </head>
 
 <body>

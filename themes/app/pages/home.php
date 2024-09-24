@@ -1,4 +1,5 @@
 <div class="home">
+    
     <div class="promo">
         dados da promo / mais vendidos
         <button>Acessar promoção</button>

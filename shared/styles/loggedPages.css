@@ -1,0 +1,231 @@
+@font-face {
+    src: url(../../storage/fonts/ModesticSans.ttf);
+    font-family: Modestic-Sans;
+}
+
+body {
+    /* Flexbox pro header e footer */
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
+    font-family: Modestic-Sans;
+    overflow-x: hidden;
+}
+
+main {
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+/* Header =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+
+.navdiv {
+    background-color: #FF881C;
+    border-bottom: 18px #FFB776 solid;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 60px;
+
+    color: #ffe7d3;
+}
+
+.navdiv>ul>li {
+    list-style: none;
+    display: inline-block;
+}
+
+.navdiv>ul>li>a {
+    font-size: 25px;
+    padding: 5px 30px;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navdiv>ul>li>a:hover,
+.navdiv>ul>li>.cart-div>a:hover,
+.navdiv>ul>li>.dropdown>.profile-div>h1:hover {
+    border-radius: 10px;
+    color: #ddd;
+}
+
+/* Carrinho  -------------------------------- */
+.cart-div {
+    padding-left: 30px;
+    padding-right: 30px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.cart-div>a {
+    font-size: 25px;
+    text-decoration: none;
+    color: white;
+}
+
+.cartIcon {
+    height: 30px;
+    width: auto;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+/* Dropdown --------------------------------- */
+
+.profile-div {
+    display: inline-flex;
+    align-items: center;
+}
+
+.profile-div>h1 {
+    color: white;
+}
+
+.profileIcon {
+    height: 30px;
+    width: auto;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    padding: 10px;
+    text-align: left;
+    display: none;
+    position: absolute;
+    margin-top: -10px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    border-radius: 5px;
+    color: black;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content::before {
+    color: white;
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -10px;
+    left: 50%;
+    margin-left: -10px;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent white transparent;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Footer =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+
+.footer-div {
+    padding: 1rem;
+    font-size: 20px;
+    color: white;
+    background-color: #FF881C;
+    text-align: center;
+}
+
+/* Configuração da conta =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+
+
+.UC-main {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.UC-container {
+    width: 80vw;
+    margin-top: 50px 0px;
+    padding: 10px 45px;
+    background-color: #ffe5be;
+    border-radius: 10px;
+}
+
+.UC-info {
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+}
+
+#UC-text {
+    text-align: center;
+}
+
+#UC-button {
+    text-align: center;
+    font-size: 20px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.UC-text-div {}
+
+.UC-text-div>h2 {
+    margin: 0;
+}
+
+.UC-text-div>p {
+    margin-top: 5px;
+    padding: 10px 15px;
+    border-bottom: 2px rgb(0, 0, 0) solid;
+}
+.UC-member-div>p {
+    margin-top: 5px;
+    padding: 0 15px;
+}
+
+.seller-form>form>input {
+    outline: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    font-size: 20px;
+    padding: 5px 15px;
+    margin: 7px 0;
+    width: 60%;
+    background-color: transparent;
+}
+
+.seller-form>form>label {
+    margin: 10px 0;
+    font-size: 23px;
+
+}
+
+.SC-container {
+    width: 80vw;
+    margin: 50px 0px;
+    padding: 10px 45px;
+    background-color: #ffe5be;
+    border-radius: 10px;
+}
