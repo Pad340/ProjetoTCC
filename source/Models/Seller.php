@@ -10,6 +10,7 @@ use Autoload\Core\Session;
 class Seller
 {
     private string $message = '';
+    private string $messageType = '';
     const Table = 'seller';
 
     /**
@@ -29,6 +30,7 @@ class Seller
 
         if (!$insert->insert(self::Table, $seller)) {
             $this->message = 'Ocorreu um erro ao cadastrar os dados.';
+            $this->messageType = ALERT_ERROR;
             return false;
         }
 
@@ -66,15 +68,18 @@ class Seller
         if ($result) {
             $update = new Update();
             $disable = $update->update('product', ['status_product' => 1], 'seller_id = :id', [':id' => $result['seller_id']]);
-            $disable = $update->update(self::Table, ['status_account' => 1, 'updated_at' => CONF_DATE_APP], 'seller_id = :id', [':id' => $result['seller_id']]);
+            $disable = $update->update(self::Table, ['status_account' => 1, 'updated_at' => DATE_APP], 'seller_id = :id', [':id' => $result['seller_id']]);
 
             if ($disable) {
                 $session->unset('authSeller');
                 $this->message = 'Sua conta de vendedor foi reativada com sucesso.';
+                $this->messageType = ALERT_SUCCESS;
                 return true;
             }
         }
+
         $this->message = 'Erro ao desativar sua conta de vendedor. Contate um administrador.';
+        $this->messageType = ALERT_ERROR;
         return false;
     }
 
@@ -87,14 +92,17 @@ class Seller
         $session = new Session();
         $update = new Update();
         $disable = $update->update('product', ['status_product' => 0], 'seller_id = :id', [':id' => $session->authSeller]);
-        $disable = $update->update(self::Table, ['status_account' => 0, 'updated_at' => CONF_DATE_APP], 'seller_id = :id', [':id' => $session->authSeller]);
+        $disable = $update->update(self::Table, ['status_account' => 0, 'updated_at' => DATE_APP], 'seller_id = :id', [':id' => $session->authSeller]);
 
         if ($disable) {
             $session->unset('authSeller');
             $this->message = 'Sua conta de vendedor foi desativada com sucesso.';
+            $this->messageType = ALERT_SUCCESS;
             return true;
         }
+
         $this->message = 'Erro ao desativar sua conta de vendedor. Contate um administrador.';
+        $this->messageType = ALERT_ERROR;
         return false;
     }
 
@@ -104,7 +112,7 @@ class Seller
      */
     public function getMessage(): string
     {
-        return $this->message;
+        return (new Alert($this->message, $this->messageType))->getHtml();
     }
 
     #####################
@@ -119,13 +127,15 @@ class Seller
         $user = $search->selectFirst(self::Table, 'WHERE user_id = :u', "u={$session->authUser}");
 
         if ($user) {
-            $this->message = 'Ocorreu um erro, o usuário já possui uma conta de vendedor.';
+            $this->message = 'Você já possui uma conta de vendedor.';
+            $this->messageType = ALERT_ERROR;
             return null;
         }
 
         // Nome
         if (!is_name($name)) {
             $this->message = 'O nome não deve conter números e nem carácteres especiais.';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
         $name = str_first_letter_to_uppercase($name);
@@ -133,6 +143,7 @@ class Seller
         // CPF
         if (!is_cpf($cpf)) {
             $this->message = 'O CPF informado não é valido.';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
         $cpf = cpf_format($cpf);
@@ -140,12 +151,14 @@ class Seller
         $search->selectFirst(self::Table, 'WHERE cpf = :cpf', "cpf={$cpf}");
         if ($search->getRowCount() > 0) {
             $this->message = 'O CPF informado já está cadastrado.';
+            $this->messageType = ALERT_ERROR;
             return null;
         }
 
         // Número de telefone
         if (!is_phone_number($phone_number)) {
             $this->message = 'O número de telefone informado não é valido.';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
         $phone_number = phone_number_format($phone_number);
@@ -153,6 +166,7 @@ class Seller
         $number = $search->selectFirst(self::Table, 'WHERE phone_number = :pn', "pn={$phone_number}");
         if ($number) {
             $this->message = 'O número de telefone informado já existe no sistema.';
+            $this->messageType = ALERT_ERROR;
             return null;
         }
 
@@ -161,8 +175,8 @@ class Seller
             'name' => $name,
             'cpf' => $cpf,
             'phone_number' => $phone_number,
-            'created_at' => CONF_DATE_APP,
-            'updated_at' => CONF_DATE_APP
+            'created_at' => DATE_APP,
+            'updated_at' => DATE_APP
         ];
     }
 

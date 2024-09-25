@@ -8,6 +8,7 @@ if (isset($_POST['register_btn'])) {
     $seller->register($_POST['seller_name'], $_POST['seller_cpf'], $_POST['phone_number']);
 
     echo $seller->getMessage();
+    refresh(3);
 }
 
 if (isset($_POST['enable_btn'])) {
@@ -15,6 +16,7 @@ if (isset($_POST['enable_btn'])) {
     $seller->enable();
 
     echo $seller->getMessage();
+    refresh(3);
 }
 
 if (isset($_POST['disable_btn'])) {
@@ -22,6 +24,7 @@ if (isset($_POST['disable_btn'])) {
     $seller->disable();
 
     echo $seller->getMessage();
+    refresh(3);
 }
 
 $search = new Select();

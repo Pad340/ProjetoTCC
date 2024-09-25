@@ -10,6 +10,7 @@ use JetBrains\PhpStorm\NoReturn;
 class User
 {
     private string $message = '';
+    private string $messageType = '';
     const Table = 'user';
 
     /**
@@ -28,6 +29,7 @@ class User
 
         if (!$insert->insert(self::Table, $user)) {
             $this->message = 'Ocorreu um erro ao cadastrar os dados.';
+            $this->messageType = ALERT_ERROR;
             return false;
         }
 
@@ -48,16 +50,19 @@ class User
 
         if (!$user) {
             $this->message = 'O e-mail informado não está cadastrado no sistema.';
+            $this->messageType = ALERT_ERROR;
             return false;
         }
 
         if ($user['status_account'] != 1) {
             $this->message = 'Usuário inativo, entre em contato com um operador.';
+            $this->messageType = ALERT_ERROR;
             return false;
         }
 
         if (!passwd_verify($password, $user['password'])) {
             $this->message = 'E-mail ou senha incorretos.';
+            $this->messageType = ALERT_WARNING;
             return false;
         }
 
@@ -85,7 +90,7 @@ class User
      */
     public function getMessage(): string
     {
-        return $this->message;
+        return (new Alert($this->message, $this->messageType))->getHtml();
     }
 
     #####################
@@ -104,6 +109,7 @@ class User
         // Name
         if (!is_name($name)) {
             $this->message = 'O nome não deve conter números e nem carácteres especiais.';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
         $name = str_title($name);
@@ -111,6 +117,7 @@ class User
         // Email
         if (!is_email($email)) {
             $this->message = 'O e-mail é de formato inválido.';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
 
@@ -119,20 +126,23 @@ class User
 
         if ($mail) {
             $this->message = 'O e-mail informado já está cadastrado.';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
 
         // Password
-        if (!(mb_strlen($password) >= CONF_PASSWD_MIN_LEN && mb_strlen($password) <= CONF_PASSWD_MAX_LEN)) {
-            $this->message = 'A senha deve ter entre ' . CONF_PASSWD_MIN_LEN . ' e ' . CONF_PASSWD_MAX_LEN . ' carácteres.';
+        if (!(mb_strlen($password) >= PASSWD_MIN_LEN && mb_strlen($password) <= PASSWD_MAX_LEN)) {
+            $this->message = 'A senha deve ter entre ' . PASSWD_MIN_LEN . ' e ' . PASSWD_MAX_LEN . ' carácteres.';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
 
         if (!(is_numeric(filter_var($password, FILTER_SANITIZE_NUMBER_INT))
             and preg_match('/[A-Z]/', $password)
-            and preg_match('/[a-z]/', $password)
-            and preg_match('/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/', $password))) {
+            and preg_match('/[a-z]/', $password))
+        ) {
             $this->message = 'A senha deve conter pelo menos uma letra maiúscula, uma minúscula, um número e um carácter especial.';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
         $password = passwd($password);
@@ -141,8 +151,8 @@ class User
             'name' => $name,
             'email' => $email,
             'password' => $password,
-            'created_at' => CONF_DATE_APP,
-            'updated_at' => CONF_DATE_APP
+            'created_at' => DATE_APP,
+            'updated_at' => DATE_APP
         ];
     }
 }

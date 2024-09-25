@@ -1,10 +1,11 @@
 <?php
 
+use Autoload\Models\Alert;
 use Autoload\Models\User;
 
 if (isset($_POST['register'])) {
     if ($_POST['password'] !== $_POST['confirmPassword']) {
-        echo 'Confirme sua senha corretamente!';
+        echo (new Alert('Confirme sua senha corretamente!', ALERT_WARNING))->getHtml();
     } else {
         $user = new User();
         if ($user->register($_POST['name'], $_POST['email'], $_POST['password'])) {

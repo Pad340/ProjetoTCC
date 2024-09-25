@@ -57,7 +57,7 @@
 </head> 
 
 <body>
-    <img class="whiteLogo" src="../../../storage/images/cryingEmoji.png" alt="Logo" height="200" />
+    <img class="whiteLogo" src="../../../storage/images/cryingEmoji.png" alt="Logo" height="173">
 
     <div class="errorPage">
         <h1 class="error-code">404</h1>

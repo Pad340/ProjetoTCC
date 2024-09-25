@@ -1,10 +1,11 @@
 <?php
 
+use Autoload\Models\Alert;
 use Autoload\Models\User;
 
 if (isset($_POST['login'])) {
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-        echo 'Informe um e-mail válido';
+        echo (new Alert('Informe um e-mail válido', ALERT_WARNING))->getHtml();
     } else {
         $user = new User();
         if ($user->login($_POST['email'], $_POST['password'])) {
