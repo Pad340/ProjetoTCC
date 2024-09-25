@@ -10,10 +10,10 @@ use PDOException;
  */
 abstract class Connect
 {
-    private string $host = CONF_DB_HOST;
-    private string $db_name = CONF_DB_NAME;
-    private string $username = CONF_DB_USER;
-    private string $password = CONF_DB_PASS;
+    private string $host = DB_HOST;
+    private string $db_name = DB_NAME;
+    private string $username = DB_USER;
+    private string $password = DB_PASS;
 
     /**
      * Faz a conexão com o BD.

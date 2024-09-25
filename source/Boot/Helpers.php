@@ -90,7 +90,7 @@ function is_email(string $email): bool
  */
 function is_passwd(string $password): bool
 {
-    if (password_get_info($password)['algo'] || (mb_strlen($password) >= CONF_PASSWD_MIN_LEN && mb_strlen($password) <= CONF_PASSWD_MAX_LEN)) {
+    if (password_get_info($password)['algo'] || (mb_strlen($password) >= PASSWD_MIN_LEN && mb_strlen($password) <= PASSWD_MAX_LEN)) {
         return true;
     }
 
@@ -232,7 +232,7 @@ function url_actual(): string
  * @param int $time Em segundos
  * @return void
  */
-function refresh(int $time): void
+function refresh(int $time = 0): void
 {
     echo "<meta http-equiv='refresh' content='$time'>";
 }
@@ -265,7 +265,7 @@ function date_fmt(?string $date, string $format = "d/m/Y H\hi"): string
 function date_fmt_br(string $date = null): string
 {
     $date = (empty($date) ? "now" : $date);
-    return (new DateTime($date))->format(CONF_DATE_FORMAT_BR);
+    return (new DateTime($date))->format(DATE_FORMAT_BR);
 }
 
 /**
@@ -277,7 +277,7 @@ function date_fmt_br(string $date = null): string
 function date_fmt_app(string $date = null): string
 {
     $date = (empty($date) ? "now" : $date);
-    return (new DateTime($date))->format(CONF_DATE_FORMAT_APP);
+    return (new DateTime($date))->format(DATE_FORMAT_APP);
 }
 
 /**
@@ -312,7 +312,7 @@ function passwd(string $password): string
         return $password;
     }
 
-    return password_hash($password, CONF_PASSWD_ALGO, CONF_PASSWD_OPTION);
+    return password_hash($password, PASSWD_ALGO, PASSWD_OPTION);
 }
 
 /**
@@ -333,5 +333,5 @@ function passwd_verify(string $password, string $hash): bool
  */
 function passwd_rehash(string $hash): bool
 {
-    return password_needs_rehash($hash, CONF_PASSWD_ALGO, CONF_PASSWD_OPTION);
+    return password_needs_rehash($hash, PASSWD_ALGO, PASSWD_OPTION);
 }

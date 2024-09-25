@@ -10,6 +10,7 @@ use Autoload\Core\Session;
 class Product
 {
     private string $message = '';
+    private string $messageType = '';
     const Table = 'product';
 
     /**
@@ -29,10 +30,12 @@ class Product
         $insert = new Insert();
         if (!$insert->insert(self::Table, $product)) {
             $this->message = 'Ocorreu um erro ao cadastrar os dados.';
+            $this->messageType = ALERT_ERROR;
             return false;
         }
 
         $this->message = 'Produto cadastrado com sucesso.';
+        $this->messageType = ALERT_SUCCESS;
         return true;
     }
 
@@ -45,10 +48,12 @@ class Product
         $update = new Update();
         if (!$update->update(self::Table, $newProduct, 'product_id = :id', [':id' => $product_id])) {
             $this->message = 'Ocorreu um erro ao atualizar os dados.';
+            $this->messageType = ALERT_ERROR;
             return false;
         }
 
         $this->message = 'Produto editado com sucesso.';
+        $this->messageType = ALERT_SUCCESS;
         return true;
     }
 
@@ -58,7 +63,7 @@ class Product
      */
     public function getMessage(): string
     {
-        return $this->message;
+        return (new Alert($this->message, $this->messageType))->getHtml();
     }
 
     #####################
@@ -83,6 +88,7 @@ class Product
         // Nome
         if (strlen($name) > 100) {
             $this->message = 'O nome do produto não deve ter mais que 100 caracteres.';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
 
@@ -90,19 +96,22 @@ class Product
         $category = $search->selectFirst('category', 'WHERE category_id = :id', "id={$category_id}", 'category_id');
         if (!$category) {
             $this->message = 'Categoria inválida.';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
 
         // Preço
         if (strlen($price) > 12) {
-            $this->message = 'Preço muito elevado para cadastro.';
+            $this->message = 'Preço muito elevado para o produto.';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
         $price = brl_to_decimal($price);
 
         // Estoque
-        if ($qtt_stock > 5000) {
-            $this->message = 'Quantidade em estoque excedida.';
+        if ($qtt_stock > 0 and $qtt_stock > 5000) {
+            $this->message = 'Quantidade em estoque inválida. Min: 1 | Max: 5000';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
 
@@ -121,7 +130,8 @@ class Product
         $currentProduct = $search->selectFirst(self::Table, 'WHERE product_id = :id', "id={$product_id}", 'name, category_id, price, qtt_stock, status_product');
 
         if (!$currentProduct) {
-            $this->message = 'Produto inválido.';
+            $this->message = 'Produto não existente.';
+            $this->messageType = ALERT_WARNING;
             return null;
         }
 
@@ -131,6 +141,7 @@ class Product
         if ($newName !== $currentProduct['name']) {
             if (strlen($newName) > 100) {
                 $this->message = 'O nome do produto não deve ter mais que 100 caracteres.';
+                $this->messageType = ALERT_WARNING;
                 return null;
             }
             $changes['name'] = $newName;
@@ -141,6 +152,7 @@ class Product
             $validCategory = $search->selectFirst('category', 'WHERE category_id = :id', "id={$newCategory}", 'category_id');
             if (!$validCategory) {
                 $this->message = 'Categoria inválida.';
+                $this->messageType = ALERT_WARNING;
                 return null;
             }
             $changes['category_id'] = $newCategory;
@@ -149,7 +161,8 @@ class Product
         // Verifica e valida o preço
         if (brl_to_decimal($newPrice) != $currentProduct['price']) {
             if (strlen($newPrice) > 12) {
-                $this->message = 'Preço muito elevado para cadastro.';
+                $this->message = 'Preço muito elevado para produto.';
+                $this->messageType = ALERT_WARNING;
                 return null;
             }
             $changes['price'] = $newPrice;
@@ -157,8 +170,9 @@ class Product
 
         // Verifica e valida a quantidade em estoque
         if ($newQtt_stock !== $currentProduct['qtt_stock']) {
-            if ($newQtt_stock > 5000) {
-                $this->message = 'Quantidade em estoque excedida.';
+            if ($newQtt_stock > 0 and $newQtt_stock > 5000) {
+                $this->message = 'Quantidade em estoque inválida. Min: 1 | Max: 5000';
+                $this->messageType = ALERT_WARNING;
                 return null;
             }
             $changes['qtt_stock'] = $newQtt_stock;
@@ -168,6 +182,7 @@ class Product
         if ($newStatus_product !== $currentProduct['status_product']) {
             if (!in_array($newStatus_product, [0, 1])) {
                 $this->message = 'Status do produto inválido.';
+                $this->messageType = ALERT_WARNING;
                 return null;
             }
             $changes['status_product'] = $newStatus_product;
@@ -175,9 +190,11 @@ class Product
 
         if (empty($changes)) {
             $this->message = 'Nenhuma alteração detectada.';
+            $this->messageType = ALERT_INFO;
             return null;
         }
 
         return $changes;
     }
+
 }

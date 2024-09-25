@@ -7,12 +7,14 @@ if (isset($_POST['product_register_btn'])) {
     $product = new Product();
     $product->register($_POST['name'], $_POST['category'], $_POST['price'], $_POST['qtt_stock']);
     echo $product->getMessage();
+    refresh(4);
 }
 
 if (isset($_POST['update_product_btn'])) {
     $product = new Product();
     $product->update($_POST['product_id'], $_POST['edit_name'], $_POST['edit_category'], $_POST['edit_price'], $_POST['edit_qtt_stock'], $_POST['edit_status_product']);
     echo $product->getMessage();
+    refresh(4);
 }
 
 $search = new Select();
@@ -41,9 +43,9 @@ $products = $search->executeQuery(
                 <input type="text" name="name" id="name" required>
 
                 <label for="category">Categoria:</label>
-                <select name="category" id="category">
+                <select name="category" id="category" required>
 
-                    <option value="0" disabled selected>Escolha uma categoria</option>
+                    <option value="0" hidden selected>Escolha uma categoria</option>
                     <?php foreach ($categories as $category) { ?>
                         <option value="<?= $category['category_id'] ?>"><?= $category['name'] ?></option>
                     <?php } ?>
@@ -92,44 +94,6 @@ $products = $search->executeQuery(
                 </table>
             </div>
 
-            <style>
-                .modal {
-                    display: none;
-                    position: fixed;
-                    z-index: 1;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    overflow: auto;
-                    background-color: rgb(0, 0, 0);
-                    background-color: rgba(0, 0, 0, 0.4);
-                }
-
-                .modal-content {
-                    background-color: #fefefe;
-                    margin: 15% auto;
-                    padding: 20px;
-                    border: 1px solid #888;
-                    width: 80%;
-                    border-radius: 10px;
-                }
-
-                .close {
-                    color: #aaa;
-                    float: right;
-                    font-size: 28px;
-                    font-weight: bold;
-                }
-
-                .close:hover,
-                .close:focus {
-                    color: black;
-                    text-decoration: none;
-                    cursor: pointer;
-                }
-            </style>
-
             <div id="editModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
@@ -168,6 +132,7 @@ $products = $search->executeQuery(
         }
     }
     ?>
+
     <script>
         function applyPriceMask(inputId) {
             document.getElementById(inputId).addEventListener('input', function (e) {
