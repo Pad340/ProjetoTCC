@@ -21,10 +21,17 @@ $search = new Select();
 $categories = $search->selectAll('category', 'WHERE status = :s', 's=1', 'category_id, name');
 
 $products = $search->executeQuery(
-    'SELECT p.product_id, p.name, p.category_id, c.name AS category, p.price, p.qtt_stock, p.status_product
-            FROM product AS p
-            LEFT JOIN category AS c ON c.category_id = p.category_id
-            WHERE p.seller_id = :id',
+    'SELECT
+    p.product_id,
+    p.name,
+    p.category_id,
+    c.name AS category,
+    p.price,
+    p.qtt_stock,
+    p.status_product
+    FROM product p
+    LEFT JOIN category c ON c.category_id = p.category_id
+    WHERE p.seller_id = :id',
     "id={$session->authSeller}"
 );
 
