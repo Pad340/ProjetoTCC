@@ -51,10 +51,15 @@ CREATE TABLE `seller`
     `phone_number`   varchar(13)  NOT NULL,
     `created_at`     datetime     NOT NULL,
     `updated_at`     datetime     NOT NULL,
-    `status_account` tinyint(4)   NOT NULL DEFAULT 1 COMMENT '1 = Ativo',
+    `status_account` tinyint(4)   NOT NULL DEFAULT 0 COMMENT '1 = Ativo',
+    `licensed`       tinyint(4)   NOT NULL DEFAULT 0,
     PRIMARY KEY (`seller_id`),
     KEY `seller_user_idx` (`user_id`),
-    CONSTRAINT `seller_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    CONSTRAINT `seller_user`
+        FOREIGN KEY (`user_id`)
+            REFERENCES `user` (`user_id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;

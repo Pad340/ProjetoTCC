@@ -3,6 +3,10 @@
 use Autoload\Core\DB\Select;
 use Autoload\Models\Product;
 
+if (!$session->has('authSeller')) {
+    redirect('../app');
+}
+
 if (isset($_POST['product_register_btn'])) {
     $product = new Product();
     $product->register($_POST['name'], $_POST['category'], $_POST['price'], $_POST['qtt_stock']);

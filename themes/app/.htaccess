@@ -2,3 +2,6 @@ RewriteEngine On
 
 # Reescreve URLs amigáveis
 RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?page=$1 [L]
+
+# Reescreve URLs amigáveis para páginas com o id do produto (ex: /product/4)
+RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)$ index.php?page=$1&product_id=$2 [L]
