@@ -28,7 +28,7 @@ if (isset($_GET['page']) and $_GET['page'] == 'logout') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Re-IFeitório | App</title>
     <link rel="stylesheet" href="../../shared/styles/loggedPages.css">
-    <link rel="icon" href="../../storage/images/logoBarra.png"/>
+    <link rel="icon" href="../../storage/images/icon_web.png"/>
     <script src="../../shared/js/jquery-3.7.1.min.js"></script>
     <script src="../../shared/js/jquery.mask.min.js"></script>
 </head>

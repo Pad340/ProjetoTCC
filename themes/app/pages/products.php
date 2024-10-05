@@ -33,77 +33,64 @@ $products = $search->executeQuery(
 <div class="products">
     <?php if ($session->has('authSeller')) { ?>
 
-        <h1>Seus produtos</h1>
-
-        <div class="product-register">
-            <h2>Cadastrar novo produto</h2>
-
-            <form action="" method="post" autocomplete="off">
-                <label for="name">Nome do produto:</label>
-                <input type="text" name="name" id="name" required>
-
-                <label for="category">Categoria:</label>
-                <select name="category" id="category" required>
-
-                    <option value="0" hidden selected>Escolha uma categoria</option>
-                    <?php foreach ($categories as $category) { ?>
-                        <option value="<?= $category['category_id'] ?>"><?= $category['name'] ?></option>
-                    <?php } ?>
-
-                </select>
-
-                <label for="price">Preço:</label>
-                <input type="text" name="price" id="price" placeholder="0,00" maxlength="10" required>
-
-                <label for="qtt_stock">Quantidade em estoque:</label>
-                <input type="number" name="qtt_stock" id="qtt_stock" required>
-
-                <button type="submit" name="product_register_btn">Cadastrar produto</button>
-            </form>
-        </div>
+        <h1>Gerenciar seus produtos</h1>
 
         <?php if ($products) { ?>
-
-            <div class="product-list">
-                <h2>Produtos cadastrados</h2>
-
-                <table>
+            <table class="products-table">
+                <thead>
                     <tr>
                         <th>Nome</th>
                         <th>Categoria</th>
                         <th>Preço</th>
                         <th>Em estoque</th>
                         <th>Status</th>
-                        <th></th>
+                        <th>Ações</th>
                     </tr>
+                </thead>
+                <tbody>
+                    <td class="table-add-button" colspan="6" class="button-row">
+                        <!-- Botão pra abrir o modal de add -->
+                        <a class="add-product-button" href="javascript:void(0);"
+                            onclick='openCreateModal()'>
+                            Cadastrar novo produto
+                            <img class="product-add-icon" src="../../storage/images/icon_addProduct.png" alt="add-product-icon">
+                        </a>
+                    </td>
                     <?php foreach ($products as $product) {
                         $product['price'] = brl_price_format($product['price']);
-                        ?>
+                    ?>
                         <tr>
                             <td><?= $product['name'] ?></td>
                             <td><?= $product['category'] ?></td>
                             <td><?= $product['price'] ?></td>
                             <td><?= $product['qtt_stock'] ?></td>
-                            <td><?= $product['status_product'] == 1 ? 'Habilitado' : 'Desabilitado' ?></td>
+                            <td <?= $product['status_product'] != 1 ? 'style="color: red"' : '' ?>><?= $product['status_product'] == 1 ? 'Habilitado' : 'Desabilitado' ?></td>
+
+                            <!-- Botão de edit -->
                             <td>
-                                <a href="javascript:void(0);"
-                                   onclick='openModal(<?= json_encode($product) ?>)'>Editar</a>
+                                <a class="edit-button" href="javascript:void(0);"
+                                    onclick='openModal(<?= json_encode($product) ?>)'>
+                                    Editar
+                                    <img class="edit-icon-div" src="../../storage/images/icon_edit.png" alt="edit-icon">
+                                </a>
                             </td>
                         </tr>
-                    <?php } ?>
-                </table>
-            </div>
+                </tbody>
+            <?php } ?>
+            </table>
 
+            <!-- Modal Edit -->
             <div id="editModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <h2>Editar Produto</h2>
                     <form action="" method="post">
                         <input type="hidden" name="product_id" id="edit_product_id">
-                        <label for="edit_name">Nome do produto:</label>
+
+                        <label for="edit_name">Nome do produto</label>
                         <input type="text" name="edit_name" id="edit_name" required>
 
-                        <label for="edit_category">Categoria:</label>
+                        <label for="edit_category">Categoria</label>
                         <select name="edit_category" id="edit_category">
                             <option value="0" disabled selected>Escolha uma categoria</option>
                             <?php foreach ($categories as $category) { ?>
@@ -111,31 +98,67 @@ $products = $search->executeQuery(
                             <?php } ?>
                         </select>
 
-                        <label for="edit_price">Preço:</label>
+                        <label for="edit_price">Preço</label>
                         <input type="text" name="edit_price" id="edit_price" maxlength="10" required>
 
-                        <label for="edit_qtt_stock">Quantidade em estoque:</label>
-                        <input type="number" name="edit_qtt_stock" id="edit_qtt_stock" required>
+                        <div class="inline-group">
+                            <div class="amount-in-stock-div">
+                                <label for="edit_qtt_stock">Quantidade em estoque</label> <br>
+                                <input type="number" name="edit_qtt_stock" id="edit_qtt_stock" required>
+                            </div>
+                            <div class="product-deactivate-div">
+                                <label for="edit_status_product">Desativar produto?</label> <br>
+                                <select name="edit_status_product" id="edit_status_product">
+                                    <option value="1">Não</option>
+                                    <option value="0">Sim</option>
+                                </select>
+                            </div>
+                        </div>
 
-                        <label for="edit_status_product">Desativar produto?</label>
-                        <select name="edit_status_product" id="edit_status_product">
-                            <option value="1">Não</option>
-                            <option value="0">Sim</option>
-                        </select>
-
-                        <button type="submit" name="update_product_btn">Salvar alterações</button>
+                        <button class="edit-submit-button-div" type="submit" name="update_product_btn">Salvar alterações</button>
                     </form>
                 </div>
             </div>
 
-            <?php
+            <!-- Modal Create -->
+            <div id="createModal" class="modal">
+                <div class="create-modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Cadastrar novo produto</h2>
+
+                    <form action="" method="post" autocomplete="off">
+                        <label for="name">Nome do produto:</label>
+                        <input type="text" name="name" id="name" required>
+
+                        <label for="category">Categoria:</label>
+                        <select name="category" id="category" required>
+
+                            <option value="0" hidden selected>Escolha uma categoria</option>
+                            <?php foreach ($categories as $category) { ?>
+                                <option value="<?= $category['category_id'] ?>"><?= $category['name'] ?></option>
+                            <?php } ?>
+
+                        </select>
+
+                        <label for="price">Preço:</label>
+                        <input type="text" name="price" id="price" placeholder="0,00" maxlength="10" required>
+
+                        <label for="qtt_stock">Quantidade em estoque:</label>
+                        <input type="number" name="qtt_stock" id="qtt_stock" required>
+
+                        <button class="create-submit-button-div" type="submit" name="product_register_btn">Cadastrar produto</button>
+                    </form>
+                </div>
+            </div>
+
+    <?php
         }
     }
     ?>
 
     <script>
         function applyPriceMask(inputId) {
-            document.getElementById(inputId).addEventListener('input', function (e) {
+            document.getElementById(inputId).addEventListener('input', function(e) {
                 let value = e.target.value;
 
                 // Remove qualquer caractere que não seja número
@@ -150,7 +173,7 @@ $products = $search->executeQuery(
         }
 
         function applyStockValidation(inputId, min = 0, max = 5000) {
-            document.getElementById(inputId).addEventListener('input', function (e) {
+            document.getElementById(inputId).addEventListener('input', function(e) {
                 let value = e.target.value;
 
                 // Remove qualquer caractere que não seja número
@@ -201,16 +224,34 @@ $products = $search->executeQuery(
             document.getElementById('editModal').style.display = "block";
         }
 
-        // Fechar o modal
-        document.querySelector('.close').onclick = function () {
-            document.getElementById('editModal').style.display = "none";
+        // Função para abrir o modal do cadastro de produtos
+        function openCreateModal(product) {
+
+            // Mostrar o modal
+            document.getElementById('createModal').style.display = "block";
         }
 
-        // Fechar o modal ao clicar fora do conteúdo
-        window.onclick = function (event) {
-            if (event.target === document.getElementById('editModal')) {
-                document.getElementById('editModal').style.display = "none";
-            }
+        // Fechar o modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
         }
+
+        // Fechar os modais ao clicar no botão de fechar
+        document.querySelectorAll('.close').forEach(function(closeButton) {
+            closeButton.onclick = function() {
+                closeModal('editModal');
+                closeModal('createModal');
+            }
+        });
+
+        // Fechar os modais ao clicar fora do conteúdo
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('editModal')) {
+                closeModal('editModal');
+            }
+            if (event.target === document.getElementById('createModal')) {
+                closeModal('createModal');
+            }
+        };
     </script>
 </div>
