@@ -179,7 +179,6 @@ $products = $search->executeQuery(
         // Função para abrir o modal
         function openModal(product) {
 
-            console.log(product);
             // Preencher o formulário do modal com os dados do produto
             document.getElementById('edit_product_id').value = product.product_id;
             document.getElementById('edit_name').value = product.name;

@@ -1,10 +1,24 @@
 <?php
 
-// Pega o conteúdo do corpo da requisição JSON
-$json_data = file_get_contents('php://input');
+require_once __DIR__ . '/../../vendor/autoload.php';
 
-// Decodifica o JSON
-$data = json_decode($json_data, true);
+use Autoload\Core\DB\Select;
+use Autoload\Models\Cart;
 
-// Exibe o conteúdo decodificado
-var_dump($data);
+$productID = json_decode(file_get_contents('php://input'), true)['product_id'];
+
+$search = new Select();
+$product = $search->selectFirst(
+    'product',
+    'WHERE product_id = :id AND status_product = 1',
+    "id={$productID}",
+    'product_id, price'
+);
+
+if (empty($product)) {
+    echo 'Produto inválido!';
+    //(new \Autoload\Models\Alert('Produto inválido!', ALERT_ERROR))
+}
+
+$cart = new Cart();
+$cart->add($product);
