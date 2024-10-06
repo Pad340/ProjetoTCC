@@ -19,7 +19,7 @@ const URI = 'https://';
  * SITE
  */
 const SITE_NAME = "Re-IFetório";
-const SITE_TITLE = "Faça reservas de produtos em sua cantina IFPR";
+const SITE_TITLE = "Faça reservas de produtos em cantinas IFPR.";
 const SITE_DESC = "Descrição.";
 const SITE_LANG = "pt_BR";
 

@@ -34,7 +34,8 @@ class Seller
             return false;
         }
 
-        (new Session())->set("authSeller", $insert->getLastInsertId());
+        $this->message = 'Conta cadastrada, aguarde a autorização de um administrador.';
+        $this->messageType = ALERT_SUCCESS;
         return true;
     }
 
@@ -46,12 +47,15 @@ class Seller
     {
         $session = new Session();
         $search = new Select();
-        $seller = $search->selectFirst('seller', 'WHERE user_id = :u', "u={$session->authUser}", 'seller_id, status_account');
+        $seller = $search->selectFirst(
+            'seller',
+            'WHERE user_id = :u AND status_account = 1 AND licensed = 1',
+            "u={$session->authUser}",
+            'seller_id'
+        );
 
         if ($seller) {
-            if ($seller['status_account'] == 1) {
-                (new Session())->set('authSeller', $seller['seller_id']);
-            }
+            (new Session())->set('authSeller', $seller['seller_id']);
         }
     }
 

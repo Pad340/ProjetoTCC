@@ -26,11 +26,11 @@ if (isset($_GET['page']) and $_GET['page'] == 'logout') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Re-IFeitório | App</title>
-    <link rel="stylesheet" href="../../shared/styles/loggedPages.css">
-    <link rel="icon" href="../../storage/images/logoBarra.png"/>
-    <script src="../../shared/js/jquery-3.7.1.min.js"></script>
-    <script src="../../shared/js/jquery.mask.min.js"></script>
+    <title><?= SITE_NAME ?> | App</title>
+    <link rel="stylesheet" href="/projetotcc/shared/styles/loggedPages.css">
+    <link rel="icon" href="/projetotcc/storage/images/icon_web.png"/>
+    <script src="/projetotcc/shared/js/jquery-3.7.1.min.js"></script>
+    <script src="/projetotcc/shared/js/jquery.mask.min.js"></script>
 </head>
 <body>
 <?php include 'includes/header.php'; // Inclui o cabeçalho ?>
