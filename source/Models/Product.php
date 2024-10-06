@@ -86,8 +86,8 @@ class Product
         $search->selectAll(self::Table, 'WHERE seller_id = :id AND name = :n', "id={$session->authSeller}&n={$name}", 'product_id');
 
         // Nome
-        if (strlen($name) > 100) {
-            $this->message = 'O nome do produto não deve ter mais que 100 caracteres.';
+        if (strlen($name) <= 3 or strlen($name) > 100) {
+            $this->message = 'O nome do produto deve ter entre 3 e 100 caracteres.';
             $this->messageType = ALERT_WARNING;
             return null;
         }

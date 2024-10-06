@@ -3,6 +3,10 @@
 use Autoload\Core\DB\Select;
 use Autoload\Models\Product;
 
+if (!$session->has('authSeller')) {
+    redirect('../app');
+}
+
 if (isset($_POST['product_register_btn'])) {
     $product = new Product();
     $product->register($_POST['name'], $_POST['category'], $_POST['price'], $_POST['qtt_stock']);
@@ -21,10 +25,17 @@ $search = new Select();
 $categories = $search->selectAll('category', 'WHERE status = :s', 's=1', 'category_id, name');
 
 $products = $search->executeQuery(
-    'SELECT p.product_id, p.name, p.category_id, c.name AS category, p.price, p.qtt_stock, p.status_product
-            FROM product AS p
-            LEFT JOIN category AS c ON c.category_id = p.category_id
-            WHERE p.seller_id = :id',
+    'SELECT
+    p.product_id,
+    p.name,
+    p.category_id,
+    c.name AS category,
+    p.price,
+    p.qtt_stock,
+    p.status_product
+    FROM product p
+    LEFT JOIN category c ON c.category_id = p.category_id
+    WHERE p.seller_id = :id',
     "id={$session->authSeller}"
 );
 
@@ -191,7 +202,6 @@ $products = $search->executeQuery(
         // Função para abrir o modal
         function openModal(product) {
 
-            console.log(product);
             // Preencher o formulário do modal com os dados do produto
             document.getElementById('edit_product_id').value = product.product_id;
             document.getElementById('edit_name').value = product.name;

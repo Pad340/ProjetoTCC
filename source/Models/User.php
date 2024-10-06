@@ -34,6 +34,7 @@ class User
         }
 
         (new Session())->set("authUser", $insert->getLastInsertId());
+        (new Session())->set("username", $user['name']);
         return true;
     }
 
@@ -46,7 +47,12 @@ class User
     public function login(string $email, string $password): bool
     {
         $findUser = new Select();
-        $user = $findUser->selectFirst(self::Table, 'WHERE email = :e', "e={$email}", 'user_id, password, status_account');
+        $user = $findUser->selectFirst(
+            self::Table,
+            'WHERE email = :e',
+            "e={$email}",
+            'user_id, name, password, status_account'
+        );
 
         if (!$user) {
             $this->message = 'O e-mail informado não está cadastrado no sistema.';
@@ -67,6 +73,7 @@ class User
         }
 
         (new Session())->set("authUser", $user['user_id']);
+        (new Session())->set("username", $user['name']);
         return true;
     }
 
@@ -78,6 +85,7 @@ class User
     {
         $session = new Session();
         $session->unset('authUser');
+        $session->unset('username');
 
         if ($session->has("authSeller")) $session->unset('authSeller');
 
