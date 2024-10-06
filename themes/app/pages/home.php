@@ -50,7 +50,5 @@ if (isset($_POST['search_submit'])) {
                 <?php } ?>
             </div>
         </div>
-
     <?php } ?>
-
 </div>

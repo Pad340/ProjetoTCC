@@ -46,35 +46,75 @@ main {
     transition: color 0.3s ease;
 }
 
-.navdiv>ul>li>a:hover,
+.navdiv>ul>li>.home-div>a:hover,
+.navdiv>ul>li>.products-div>a:hover,
 .navdiv>ul>li>.cart-div>a:hover,
 .navdiv>ul>li>.dropdown>.profile-div>h1:hover {
     border-radius: 10px;
     color: #ddd;
 }
 
+/* Home (texto)  -------------------------------- */
+
+.homeIcon {
+    height: 35px;
+    width: auto;
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+.home-div>a {
+    padding-left: 15px;
+    padding-right: 15px;
+    display: inline-flex;
+    align-items: center;
+
+    font-size: 25px;
+    text-decoration: none;
+    color: white;
+}
+
+/* Produtos  -------------------------------- */
+
+.productsIcon {
+    height: 35px;
+    width: auto;
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+.products-div>a {
+    padding-left: 15px;
+    padding-right: 15px;
+    display: inline-flex;
+    align-items: center;
+
+    font-size: 25px;
+    text-decoration: none;
+    color: white;
+}
+
 /* Carrinho  -------------------------------- */
-.cart-div {
-    padding-left: 30px;
+
+.cart-div>a {
+    padding-left: 15px;
     padding-right: 30px;
     display: inline-flex;
     align-items: center;
-}
 
-.cart-div>a {
     font-size: 25px;
     text-decoration: none;
     color: white;
 }
 
 .cartIcon {
-    height: 30px;
+    height: 35px;
     width: auto;
     margin-left: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
-/* Dropdown --------------------------------- */
+/* Perfil Dropdown --------------------------------- */
 
 .profile-div {
     display: inline-flex;
@@ -86,10 +126,10 @@ main {
 }
 
 .profileIcon {
-    height: 30px;
+    height: 35px;
     width: auto;
     margin-left: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 .dropdown {
@@ -108,7 +148,7 @@ main {
     transform: translateX(-50%);
     border-radius: 5px;
     background-color: #ffffff;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 8px 8px 16px 8px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -149,12 +189,14 @@ main {
     font-size: 20px;
     color: white;
     background-color: #FF881C;
+    border-top: 18px #FFB776 solid;
     text-align: center;
 }
 
 /* Configuração da conta =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
 .UC-main {
+    margin-top: 50px;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -163,15 +205,16 @@ main {
 }
 
 .UC-container {
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.115);
     width: 80vw;
     margin-top: 50px 0px;
     padding: 10px 45px;
-    background-color: #ffe5be;
+    background-color: #ffedd2;
     border-radius: 10px;
 }
 
 .UC-info {
-    font-size: 18px;
+    font-size: 16px;
     color: rgb(0, 0, 0);
 }
 
@@ -187,6 +230,16 @@ main {
     background-color: white;
 }
 
+#UC-button-reactivate {
+    margin: 50px 0;
+    text-align: center;
+    font-size: 20px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    background-color: #ffedd2;
+    box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.115);
+}
+
 .UC-text-div>h2 {
     margin: 0;
 }
@@ -194,8 +247,10 @@ main {
 .UC-text-div>p {
     margin-top: 5px;
     padding: 10px 15px;
-    border-bottom: 2px rgb(0, 0, 0) solid;
+    width: 25vw;
+    border-bottom: 2px rgba(0, 0, 0, 0.300) solid;
 }
+
 .UC-member-div>p {
     margin-top: 5px;
     padding: 0 15px;
@@ -208,54 +263,283 @@ main {
     border-top: none;
     font-size: 20px;
     padding: 5px 15px;
-    margin: 7px 0;
-    width: 60%;
+
+    /* isso aqui é pecado mas n funciona da maneira de "gente" (margin: 20px 0;) */
+    margin-bottom: 30px;
+    margin-top: 10px;
+
+    width: 25vw;
     background-color: transparent;
 }
 
 .seller-form>form>label {
-    margin: 10px 0;
-    font-size: 23px;
-
+    font-size: 20px;
 }
 
 .SC-container {
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.115);
     width: 80vw;
-    margin: 50px 0px;
+    margin-top: 50px;
     padding: 10px 45px;
-    background-color: #ffe5be;
+    background-color: #ffedd2;
     border-radius: 10px;
 }
+
+/* Produtos =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+/* Table dos produtos */
+
+.products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 20px;
+}
+
+.products-table {
+    width: 65vw;
+    margin: 25px 0;
+    border-collapse: collapse;
+    font-size: 18px;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.products-table thead tr {
+    background-color: #FFB776;
+    color: white;
+    text-align: left;
+    font-weight: bold;
+}
+
+.products-table th,
+.products-table td {
+    text-align: center;
+    padding: 12px 15px;
+}
+
+.products-table tbody tr {
+    border: 1px solid #dddddd;
+}
+
+.edit-button {
+    text-decoration: none;
+}
+
+.edit-icon-div {
+    margin: -3px 3px;
+    height: 20px;
+}
+
+.product-add-icon {
+    margin: -3px 3px;
+    height: 20px;
+}
+
+.table-add-button {
+    border: solid 1px #28a74691;
+    background-color: #28a74691;
+    text-align: center;
+
+    &.table-add-button>a {
+        font-size: 20px;
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+    }
+}
+
+/* 
+
+isso aqui n funfa pq a table n tem fim :( 
+
+.products-table tbody tr:last-of-type {
+    border-bottom: 2px solid #FFB776;
+}
+
+*/
+
 
 /* Modal =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
- .modal {
-     display: none;
-     position: fixed;
-     z-index: 1;
-     left: 0;
-     top: 0;
-     width: 100%;
-     height: 100%;
-     overflow: auto;
-     background-color: rgb(0, 0, 0);
-     background-color: rgba(0, 0, 0, 0.4);
- }
+
+/* Modal Edit */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 30%;
+    height: auto;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+
+.modal-content>form {
+    margin: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-content>form>label {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.modal-content>form>input,
+.modal-content>form>select {
+    text-align: center;
+    outline: none;
+    border: solid 1px gray;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: transparent;
+    margin-bottom: 15px;
+}
+
+/* por algum motivo esses 2 não possuem a mesma escala (estou levemente exaltado) */
+.modal-content>form>input {
+    width: 75%;
+}
+
+.modal-content>form>select {
+    width: 82%;
+}
+
+/* Modal Add */
+
+.create-modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    height: auto;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+
+.create-modal-content>form {
+    margin: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-modal-content>form>label {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.create-modal-content>form>input,
+.create-modal-content>form>select {
+    text-align: center;
+    outline: none;
+    border: solid 1px gray;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: transparent;
+    margin-bottom: 15px;
+}
+
+.create-submit-button-div {
+    width: 60%;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 15px;
+    padding: 7px 10px;
+    border: solid 1px gray;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.115);
+}
+
+.create-modal-content>form>input {
+    width: 200px;
+}
+
+.create-modal-content>form>select {
+    width: 230px;
+}
+
+/* --------------------------- */
+
+.modal-content>form>.inline-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.amount-in-stock-div>input {
+    width: 27%;
+}
+
+.amount-in-stock-div,
+.product-deactivate-div {
+    margin: 0 10px;
+}
+
+.amount-in-stock-div>input,
+.product-deactivate-div>select {
+    text-align: center;
+    outline: none;
+    border: solid 1px gray;
+    border-radius: 5px;
+}
+
+.edit-submit-button-div {
+    width: 50%;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 15px;
+    padding: 7px 10px;
+    border: solid 1px gray;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.115);
 }
 
 .close {
+    /* tive que mudar essa bagaça toda pq o X tava contando com uma entidade dentro do modal */
     color: #aaa;
-    float: right;
-    font-size: 28px;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 60px;
     font-weight: bold;
+}
+
+.create-submit-button-div:hover,
+.create-submit-button-div:focus,
+.edit-submit-button-div:hover,
+.edit-submit-button-div:focus {
+    border: solid 1px black;
+    cursor: pointer;
+
 }
 
 .close:hover,
@@ -265,15 +549,20 @@ main {
     cursor: pointer;
 }
 
+
+
 /* Alertas =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
 /* Estilos gerais para o alerta */
 .notification {
     position: fixed;
-    top: -100px; /* Começa fora da tela */
-    left: 25vw; /* Responsivo - 25% da tela de cada lado */
+    top: -100px;
+    /* Começa fora da tela */
+    left: 25vw;
+    /* Responsivo - 25% da tela de cada lado */
     right: 25vw;
-    width: 50vw; /* Responsivo - Ocupa 50% da largura da tela */
+    width: 50vw;
+    /* Responsivo - Ocupa 50% da largura da tela */
     padding: 15px;
     color: white;
     font-size: 16px;
@@ -281,31 +570,37 @@ main {
     text-align: center;
     border-radius: 8px;
     z-index: 1000;
-    transition: top 0.5s ease-in-out; /* Animação para aparecer */
+    transition: top 0.5s ease-in-out;
+    /* Animação para aparecer */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Exibir o alerta */
 .notification.show {
-    top: 20px; /* Após exibir, desce 20px do topo */
+    top: 20px;
+    /* Após exibir, desce 20px do topo */
 }
 
 /* Estilos baseados no tipo de alerta */
 .notification.success {
-    background-color: #28a745; /* Verde para sucesso */
+    background-color: #28a745;
+    /* Verde para sucesso */
 }
 
 .notification.warning {
-    background-color: #ffc107; /* Amarelo para aviso */
+    background-color: #ffc107;
+    /* Amarelo para aviso */
     color: black;
 }
 
 .notification.info {
-    background-color: #17a2b8; /* Azul para informação */
+    background-color: #17a2b8;
+    /* Azul para informação */
 }
 
 .notification.error {
-    background-color: #dc3545; /* Vermelho para erro */
+    background-color: #dc3545;
+    /* Vermelho para erro */
 }
 
 /* Estilos responsivos para telas menores */

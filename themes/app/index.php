@@ -28,7 +28,7 @@ if (isset($_GET['page']) and $_GET['page'] == 'logout') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= SITE_NAME ?> | App</title>
     <link rel="stylesheet" href="/projetotcc/shared/styles/loggedPages.css">
-    <link rel="icon" href="/projetotcc/storage/images/logoBarra.png">
+    <link rel="icon" href="projetotcc/storage/images/icon_web.png"/>
     <script src="/projetotcc/shared/js/jquery-3.7.1.min.js"></script>
     <script src="/projetotcc/shared/js/jquery.mask.min.js"></script>
 </head>

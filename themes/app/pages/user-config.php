@@ -36,7 +36,7 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
 <div class="UC-main">
     <div class="UC-container">
         <div class="UC-info">
-            <h1 id="UC-text">Configurações da conta</h1>
+            <h1 id="UC-text">Configurações desta conta</h1>
             <div class="UC-text-div">
                 <h2>Nome</h2>
                 <p><?= $user_result['name'] ?></p>
@@ -81,7 +81,7 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
     <?php } elseif ($seller_result['status_account'] == 0) { ?>
 
         <form action="" method="post">
-            <button id="UC-button" type="submit" name="enable_btn">Ativar sua conta de vendedor</button>
+            <button id="UC-button-reactivate" type="submit" name="enable_btn">Ativar sua conta de vendedor</button>
         </form>
 
     <?php } else { ?>
@@ -90,7 +90,7 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
             <div class="UC-info">
                 <h1 id="UC-text">Configurações do vendedor</h1>
                 <div class="UC-text-div">
-                    <h2>Nome do Vendedor</h2>
+                    <h2>Nome do Vendedor ou Turma</h2>
                     <p><?= $seller_result['name'] ?></p>
                 </div>
                 <div class="UC-text-div">
@@ -102,10 +102,11 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
                     <p><span id="phone_number"><?= $seller_result['phone_number'] ?></span></p>
                 </div>
             </div>
-            <form action="" method="post">
-                <button id="UC-button" type="submit" name="disable_btn">Desativar conta de vendedor</button>
-            </form>
         </div>
+  
+        <form action="" method="post">
+            <button id="UC-button-reactivate" type="submit" name="disable_btn">Desativar conta de vendedor</button>
+        </form>
 
     <?php } ?>
 
