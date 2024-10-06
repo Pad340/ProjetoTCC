@@ -76,7 +76,7 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
 
     <?php } elseif ($seller_result['licensed'] == 0) { ?>
 
-        <h3>Aguarde a autorização de um administrador.</h3>
+        <h3>Aguarde a autorização de um administrador para vender.</h3>
 
     <?php } elseif ($seller_result['status_account'] == 0) { ?>
 

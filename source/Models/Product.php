@@ -83,7 +83,13 @@ class Product
         $session = new Session();
         $search = new Select();
 
-        $search->selectAll(self::Table, 'WHERE seller_id = :id AND name = :n', "id={$session->authSeller}&n={$name}", 'product_id');
+        $product = $search->selectAll(self::Table, 'WHERE seller_id = :id AND name = :n', "id={$session->authSeller}&n={$name}", 'product_id');
+
+        if ($product) {
+            $this->message = 'Este produto já esta cadastrado!';
+            $this->messageType = ALERT_WARNING;
+            return null;
+        }
 
         // Nome
         if (strlen($name) <= 3 or strlen($name) > 100) {
