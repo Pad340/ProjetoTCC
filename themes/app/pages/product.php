@@ -21,7 +21,6 @@ $product = $result[0];
 ?>
 
 <div class="product-page">
-
     <div class="product">
 
         <div class="product-picture">
@@ -34,7 +33,7 @@ $product = $result[0];
             <p>Por apenas: R$ <?= brl_price_format($product['price']) ?></p>
         </div>
 
-        <br>
+        <br><!-- Tira isso depois quando for estilizar -->
 
         <div class="product-cart">
             <p>Quantidade em estoque: <?= $product['qtt_stock'] ?></p>
@@ -44,17 +43,19 @@ $product = $result[0];
 </div>
 
 <script>
+    /**
+     * Adiciona o produto ao carrinho
+     * @param product_id
+     */
     function addToCart(product_id) {
         $.ajax({
-            url: "../../ajax/cart-management.php",
+            url: "../ajax/cart-management.php",
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
-                'product_id': product_id
-            }),
-            success: function (data) {
-                console.log(data);
-            }
+                'product_id': product_id,
+                'action': 'add'
+            })
         });
     }
 </script>

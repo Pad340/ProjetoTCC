@@ -19,10 +19,6 @@ $bestSellingProducts = $search->executeQuery('
     ORDER BY total_reservations DESC
 ');
 
-if (isset($_POST['search_submit'])) {
-
-}
-
 ?>
 
 <div class="home">
@@ -36,19 +32,21 @@ if (isset($_POST['search_submit'])) {
         <div class="products-tab">
             <h3>Produtos em destaque</h3>
 
-            <div class="products-show">
+            <ul class="products-show"><!-- Aqui exibe os produtos -->
                 <?php foreach ($bestSellingProducts as $product) { ?>
-                    <div class="product">
-                        <p>(imagem)</p>
-
-                        <p><a href="<?= url("app/product/{$product['product_id']}") ?>"><?= $product['product_name'] ?></a></p>
+                    <li class="product">
+                        <p>
+                            <a href="<?= url("app/product/{$product['product_id']}") ?>">
+                                <?= $product['product_name'] ?>
+                            </a>
+                        </p>
 
                         <p>R$ <?= brl_price_format($product['price']) ?></p>
 
                         <p>Vendedor: <?= $product['seller_name'] ?></p>
-                    </div>
+                    </li>
                 <?php } ?>
-            </div>
+            </ul>
         </div>
     <?php } ?>
 </div>

@@ -3,6 +3,7 @@
 use Autoload\Core\DB\Select;
 use Autoload\Models\Seller;
 
+// Espera o click no botão de cadastrar
 if (isset($_POST['register_btn'])) {
     $seller = new Seller();
     $seller->register($_POST['seller_name'], $_POST['seller_cpf'], $_POST['phone_number']);
@@ -11,6 +12,7 @@ if (isset($_POST['register_btn'])) {
     refresh(3);
 }
 
+// Espera o click no botão de ativar conta
 if (isset($_POST['enable_btn'])) {
     $seller = new Seller();
     $seller->enable();
@@ -19,6 +21,7 @@ if (isset($_POST['enable_btn'])) {
     refresh(3);
 }
 
+// Espera o click no botão de desativar conta
 if (isset($_POST['disable_btn'])) {
     $seller = new Seller();
     $seller->disable();
@@ -51,8 +54,9 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
             </div>
         </div>
     </div>
-    <?php if (!$session->has('authSeller') and !$seller_result) { ?>
 
+    <!-- Não é vendedor na sessão e não possui conta de vendedor -->
+    <?php if (!$session->has('authSeller') and !$seller_result) { ?>
         <div class="SC-container">
             <div class="seller-form">
                 <h1 id="UC-text">Criar uma conta de vendedor</h1>
@@ -66,7 +70,7 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
                     <label for="phone_number">
                         Número de telefone do vendedor ou responsável pelas vendas da turma
                     </label>
-                    <br>
+                    <br><!-- Se der, tira o br na estilização -->
                     <input type="text" name="phone_number" id="phone_number" maxlength="15" required/> <br>
 
                     <button id="UC-button" type="submit" name="register_btn">Cadastrar</button>
@@ -74,18 +78,18 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
             </div>
         </div>
 
+    <!-- Não tem autorização para ser vendedor -->
     <?php } elseif ($seller_result['licensed'] == 0) { ?>
-
         <h3>Aguarde a autorização de um administrador para vender.</h3>
 
+    <!-- Conta desativada -->
     <?php } elseif ($seller_result['status_account'] == 0) { ?>
-
         <form action="" method="post">
             <button id="UC-button-reactivate" type="submit" name="enable_btn">Ativar sua conta de vendedor</button>
         </form>
 
+    <!-- Conta Ativada -->
     <?php } else { ?>
-
         <div class="SC-container">
             <div class="UC-info">
                 <h1 id="UC-text">Configurações do vendedor</h1>
@@ -107,7 +111,6 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
         <form action="" method="post">
             <button id="UC-button-reactivate" type="submit" name="disable_btn">Desativar conta de vendedor</button>
         </form>
-
     <?php } ?>
 
     <script>

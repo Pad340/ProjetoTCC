@@ -7,14 +7,17 @@ use Autoload\Models\User;
 
 $session = new Session();
 
+// Verifica se está logado
 if (!$session->has('authUser')) {
     redirect('../web/');
 }
 
+// Verifica se é vendedor
 if (!$session->has('authSeller')) {
     (new Seller())->login();
 }
 
+// Aguarda o botão de Sair
 if (isset($_GET['page']) and $_GET['page'] == 'logout') {
     (new User())->logout();
 }
@@ -22,7 +25,7 @@ if (isset($_GET['page']) and $_GET['page'] == 'logout') {
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="<?= SITE_LANG ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,16 +40,16 @@ if (isset($_GET['page']) and $_GET['page'] == 'logout') {
 
 <main>
     <?php
-    // Define a página padrão
+    // Guarda a página que está na url
     $page = $_GET['page'] ?? 'home';
 
     // Inclui o conteúdo da página com base no valor do parâmetro 'page'
     $path = "pages/$page.php";
 
     if (file_exists($path)) {
-        include $path;
+        include $path; // Inclui o arquivo aqui no main
     } else {
-        redirect('pages/404.php');
+        redirect('../404.php'); // Se o arquivo não existir, manda para a 404
     }
     ?>
 </main>
