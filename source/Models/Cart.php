@@ -4,6 +4,9 @@ namespace Autoload\Models;
 
 use Autoload\Core\Session;
 
+/**
+ * Gerencia os produtos da carrinho
+ */
 class Cart
 {
     private object $cart;
@@ -25,6 +28,11 @@ class Cart
         $this->cart = $session->cart;
     }
 
+    /**
+     * Adiciona produtos ao carrinho
+     * @param array $product Contendo id, price e quantity
+     * @return void
+     */
     public function add(array $product): void
     {
         $inCart = false;
@@ -44,6 +52,7 @@ class Cart
         if (!$inCart) {
             $this->cart->products[] = [
                 'id' => $product['product_id'],
+                'name' => $product['name'],
                 'quantity' => 1,
                 'price' => $product['price']
             ];
@@ -51,5 +60,59 @@ class Cart
             // Atualiza o total com o preço do novo produto
             $this->cart->total += $product['price'];
         }
+    }
+
+    /**
+     * Remove uma unidade de um produto do carrinho
+     * @param int $productID ID do produto que será removido
+     * @return void
+     */
+    public function removeOne(int $productID): void
+    {
+        foreach ($this->cart->products as $index => $productInCart) {
+            if ($productInCart['id'] === $productID) {
+                $this->cart->products[$index]['quantity'] -= 1;
+                $this->cart->total -= $productInCart['price'];
+
+                if ($this->cart->products[$index]['quantity'] <= 0) {
+                    unset($this->cart->products[$index]);
+                }
+                break;
+            }
+        }
+    }
+
+    /**
+     * Remove todas as unidade de um produto do carrinho
+     * @param int $productID
+     * @return void
+     */
+    public function remove(int $productID): void
+    {
+        foreach ($this->cart->products as $index => $productInCart) {
+            if ($productInCart['id'] === $productID) {
+                $this->cart->total -= $productInCart['price'] * $productInCart['quantity'];
+                unset($this->cart->products[$index]);
+            }
+        }
+    }
+
+    /**
+     * Esvazia o carrinho
+     * @return void
+     */
+    public function empty(): void
+    {
+        $session = new Session();
+        $session->unset('cart');
+    }
+
+    /**
+     * Retorna o carrinho
+     * @return object
+     */
+    public function getCart(): object
+    {
+        return $this->cart;
     }
 }

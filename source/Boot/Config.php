@@ -10,10 +10,7 @@ const DB_NAME = "reifeitorio";
 /*
  * PROJECT URLs
  */
-const URL_BASE = "https://www.reifeitorio.com";
-const URL_TEST = "https://www.localhost/projetotcc";
 const URI = 'https://';
-
 
 /*
  * SITE
@@ -41,14 +38,6 @@ const PASSWD_MIN_LEN = 8;
 const PASSWD_MAX_LEN = 40;
 const PASSWD_ALGO = PASSWORD_DEFAULT;
 const PASSWD_OPTION = ['cost' => 10];
-
-/*
- * VIEW
- */
-const VIEW_EXT = "php";
-const VIEW_THEME = "web";
-const VIEW_APP = "app";
-const VIEW_ADMIN = "adm";
 
 /*
  * ALERTS

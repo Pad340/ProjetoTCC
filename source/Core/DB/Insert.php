@@ -6,11 +6,11 @@ use Autoload\Core\Connect;
 use PDO;
 use PDOException;
 
+/**
+ * Insere dados no BD
+ */
 class Insert extends Connect
 {
-    /**
-     * @var PDO|null
-     */
     private ?PDO $conn;
 
     /**

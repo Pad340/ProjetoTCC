@@ -7,6 +7,9 @@ use Autoload\Core\DB\Select;
 use Autoload\Core\DB\Update;
 use Autoload\Core\Session;
 
+/**
+ * Gerencia o vendedor
+ */
 class Seller
 {
     private string $message = '';
@@ -116,13 +119,20 @@ class Seller
      */
     public function getMessage(): string
     {
-        return (new Alert($this->message, $this->messageType))->getHtml();
+        return (new Alert($this->message, $this->messageType))->getHtml(2);
     }
 
     #####################
     ## Private Methods ##
     #####################
 
+    /**
+     * Valida os dados
+     * @param string $name
+     * @param string $cpf
+     * @param string $phone_number
+     * @return array|null
+     */
     public function attempt(string $name, string $cpf, string $phone_number): ?array
     {
         $session = new Session();

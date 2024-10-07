@@ -12,7 +12,7 @@ if ($session->has('authUser')) {
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="<?= SITE_LANG ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +38,7 @@ if ($session->has('authUser')) {
     if (file_exists($path)) {
         include $path;
     } else {
-        echo "<p>Página não encontrada.</p>";
+        redirect('/projetotcc/themes/404.php');
     }
     ?>
 </main>

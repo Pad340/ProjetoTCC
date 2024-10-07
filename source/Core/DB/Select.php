@@ -12,14 +12,7 @@ use PDOStatement;
  */
 class Select extends Connect
 {
-    /**
-     * @var PDO|null
-     */
     private ?PDO $conn;
-
-    /**
-     * @var PDOStatement|null
-     */
     private ?PDOStatement $stmt;
 
     /**

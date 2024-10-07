@@ -7,6 +7,9 @@ use Autoload\Core\DB\Select;
 use Autoload\Core\DB\Update;
 use Autoload\Core\Session;
 
+/**
+ * Gerencia os produtos
+ */
 class Product
 {
     private string $message = '';
@@ -39,6 +42,16 @@ class Product
         return true;
     }
 
+    /**
+     * Atualiza os dados do produto
+     * @param int $product_id
+     * @param string $newName
+     * @param int $newCategory
+     * @param string $newPrice
+     * @param int $newQtt_stock
+     * @param int $newStatus_product
+     * @return bool
+     */
     public function update(int $product_id, string $newName, int $newCategory, string $newPrice, int $newQtt_stock, int $newStatus_product): bool
     {
         $newProduct = $this->checkChanges($product_id, $newName, $newCategory, $newPrice, $newQtt_stock, $newStatus_product);
@@ -130,6 +143,16 @@ class Product
         ];
     }
 
+    /**
+     * Verifica as mudanças
+     * @param int $product_id
+     * @param string $newName
+     * @param int $newCategory
+     * @param string $newPrice
+     * @param int $newQtt_stock
+     * @param int $newStatus_product
+     * @return array|null Mudanças, se houverem
+     */
     private function checkChanges(int $product_id, string $newName, int $newCategory, string $newPrice, int $newQtt_stock, int $newStatus_product): ?array
     {
         $search = new Select();

@@ -3,16 +3,19 @@
 use Autoload\Core\DB\Select;
 use Autoload\Models\Product;
 
+// Verifica se o usuário é um vendedor
 if (!$session->has('authSeller')) {
     redirect('../app');
 }
 
+// Espera a ação de cadastrar um produto
 if (isset($_POST['product_register_btn'])) {
     $product = new Product();
     $product->register($_POST['name'], $_POST['category'], $_POST['price'], $_POST['qtt_stock']);
     echo $product->getMessage();
 }
 
+// Espera a ação de atualizar um produto
 if (isset($_POST['update_product_btn'])) {
     $product = new Product();
     $product->update($_POST['product_id'], $_POST['edit_name'], $_POST['edit_category'], $_POST['edit_price'], $_POST['edit_qtt_stock'], $_POST['edit_status_product']);
@@ -40,11 +43,9 @@ $products = $search->executeQuery(
 ?>
 
 <div class="products">
-
     <h1>Gerenciar seus produtos</h1>
 
     <table class="products-table">
-
         <thead>
         <tr>
             <th>Nome</th>
@@ -52,14 +53,14 @@ $products = $search->executeQuery(
             <th>Preço</th>
             <th>Em estoque</th>
             <th>Status</th>
-            <th>Ações</th>
+            <th>Ação</th>
         </tr>
         </thead>
 
         <tbody>
         <tr>
+            <!-- Botão pra abrir o modal de add -->
             <td class="table-add-button" colspan="6" onclick='openCreateModal()'>
-                <!-- Botão pra abrir o modal de add -->
                 <a class="add-product-button" href="javascript:void(0);">
                     Cadastrar novo produto
                     <img class="product-add-icon" src="/projetotcc/storage/images/icon_addProduct.png"
@@ -69,7 +70,6 @@ $products = $search->executeQuery(
         </tr>
 
         <?php
-
         if ($products) {
             foreach ($products as $product) {
                 $product['price'] = brl_price_format($product['price']);
@@ -79,12 +79,14 @@ $products = $search->executeQuery(
                     <td><?= $product['category'] ?></td>
                     <td>R$ <?= $product['price'] ?></td>
                     <td><?= $product['qtt_stock'] ?></td>
-                    <td <?= $product['status_product'] != 1 ? 'style="color: red"' : '' ?>><?= $product['status_product'] == 1 ? 'Habilitado' : 'Desabilitado' ?></td>
+                    <td <?= $product['status_product'] != 1 ? 'style="color: red"' : '' ?>>
+                        <?= $product['status_product'] == 1 ? 'Habilitado' : 'Desabilitado' ?>
+                    </td>
 
                     <!-- Botão de edit -->
                     <td>
                         <a class="edit-button" href="javascript:void(0);"
-                           onclick='openModal(<?= json_encode($product) ?>)'>
+                           onclick='openEditModal(<?= json_encode($product) ?>)'>
                             Editar
                             <img class="edit-icon-div" src="/projetotcc/storage/images/icon_edit.png" alt="edit-icon">
                         </a>
@@ -165,14 +167,18 @@ $products = $search->executeQuery(
                 <label for="qtt_stock">Quantidade em estoque:</label>
                 <input type="number" name="qtt_stock" id="qtt_stock" required>
 
-                <button class="create-submit-button-div" type="submit" name="product_register_btn">Cadastrar
-                    produto
+                <button class="create-submit-button-div" type="submit" name="product_register_btn">
+                    Cadastrar produto
                 </button>
             </form>
         </div>
     </div>
 
     <script>
+        /**
+         * Aplica uma máscara no preço do produto
+         * @param inputId
+         */
         function applyPriceMask(inputId) {
             document.getElementById(inputId).addEventListener('input', function (e) {
                 let value = e.target.value;
@@ -188,6 +194,12 @@ $products = $search->executeQuery(
             });
         }
 
+        /**
+         * Aplica uma máscara ao estoque
+         * @param inputId
+         * @param min
+         * @param max
+         */
         function applyStockValidation(inputId, min = 0, max = 5000) {
             document.getElementById(inputId).addEventListener('input', function (e) {
                 let value = e.target.value;
@@ -204,10 +216,13 @@ $products = $search->executeQuery(
         applyPriceMask('price');
         applyStockValidation('qtt_stock');
 
-        // Função para abrir o modal
-        function openModal(product) {
+        /**
+         * Abre o modal de editar produto
+         * @param product
+         */
+        function openEditModal(product) {
 
-            // Preencher o formulário do modal com os dados do produto
+            // Preenche o formulário do modal com os dados do produto
             document.getElementById('edit_product_id').value = product.product_id;
             document.getElementById('edit_name').value = product.name;
             document.getElementById('edit_category').value = product.category_id;
@@ -235,23 +250,25 @@ $products = $search->executeQuery(
             applyPriceMask('edit_price');
             applyStockValidation('edit_qtt_stock');
 
-            // Mostrar o modal
             document.getElementById('editModal').style.display = "block";
         }
 
-        // Função para abrir o modal do cadastro de produtos
+        /**
+         * Abre modal de cadastro de produto
+         */
         function openCreateModal(product) {
-
-            // Mostrar o modal
             document.getElementById('createModal').style.display = "block";
         }
 
-        // Fechar o modal
+        /**
+         * Fecha o modal
+         * @param modalId
+         */
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = "none";
         }
 
-        // Fechar os modais ao clicar no botão de fechar
+        // Fecha os modais ao clicar no botão de fechar
         document.querySelectorAll('.close').forEach(function (closeButton) {
             closeButton.onclick = function () {
                 closeModal('editModal');

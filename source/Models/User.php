@@ -7,6 +7,9 @@ use Autoload\Core\DB\Select;
 use Autoload\Core\Session;
 use JetBrains\PhpStorm\NoReturn;
 
+/**
+ * Gerencia o usuário
+ */
 class User
 {
     private string $message = '';

@@ -2,6 +2,9 @@
 
 namespace Autoload\Models;
 
+/**
+ * Gera alertas em tela
+ */
 class Alert
 {
     private string $message;

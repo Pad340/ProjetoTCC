@@ -7,16 +7,12 @@ use PDO;
 use PDOException;
 use PDOStatement;
 
+/**
+ * Faz update no BD
+ */
 class Update extends Connect
 {
-    /**
-     * @var PDO|null
-     */
     private ?PDO $conn;
-
-    /**
-     * @var PDOStatement|null
-     */
     private ?PDOStatement $stmt;
 
     /**
