@@ -48,5 +48,9 @@ $bestSellingProducts = $search->executeQuery('
                 <?php } ?>
             </ul>
         </div>
+    <?php } else { ?>
+        <div class="empty-products">
+            <h3>Nenhum produto a venda!</h3>
+        </div>
     <?php } ?>
 </div>
