@@ -125,6 +125,12 @@ class Product
             $this->messageType = ALERT_WARNING;
             return null;
         }
+
+        if ($price < 0.05) {
+            $this->message = 'Preço muito baixo, o valor mínimo é R$ 0,05.';
+            $this->messageType = ALERT_WARNING;
+            return null;
+        }
         $price = brl_to_decimal($price);
 
         // Estoque
