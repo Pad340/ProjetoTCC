@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="<?= SITE_LANG ?>">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Re-IFeitório | 404</title>
-    <link rel="icon" href="/projetotcc/storage/images/logoBarra.png" />
+    <link rel="icon" href="../storage/images/icon_web.png">
 
     <style>
         @font-face {
-            src: url(/projetotcc/storage/fonts/ModesticSans.ttf);
+            src: url(../storage/fonts/ModesticSans.ttf);
             font-family: Modestic-Sans;
         }
 
@@ -57,7 +57,7 @@
 </head> 
 
 <body>
-    <img class="whiteLogo" src="/projetotcc/storage/images/cryingEmoji.png" alt="Logo" height="173">
+    <img class="whiteLogo" src="../storage/images/cryingEmoji.png" alt="Logo" height="173">
 
     <div class="errorPage">
         <h1 class="error-code">404</h1>
