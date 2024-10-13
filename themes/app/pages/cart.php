@@ -25,11 +25,11 @@ $search = new Select();
                     <p>
                         Quantidade:
                         <!-- Retirar uma unidade -->
-                        <span class="cart-less" onclick="removeOne(<?= $product['id'] ?>)"> < </span>
+                        <button class="cart-less" onclick="removeOne(<?= $product['id'] ?>)"> < </button>
                         <!-- Quantidade -->
                         <span id="quantity-<?= $product['id'] ?>"><?= $product['quantity'] ?></span>
                         <!-- Adicionar uma unidade -->
-                        <span class="cart-more" onclick="more(<?= $product['id'] ?>)"> > </span>
+                        <button id="cart-more-<?= $product['id'] ?>" class="cart-more" onclick="more(<?= $product['id'] ?>)"> > </button>
 
                     </p>
                     <p>R$
@@ -74,6 +74,7 @@ $search = new Select();
                 document.getElementById('quantity-' + product_id).innerHTML = data.quantity;
                 document.getElementById('product-' + product_id + '-total').innerHTML = data.price;
                 document.getElementById('cart-total').innerHTML = data.total;
+                document.getElementById('cart-more-' + product_id).disabled = false;
             }
         });
     }
@@ -94,9 +95,13 @@ $search = new Select();
             success: function (data) {
                 data = JSON.parse(data);
 
-                document.getElementById('quantity-' + product_id).innerHTML = data.quantity;
-                document.getElementById('product-' + product_id + '-total').innerHTML = data.price;
-                document.getElementById('cart-total').innerHTML = data.total;
+                if ('error' in data) {
+                    document.getElementById('cart-more-' + product_id).disabled = true;
+                } else {
+                    document.getElementById('quantity-' + product_id).innerHTML = data.quantity;
+                    document.getElementById('product-' + product_id + '-total').innerHTML = data.price;
+                    document.getElementById('cart-total').innerHTML = data.total;
+                }
             }
         });
     }
