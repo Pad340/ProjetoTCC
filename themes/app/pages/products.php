@@ -18,7 +18,7 @@ if (isset($_POST['product_register_btn'])) {
 // Espera a ação de atualizar um produto
 if (isset($_POST['update_product_btn'])) {
     $product = new Product();
-    $product->update($_POST['product_id'], $_POST['edit_name'], $_POST['edit_category'], $_POST['edit_price'], $_POST['edit_qtt_stock'], $_POST['edit_status_product']);
+    $product->update($_POST['product_id'], $_POST['edit_category'], $_POST['edit_price'], $_POST['edit_qtt_stock'], $_POST['edit_status_product']);
     echo $product->getMessage();
 }
 
@@ -107,7 +107,7 @@ $products = $search->executeQuery(
                 <input type="hidden" name="product_id" id="edit_product_id">
 
                 <label for="edit_name">Nome do produto</label>
-                <input type="text" name="edit_name" id="edit_name" required>
+                <input type="text" name="edit_name" id="edit_name" required disabled>
 
                 <label for="edit_category">Categoria</label>
                 <select name="edit_category" id="edit_category">

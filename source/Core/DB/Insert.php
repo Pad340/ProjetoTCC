@@ -25,7 +25,7 @@ class Insert extends Connect
      * Insere dados na tabela $table
      * @param string $table Nome da tabela
      * @param array $values Array associativo com as colunas e valores a serem inseridos. Por exemplo: ['user_id' => 1, 'name' => 'Bruno']
-     * @return bool
+     * @return bool TRUE se der bom, FALSE caso acontecer algo
      */
     public function insert(string $table, array $values): bool
     {

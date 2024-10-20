@@ -3,6 +3,7 @@
 namespace Autoload\Models;
 
 use Autoload\Core\Session;
+use Exception;
 
 /**
  * Gerencia os produtos da carrinho
@@ -32,33 +33,43 @@ class Cart
      * Adiciona produtos ao carrinho
      * @param array $product Contendo id, price e quantity
      * @return void
+     * @throws Exception
      */
     public function add(array $product): void
     {
         $inCart = false;
 
-        foreach ($this->cart->products as &$productInCart) {
-            if (isset($productInCart['id']) && $productInCart['id'] === $product['product_id']) {
-                // Se o produto já está no carrinho, aumenta a quantidade
-                $productInCart['quantity'] += 1;
+        foreach ($this->getCart()->products as &$productInCart) {
+            if ($productInCart['id'] === $product['product_id']) {
+                // Verifica se a quantidade no carrinho excede o estoque disponível
+                $newQuantity = $productInCart['quantity'] + 1;
+                if ($newQuantity > $product['qtt_stock']) {
+                    // Se a quantidade excede o estoque, não permite adicionar
+                    throw new Exception('Estoque insuficiente para o produto ' . $product['name'] . '!');
+                }
 
-                // Atualiza o total com base no preço do produto
-                $this->cart->total += $product['price'];
+                // Atualiza a quantidade no carrinho
+                $productInCart['quantity'] = $newQuantity;
+                $this->updateTotal();
                 $inCart = true;
                 break;
             }
         }
 
+        // Se o produto não está no carrinho, adiciona
         if (!$inCart) {
-            $this->cart->products[] = [
-                'id' => $product['product_id'],
-                'name' => $product['name'],
-                'quantity' => 1,
-                'price' => $product['price']
-            ];
+            if ($product['qtt_stock'] > 0) { // Só adiciona se houver estoque disponível
+                $this->cart->products[] = [
+                    'id' => $product['product_id'],
+                    'name' => $product['name'],
+                    'quantity' => 1,
+                    'price' => $product['price']
+                ];
 
-            // Atualiza o total com o preço do novo produto
-            $this->cart->total += $product['price'];
+                $this->updateTotal();
+            } else {
+                throw new Exception('Produto sem estoque: ' . $product['name']);
+            }
         }
     }
 
@@ -114,5 +125,18 @@ class Cart
     public function getCart(): object
     {
         return $this->cart;
+    }
+
+    #####################
+    ## Private Methods ##
+    #####################
+
+    private function updateTotal(): void
+    {
+        $total = 0;
+        foreach ($this->getCart()->products as $product) {
+            $total += $product['price'] * $product['quantity'];
+        }
+        $_SESSION['cart']->total = $total;
     }
 }

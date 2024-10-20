@@ -23,10 +23,6 @@ $product = $result[0];
 <div class="product-page">
     <div class="product">
 
-        <div class="product-picture">
-            <p>(imagem maior)</p>
-        </div>
-
         <div class="product_data">
             <p><?= $product['name'] ?></p>
             <p>Categoria: <?= $product['category'] ?></p>
@@ -35,9 +31,14 @@ $product = $result[0];
 
         <br><!-- Tira isso depois quando for estilizar -->
 
-        <div class="product-cart">
+        <div class="product-addToCart">
             <p>Quantidade em estoque: <?= $product['qtt_stock'] ?></p>
-            <button onclick="addToCart('<?= $productID ?>')">Adicionar ao carrinho</button>
+
+            <?php if ($product['qtt_stock'] > 0) { ?>
+                <button onclick="addToCart('<?= $productID ?>')">Adicionar ao carrinho</button>
+            <?php } else { ?>
+                <p>Produto indisponível para compra.</p>
+            <?php } ?>
         </div>
     </div>
 </div>
@@ -55,7 +56,27 @@ $product = $result[0];
             data: JSON.stringify({
                 'product_id': product_id,
                 'action': 'add'
-            })
+            }),
+            success: function (data) {
+                data = JSON.parse(data);
+
+                if (!document.getElementById("notification")) {
+                    // Insere o HTML do alerta no topo da página
+                    document.body.insertAdjacentHTML('afterbegin', data.alert);
+                }
+
+                const notification = document.getElementById("notification");
+
+                // Mostrar a notificação após um pequeno atraso para animação
+                setTimeout(function() {
+                    notification.classList.add("show");
+                }, 100); // 100ms para garantir que o DOM está pronto
+
+                // Ocultar a notificação automaticamente
+                setTimeout(function() {
+                    notification.classList.remove("show");
+                }, 2000);
+            }
         });
     }
 </script>

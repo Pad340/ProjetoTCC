@@ -112,3 +112,63 @@ body {
     }
 
 }
+
+/* Alertas */
+/* Estilos gerais para o alerta */
+.notification {
+    position: fixed;
+    top: -100px;
+    /* Começa fora da tela */
+    left: 25vw;
+    /* Responsivo - 25% da tela de cada lado */
+    right: 25vw;
+    width: 50vw;
+    /* Responsivo - Ocupa 50% da largura da tela */
+    padding: 15px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    z-index: 1000;
+    transition: top 0.5s ease-in-out;
+    /* Animação para aparecer */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Exibir o alerta */
+.notification.show {
+    top: 20px;
+    /* Após exibir, desce 20px do topo */
+}
+
+/* Estilos baseados no tipo de alerta */
+.notification.success {
+    background-color: #28a745;
+    /* Verde para sucesso */
+}
+
+.notification.warning {
+    background-color: #ffc107;
+    /* Amarelo para aviso */
+    color: black;
+}
+
+.notification.info {
+    background-color: #17a2b8;
+    /* Azul para informação */
+}
+
+.notification.error {
+    background-color: #dc3545;
+    /* Vermelho para erro */
+}
+
+/* Estilos responsivos para telas menores */
+@media (max-width: 768px) {
+    .notification {
+        left: 10vw;
+        right: 10vw;
+        width: 80vw;
+    }
+}

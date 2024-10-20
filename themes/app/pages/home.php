@@ -24,7 +24,7 @@ $bestSellingProducts = $search->executeQuery('
 <div class="home">
 
     <div class="title">
-        <h2>Bem vindo <?= $session->username ?>!</h2>
+        <h2>Bem vindo, <?= $session->username ?>!</h2>
     </div>
 
     <?php if (!empty($bestSellingProducts)) { ?>

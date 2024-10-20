@@ -91,6 +91,7 @@ class User
         $session->unset('username');
 
         if ($session->has("authSeller")) $session->unset('authSeller');
+        if ($session->has("cart")) $session->unset('cart');
 
         redirect('../web/');
     }

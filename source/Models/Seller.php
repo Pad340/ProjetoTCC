@@ -74,7 +74,6 @@ class Seller
 
         if ($result) {
             $update = new Update();
-            $disable = $update->update('product', ['status_product' => 1], 'seller_id = :id', [':id' => $result['seller_id']]);
             $disable = $update->update(self::Table, ['status_account' => 1, 'updated_at' => DATE_APP], 'seller_id = :id', [':id' => $result['seller_id']]);
 
             if ($disable) {
@@ -98,7 +97,7 @@ class Seller
     {
         $session = new Session();
         $update = new Update();
-        $disable = $update->update('product', ['status_product' => 0], 'seller_id = :id', [':id' => $session->authSeller]);
+        $update->update('product', ['status_product' => 0], 'seller_id = :id', [':id' => $session->authSeller]);
         $disable = $update->update(self::Table, ['status_account' => 0, 'updated_at' => DATE_APP], 'seller_id = :id', [':id' => $session->authSeller]);
 
         if ($disable) {
