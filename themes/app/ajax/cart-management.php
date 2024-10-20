@@ -29,13 +29,17 @@ if (isset($data['product_id'])) {
                     echo json_encode([
                         'quantity' => $productInCart['quantity'],
                         'price' => brl_price_format($productInCart['price'] * $productInCart['quantity']),
-                        'total' => brl_price_format($cart->getCart()->total)
+                        'total' => brl_price_format($cart->getCart()->total),
+                        'alert' => (new Alert('Produto adicionado ao carrinho!', ALERT_SUCCESS))->getDiv(),
                     ]);
                 }
             }
         } catch (Exception $e) {
             // Retorna uma mensagem de erro se o estoque for insuficiente
-            echo json_encode(['error' => $e->getMessage()]);
+            echo json_encode([
+                'alert' => (new Alert($e->getMessage(), ALERT_WARNING))->getDiv(),
+                'error' => true
+            ]);
         }
 
     } elseif ($data['action'] == 'removeOne') { // Remove uma unidade de um produto do carrinho e retorna os dados atualizados

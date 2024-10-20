@@ -45,7 +45,7 @@ class Cart
                 $newQuantity = $productInCart['quantity'] + 1;
                 if ($newQuantity > $product['qtt_stock']) {
                     // Se a quantidade excede o estoque, não permite adicionar
-                    throw new Exception('Estoque insuficiente para o produto ' . $product['name']);
+                    throw new Exception('Estoque insuficiente para o produto ' . $product['name'] . '!');
                 }
 
                 // Atualiza a quantidade no carrinho

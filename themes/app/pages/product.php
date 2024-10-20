@@ -60,11 +60,22 @@ $product = $result[0];
             success: function (data) {
                 data = JSON.parse(data);
 
-                if ('error' in data) {
-                    alert(data.error);
-                } else {
-                    alert('Produto adicionado ao carrinho!');
+                if (!document.getElementById("notification")) {
+                    // Insere o HTML do alerta no topo da página
+                    document.body.insertAdjacentHTML('afterbegin', data.alert);
                 }
+
+                const notification = document.getElementById("notification");
+
+                // Mostrar a notificação após um pequeno atraso para animação
+                setTimeout(function() {
+                    notification.classList.add("show");
+                }, 100); // 100ms para garantir que o DOM está pronto
+
+                // Ocultar a notificação automaticamente
+                setTimeout(function() {
+                    notification.classList.remove("show");
+                }, 2000);
             }
         });
     }
