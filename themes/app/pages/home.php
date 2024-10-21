@@ -21,71 +21,119 @@ $bestSellingProducts = $search->executeQuery('
 
 ?>
 
-
-
 <div class="home">
-
-    <div id="slider">
-        <input type="radio" name="slider" id="slide1" checked>
-        <input type="radio" name="slider" id="slide2">
-        <input type="radio" name="slider" id="slide3">
-        <input type="radio" name="slider" id="slide4">
-        <div id="slides">
-            <div id="overflow">
-                <div class="inner">
-                    <div class="slide slide_1">
-                        <div class="slide-content">
-                            <h2>Slide 1</h2>
-                        </div>
-                    </div>
-                    <div class="slide slide_2">
-                        <div class="slide-content">
-                            <h2>Slide 2</h2>
-                        </div>
-                    </div>
-                    <div class="slide slide_3">
-                        <div class="slide-content">
-                            <h2>Slide 3</h2>
-                        </div>
-                    </div>
-                    <div class="slide slide_4">
-                        <div class="slide-content">
-                            <h2>Slide 4</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="bullets">
-            <label for="slide1"></label>
-            <label for="slide2"></label>
-            <label for="slide3"></label>
-            <label for="slide4"></label>
-        </div>
-    </div>
-
-
     <div class="title">
-        <h2>Bem vindo <?= $session->username ?>!</h2>
+        <h2>Bem-vindo(a), <?= $session->username ?>! 👋</h2>
     </div>
 
     <?php if (!empty($bestSellingProducts)) { ?>
 
-        <div class="products-tab">
-            <h3>Produtos em destaque</h3>
+        <h1>Produtos em destaque</h1>
+        <div id="slider">
+            <!-- Radio inputs pra navegação do slider -->
+            <?php
+            $counter = 0;
+            foreach ($bestSellingProducts as $product) {
+                $counter++;
+                if ($counter > 3) break; // Limite de 3 produtos
+                echo '<input type="radio" name="slider" id="slide' . $counter . '"' . ($counter === 1 ? ' checked' : '') . '>';
+            }
+            ?>
 
-            <ul class="products-show"><!-- Aqui exibe os produtos -->
-                <?php foreach ($bestSellingProducts as $product) { ?>
+            <div id="slides">
+                <div id="overflow">
+                    <div class="inner">
+                        <?php
+                        // Reset do contador pra usar as classes no CSS
+                        $counter = 0;
+                        foreach ($bestSellingProducts as $product) {
+                            $counter++;
+                            if ($counter > 3) break; // Limite de 3 produtos
+                        ?>
+                            <div class="slide slide_<?= $counter ?>">
+                                <div class="slide-content">
+                                    <div class="upper-content">
+                                        <div class="product-info-slider">
+                                            <h2><?= $product['product_name'] ?></h2>
+                                            <p>R$ <?= brl_price_format($product['price']) ?></p>
+                                            <p>Vendedor: <?= $product['seller_name'] ?></p>
+                                        </div>
+                                        <div class="product-image-slider">
+                                            <!-- Foto placeholder -->
+                                            <img class="product-icon" src="/projetotcc/storage/images/icon_product_PLACEHOLDER.png" alt="product-icon">
+                                        </div>
+                                    </div>
+                                    <div class="lower-content">
+                                        <a href="<?= url("app/product/{$product['product_id']}") ?>">Ver produto</a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+
+            <div id="bullets">
+                <?php
+                // Reset do contador pra criar os bullets
+                $counter = 0;
+                foreach ($bestSellingProducts as $product) {
+                    $counter++;
+                    if ($counter > 3) break; // Limite de 3 produtos
+                    echo '<label for="slide' . $counter . '"></label>';
+                }
+                ?>
+            </div>
+        </div>
+</div>
+
+<div class="homepage-content">
+    <h1 id="other-products-text">Outros produtos</h1>
+
+    <div class="grid-container">
+        <div class="product-grid">
+            <?php foreach ($bestSellingProducts as $product) { ?>
+                <div class="product-item">
+                    <div class="product-image">
+                        <img src="/projetotcc/storage/images/icon_product_PLACEHOLDER.png" alt="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3><?= $product['product_name'] ?></h3>
+                        <p>R$ <?= brl_price_format($product['price']) ?></p>
+                        <p>Vendedor: <?= $product['seller_name'] ?></p>
+                        <a href="<?= url("app/product/{$product['product_id']}") ?>">Ver produto</a>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+
+<?php } else { ?>
+    <div class="empty-products">
+        <h3>Nenhum produto a venda!</h3>
+    </div>
+<?php } ?>
+
+
+<!-- 
+    Trecho de código não utilizado (n tirei caso for usar dps)
+    <?php if (!empty($bestSellingProducts)) { ?>
+        <div class="products-tab">
+            <ul class="products-show">
+                <?php
+                $counter = 0;
+                foreach ($bestSellingProducts as $product) {
+                    $counter++;
+                    if ($counter > 3) break; // Limit to 3 products
+                ?>
                     <li class="product">
                         <p>
                             <a href="<?= url("app/product/{$product['product_id']}") ?>">
                                 <?= $product['product_name'] ?>
                             </a>
                         </p>
-
                         <p>R$ <?= brl_price_format($product['price']) ?></p>
-
                         <p>Vendedor: <?= $product['seller_name'] ?></p>
                     </li>
                 <?php } ?>
@@ -96,4 +144,4 @@ $bestSellingProducts = $search->executeQuery('
             <h3>Nenhum produto a venda!</h3>
         </div>
     <?php } ?>
-</div>
+-->

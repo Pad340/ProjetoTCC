@@ -38,21 +38,29 @@ main {
     display: inline-block;
 }
 
-.navdiv>ul>li>a {
+.navdiv > ul > li > a {
     font-size: 25px;
     padding: 5px 30px;
     color: white;
     text-decoration: none;
-    transition: color 0.3s ease;
+    display: inline-block;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.navdiv>ul>li>.home-div>a:hover,
-.navdiv>ul>li>.products-div>a:hover,
-.navdiv>ul>li>.cart-div>a:hover,
-.navdiv>ul>li>.dropdown>.profile-div>h1:hover {
-    border-radius: 10px;
-    color: #ddd;
+.navdiv > ul > li > a:hover {
+    transform: scale(1.05);
+    color: rgba(255, 255, 255, 0.770);
 }
+
+.navdiv > ul > li > .home-div > a:hover,
+.navdiv > ul > li > .products-div > a:hover,
+.navdiv > ul > li > .cart-div > a:hover,
+.navdiv > ul > li > .dropdown > .profile-div > h1:hover {
+    transform: scale(1.05);
+    color: rgba(255, 255, 255, 0.770);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
 
 /* Home (texto)  -------------------------------- */
 
@@ -205,6 +213,7 @@ main {
 }
 
 .UC-container {
+    border: 2px solid rgba(0, 0, 0, 0.15);
     box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.115);
     width: 80vw;
     margin-top: 50px 0px;
@@ -226,18 +235,19 @@ main {
     text-align: center;
     font-size: 20px;
     padding: 15px 20px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
     border-radius: 10px;
     background-color: white;
 }
 
 #UC-button-reactivate {
+    border: 2px solid rgba(0, 0, 0, 0.15);
     margin: 50px 0;
     text-align: center;
     font-size: 20px;
     padding: 15px 20px;
     border-radius: 10px;
     background-color: #ffedd2;
-    box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.115);
 }
 
 .UC-text-div>h2 {
@@ -277,6 +287,7 @@ main {
 }
 
 .SC-container {
+    border: 2px solid rgba(0, 0, 0, 0.15);
     box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.115);
     width: 80vw;
     margin-top: 50px;
@@ -359,9 +370,334 @@ isso aqui n funfa pq a table n tem fim :(
 
 */
 
+/* Home Page =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Slider */
+
+#slider {
+    margin: 0 auto;
+    width: 65vw;
+    max-width: 100%;
+    text-align: center;
+}
+
+#slider input[type=radio] {
+    display: none;
+}
+
+#slider label {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#slides {
+    padding: 10px;
+    background: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+#overflow {
+    width: 100%;
+    overflow: hidden;
+}
+
+#slide1:checked~#slides .inner {
+    margin-left: 0;
+}
+
+#slide2:checked~#slides .inner {
+    margin-left: -100%;
+}
+
+#slide3:checked~#slides .inner {
+    margin-left: -200%;
+}
+
+
+#slides .inner {
+    transition: margin-left 800ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
+    width: 400%;
+    line-height: 0;
+    height: 300px;
+}
+
+#slides .slide {
+    border-radius: 10px;
+    width: 25%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #000000;
+}
+
+#slides .slide_1 {
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-right: none;
+    border-left: none;
+    background: #FFFDD0;
+}
+
+#slides .slide_2 {
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-right: none;
+    border-left: none;
+    background: #FFFDD0;
+}
+
+#slides .slide_3 {
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-right: none;
+    border-left: none;
+    background: #FFFDD0;
+}
+
+#bullets {
+    margin: 10px 0 0;
+    text-align: center;
+}
+
+#bullets label {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background: #ccc;
+    margin: 0 10px;
+}
+
+#slide1:checked~#bullets label:nth-child(1),
+#slide2:checked~#bullets label:nth-child(2),
+#slide3:checked~#bullets label:nth-child(3) {
+    background: #444;
+}
+
+.slide-content {
+    width: 80%;
+
+}
+
+.upper-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 100%;
+}
+
+.product-info-slider {
+    font-size: 18px;
+}
+
+.product-info-slider>p {
+    margin: 2em 0;
+}
+
+.product-info-slider {
+    text-align: center;
+    margin-right: 20px;
+}
+
+.product-image-slider {
+    display: flex;
+    justify-content: center;
+}
+
+.product-icon {
+    width: 12vw;
+    max-width: 100%;
+    height: auto;
+}
+
+.lower-content > a {
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-radius: 50px;
+    padding: 20px 20px;
+    color: black;
+    text-decoration: none;
+    background-color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-block;
+}
+
+.lower-content > a:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Grid dos outros produtos */
+
+#other-products-text {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.grid-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;       
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.product-item {
+    background-color: #FFFDD0;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.product-item:hover {
+    transform: scale(1.05);
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    max-width: 150px;
+    margin-bottom: 10px;
+}
+
+.product-info h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.product-info p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.product-info a {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border-radius: 30px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+}
+
+.product-info a:hover {
+    background-color: rgb(228, 228, 228);
+}
+
+/* Página do produto singular */
+
+.product-page {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.product {
+    display: grid;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    padding: 20px;
+    background-color: #FFFDD0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+}
+
+/* Product Image */
+.product-picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 300px;
+}
+
+.product-picture p {
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Product Data */
+.product_data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.product_data p {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #343a40;
+}
+
+.product-cart {
+    grid-column: span 2;
+    text-align: center;
+}
+
+.product-cart p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.product-cart button {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 30px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease;
+}
+
+#back-to-home-button {
+    text-decoration: none;
+    margin: 30px 0;
+    background-color: #FF881C;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 30px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease;
+}
+
+.product-cart button:hover {
+    background-color: rgb(228, 228, 228);
+}
+
+#product-title {
+    font-size: 40px;
+}
+
 
 /* Modal =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-
 
 /* Modal Edit */
 .modal {
@@ -520,7 +856,7 @@ isso aqui n funfa pq a table n tem fim :(
     border: solid 1px gray;
     border-radius: 10px;
     background-color: white;
-    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.05); 
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.05);
 }
 
 .close {
@@ -549,109 +885,6 @@ isso aqui n funfa pq a table n tem fim :(
     cursor: pointer;
 }
 
-/* Página principal =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-
-/* Slider */
-
-#slider {
-    margin: 0 auto;
-    width: 800px;
-    max-width: 100%;
-    text-align: center;
-}
-
-#slider input[type=radio] {
-    display: none;
-}
-
-#slider label {
-    cursor: pointer;
-    text-decoration: none;
-}
-
-#slides {
-    padding: 10px;
-    background: #fff;
-    position: relative;
-    z-index: 1;
-}
-
-#overflow {
-    width: 100%;
-    overflow: hidden;
-}
-
-#slide1:checked~#slides .inner {
-    margin-left: 0;
-}
-
-#slide2:checked~#slides .inner {
-    margin-left: -100%;
-}
-
-#slide3:checked~#slides .inner {
-    margin-left: -200%;
-}
-
-#slide4:checked~#slides .inner {
-    margin-left: -300%;
-}
-
-#slides .inner {
-    transition: margin-left 800ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
-    width: 400%;
-    line-height: 0;
-    height: 300px;
-}
-
-#slides .slide {
-    width: 25%;
-    float: left;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    color: #fff;
-}
-
-#slides .slide_1 {
-    background: #00171F;
-}
-
-#slides .slide_2 {
-    background: #003459;
-}
-
-#slides .slide_3 {
-    background: #007EA7;
-}
-
-#slides .slide_4 {
-    background: #00A8E8;
-}
-
-
-
-#bullets {
-    margin: 150px 0 0;
-    text-align: center;
-}
-
-#bullets label {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 100%;
-    background: #ccc;
-    margin: 0 10px;
-}
-
-#slide1:checked~#bullets label:nth-child(1),
-#slide2:checked~#bullets label:nth-child(2),
-#slide3:checked~#bullets label:nth-child(3),
-#slide4:checked~#bullets label:nth-child(4) {
-    background: #444;
-}
 
 @media screen and (max-width: 900px) {
 
@@ -661,37 +894,34 @@ isso aqui n funfa pq a table n tem fim :(
     }
 }
 
-
-
-
 /* Alertas =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
 /* Estilos gerais para o alerta */
 .notification {
     position: fixed;
-    top: -100px;
-    /* Começa fora da tela */
-    left: 25vw;
-    /* Responsivo - 25% da tela de cada lado */
-    right: 25vw;
-    width: 50vw;
-    /* Responsivo - Ocupa 50% da largura da tela */
+    top: 17vh;
+    /* Mantenha a posição vertical desejada */
+    right: -100%;
+    /* Começa fora da tela à direita */
+    width: 350px;
+    /* Defina uma largura fixa ou desejada */
     padding: 15px;
     color: white;
     font-size: 16px;
     font-weight: bold;
     text-align: center;
-    border-radius: 8px;
+    border-radius: 8px 0 0 8px;
     z-index: 1000;
-    transition: top 0.5s ease-in-out;
+    /* Aumente o z-index para garantir que apareça acima de outros elementos */
+    transition: right 0.5s ease-in-out;
     /* Animação para aparecer */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Exibir o alerta */
 .notification.show {
-    top: 20px;
-    /* Após exibir, desce 20px do topo */
+    right: 0;
+    /* Alinha a notificação 25px da direita ao ser exibida */
 }
 
 /* Estilos baseados no tipo de alerta */
@@ -719,8 +949,14 @@ isso aqui n funfa pq a table n tem fim :(
 /* Estilos responsivos para telas menores */
 @media (max-width: 768px) {
     .notification {
-        left: 10vw;
-        right: 10vw;
         width: 80vw;
+        /* Ajuste a largura para telas menores */
+        right: -80vw;
+        /* Ajusta para fora da tela */
+    }
+
+    .notification.show {
+        right: 10vw;
+        /* Ajuste para a posição desejada ao exibir */
     }
 }
