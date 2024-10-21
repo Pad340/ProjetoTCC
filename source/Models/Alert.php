@@ -51,4 +51,11 @@ class Alert
         </script>';
     }
 
+    public function getDiv(): string
+    {
+        return '
+        <div id="notification" class="notification ' . $this->type . '">
+            <span id="notificationMessage">' . $this->message . '</span>
+        </div>';
+    }
 }

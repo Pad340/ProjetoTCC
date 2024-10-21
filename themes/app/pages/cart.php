@@ -2,6 +2,18 @@
 
 use Autoload\Core\DB\Select;
 use Autoload\Models\Cart;
+use Autoload\Models\Reserve;
+
+$reserve = new Reserve();
+
+if (isset($_POST['reserve'])) {
+    $reserve->generateReserve(0);
+    echo $reserve->getMessage();
+
+} elseif (isset($_POST['generate-sale'])) {
+    $reserve->generateReserve(1);
+    echo $reserve->getMessage();
+}
 
 $cart = (new Cart())->getCart();
 $search = new Select();
@@ -25,11 +37,13 @@ $search = new Select();
                     <p>
                         Quantidade:
                         <!-- Retirar uma unidade -->
-                        <span class="cart-less" onclick="removeOne(<?= $product['id'] ?>)"> < </span>
+                        <button class="cart-less" onclick="removeOne(<?= $product['id'] ?>)"> <</button>
                         <!-- Quantidade -->
                         <span id="quantity-<?= $product['id'] ?>"><?= $product['quantity'] ?></span>
                         <!-- Adicionar uma unidade -->
-                        <span class="cart-more" onclick="more(<?= $product['id'] ?>)"> > </span>
+                        <button id="cart-more-<?= $product['id'] ?>" class="cart-more"
+                                onclick="more(<?= $product['id'] ?>)"> >
+                        </button>
 
                     </p>
                     <p>R$
@@ -48,7 +62,17 @@ $search = new Select();
         <li class="cart-total"><!-- Total do carrinho -->
             <p>Total: R$ <span id="cart-total"><?= brl_price_format($cart->total) ?></span></p>
         </li>
+        <form method="post">
+            <?php if ($session->has('authSeller')) { ?>
+                <button type="submit" <?= $cart->total > 0 ? '' : 'disabled' ?> name="generate-sale" id="generate-sale">
+                    Gerar uma venda
+                </button>
+            <?php } ?>
+            <button type="submit" <?= $cart->total > 0 ? '' : 'disabled' ?> name="reserve" id="reserve">Reservar
+            </button>
+        </form>
     </ul>
+
 </div>
 
 <script>
@@ -74,6 +98,7 @@ $search = new Select();
                 document.getElementById('quantity-' + product_id).innerHTML = data.quantity;
                 document.getElementById('product-' + product_id + '-total').innerHTML = data.price;
                 document.getElementById('cart-total').innerHTML = data.total;
+                document.getElementById('cart-more-' + product_id).disabled = false;
             }
         });
     }
@@ -94,9 +119,13 @@ $search = new Select();
             success: function (data) {
                 data = JSON.parse(data);
 
-                document.getElementById('quantity-' + product_id).innerHTML = data.quantity;
-                document.getElementById('product-' + product_id + '-total').innerHTML = data.price;
-                document.getElementById('cart-total').innerHTML = data.total;
+                if ('error' in data) {
+                    document.getElementById('cart-more-' + product_id).disabled = true;
+                } else {
+                    document.getElementById('quantity-' + product_id).innerHTML = data.quantity;
+                    document.getElementById('product-' + product_id + '-total').innerHTML = data.price;
+                    document.getElementById('cart-total').innerHTML = data.total;
+                }
             }
         });
     }

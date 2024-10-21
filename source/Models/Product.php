@@ -52,9 +52,9 @@ class Product
      * @param int $newStatus_product
      * @return bool
      */
-    public function update(int $product_id, string $newName, int $newCategory, string $newPrice, int $newQtt_stock, int $newStatus_product): bool
+    public function update(int $product_id, int $newCategory, string $newPrice, int $newQtt_stock, int $newStatus_product): bool
     {
-        $newProduct = $this->checkChanges($product_id, $newName, $newCategory, $newPrice, $newQtt_stock, $newStatus_product);
+        $newProduct = $this->checkChanges($product_id, $newCategory, $newPrice, $newQtt_stock, $newStatus_product);
 
         if (empty($newProduct)) return false;
 
@@ -64,6 +64,7 @@ class Product
             $this->messageType = ALERT_ERROR;
             return false;
         }
+
 
         $this->message = 'Produto editado com sucesso.';
         $this->messageType = ALERT_SUCCESS;
@@ -125,6 +126,12 @@ class Product
             $this->messageType = ALERT_WARNING;
             return null;
         }
+
+        if ($price < 0.05) {
+            $this->message = 'Preço muito baixo, o valor mínimo é R$ 0,05.';
+            $this->messageType = ALERT_WARNING;
+            return null;
+        }
         $price = brl_to_decimal($price);
 
         // Estoque
@@ -153,10 +160,10 @@ class Product
      * @param int $newStatus_product
      * @return array|null Mudanças, se houverem
      */
-    private function checkChanges(int $product_id, string $newName, int $newCategory, string $newPrice, int $newQtt_stock, int $newStatus_product): ?array
+    private function checkChanges(int $product_id, int $newCategory, string $newPrice, int $newQtt_stock, int $newStatus_product): ?array
     {
         $search = new Select();
-        $currentProduct = $search->selectFirst(self::Table, 'WHERE product_id = :id', "id={$product_id}", 'name, category_id, price, qtt_stock, status_product');
+        $currentProduct = $search->selectFirst(self::Table, 'WHERE product_id = :id', "id={$product_id}", 'category_id, price, qtt_stock, status_product');
 
         if (!$currentProduct) {
             $this->message = 'Produto não existente.';
@@ -165,16 +172,6 @@ class Product
         }
 
         $changes = [];
-
-        // Verifica e valida o nome
-        if ($newName !== $currentProduct['name']) {
-            if (strlen($newName) > 100) {
-                $this->message = 'O nome do produto não deve ter mais que 100 caracteres.';
-                $this->messageType = ALERT_WARNING;
-                return null;
-            }
-            $changes['name'] = $newName;
-        }
 
         // Verifica e valida a categoria
         if ($newCategory !== $currentProduct['category_id']) {

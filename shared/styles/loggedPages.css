@@ -885,17 +885,6 @@ isso aqui n funfa pq a table n tem fim :(
     cursor: pointer;
 }
 
-
-@media screen and (max-width: 900px) {
-
-    #slides {
-        max-width: calc(100% - 140px);
-        margin: 0 auto;
-    }
-}
-
-/* Alertas =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
-
 /* Estilos gerais para o alerta */
 .notification {
     position: fixed;

@@ -17,14 +17,14 @@ if ($session->has('authUser')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= SITE_NAME ?></title>
-    <link rel="stylesheet" href="../../shared/styles/unloggedPages.css"/>
-    <link rel="icon" href="../../storage/images/icon_web.png"/>
+    <link rel="stylesheet" href="/projetotcc/shared/styles/unloggedPages.css"/>
+    <link rel="icon" href="/projetotcc/storage/images/icon_web.png"/>
 </head>
 
 <body>
 
 <div class="whiteLogo">
-    <img class="whiteLogo2" src="../../storage/images/logo_white.png" alt="Logo" height="300">
+    <img class="whiteLogo2" src="/projetotcc/storage/images/logo_white.png" alt="Logo" height="300">
 </div>
 
 <main>

@@ -14,7 +14,7 @@ $bestSellingProducts = $search->executeQuery('
     FROM product p
     LEFT JOIN product_reserve pr ON p.product_id = pr.product_id
     LEFT JOIN seller s ON p.seller_id = s.seller_id
-    WHERE p.status_product = 1 AND status_account = 1 AND licensed = 1
+    WHERE p.status_product = 1 AND status_account = 1 AND licensed = 1 AND p.qtt_stock > 0
     GROUP BY p.product_id, p.name, p.price, s.name
     ORDER BY total_reservations DESC
 ');
@@ -141,7 +141,7 @@ $bestSellingProducts = $search->executeQuery('
         </div>
     <?php } else { ?>
         <div class="empty-products">
-            <h3>Nenhum produto a venda!</h3>
+            <h3>Nenhum produto à venda!</h3>
         </div>
     <?php } ?>
 -->
