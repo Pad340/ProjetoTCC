@@ -26,7 +26,7 @@ class Alert
      * @param int $time Em segundos
      * @return string
      */
-    public function getHtml(int $time = 3): string
+    public function getHtml(int $time = 4): string
     {
         $msTime = $time * 1000;
         return '

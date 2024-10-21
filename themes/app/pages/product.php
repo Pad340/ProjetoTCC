@@ -10,7 +10,9 @@ $result = $search->executeQuery(
             FROM product p
             LEFT JOIN category c ON p.category_id = c.category_id
             WHERE p.product_id = :id AND p.status_product = 1
-            LIMIT 1', "id={$productID}");
+            LIMIT 1',
+    "id={$productID}"
+);
 
 if (empty($result)) {
     redirect('../home');
@@ -22,16 +24,17 @@ $product = $result[0];
 
 <div class="product-page">
     <div class="product">
-
-        <div class="product_data">
-            <p><?= $product['name'] ?></p>
-            <p>Categoria: <?= $product['category'] ?></p>
-            <p>Por apenas: R$ <?= brl_price_format($product['price']) ?></p>
+        <div class="product-picture">
+            <p>(imagem maior)</p>
         </div>
 
-        <br><!-- Tira isso depois quando for estilizar -->
+        <div class="product_data">
+            <p id="product-title"><?= $product['name'] ?></p>
+            <p>Categoria: <?= $product['category'] ?></p>
+            <p>Por apenas R$<?= brl_price_format($product['price']) ?></p>
+        </div>
 
-        <div class="product-addToCart">
+        <div class="product-cart">
             <p>Quantidade em estoque: <?= $product['qtt_stock'] ?></p>
 
             <?php if ($product['qtt_stock'] > 0) { ?>
@@ -41,6 +44,8 @@ $product = $result[0];
             <?php } ?>
         </div>
     </div>
+    
+    <a id="back-to-home-button" href="<?= url('app/home') ?>">Voltar para a página inicial</a>
 </div>
 
 <script>
@@ -80,4 +85,3 @@ $product = $result[0];
         });
     }
 </script>
-
