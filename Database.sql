@@ -30,17 +30,11 @@ CREATE TABLE `category`
   COLLATE = utf8mb4_general_ci;
 
 INSERT INTO `category` (`name`)
-VALUES ('Pratos Principais'),
-       ('Lanches'),
-       ('Salgados e Petiscos'),
+VALUES ('Salgados'),
        ('Bebidas'),
-       ('Sobremesas'),
-       ('Vegetarianos e Veganos'),
-       ('Saudáveis'),
-       ('Comida Internacional'),
-       ('Padaria'),
-       ('Fast Food');
-
+       ('Doces'),
+       ('Chips'),
+       ('Balas');
 
 CREATE TABLE `seller`
 (
@@ -63,7 +57,6 @@ CREATE TABLE `seller`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
-
 
 CREATE TABLE `product`
 (
@@ -91,7 +84,6 @@ CREATE TABLE `product`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
 
-
 CREATE TABLE `reserve`
 (
     `reserve_id`  int(11)        NOT NULL AUTO_INCREMENT,
@@ -103,7 +95,6 @@ CREATE TABLE `reserve`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;
-
 
 CREATE TABLE `product_reserve`
 (
