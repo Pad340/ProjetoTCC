@@ -240,6 +240,10 @@ main {
     background-color: white;
 }
 
+#UC-button:hover {
+    cursor: pointer;
+}
+
 #UC-button-reactivate {
     border: 2px solid rgba(0, 0, 0, 0.15);
     margin: 50px 0;
@@ -248,6 +252,7 @@ main {
     padding: 15px 20px;
     border-radius: 10px;
     background-color: #ffedd2;
+    cursor: pointer;
 }
 
 .UC-text-div>h2 {

@@ -127,12 +127,12 @@ class Product
             return null;
         }
 
+        $price = brl_to_decimal($price);
         if ($price < 0.05) {
             $this->message = 'Preço muito baixo, o valor mínimo é R$ 0,05.';
             $this->messageType = ALERT_WARNING;
             return null;
         }
-        $price = brl_to_decimal($price);
 
         // Estoque
         if ($qtt_stock > 0 and $qtt_stock > 5000) {
@@ -153,7 +153,6 @@ class Product
     /**
      * Verifica as mudanças
      * @param int $product_id
-     * @param string $newName
      * @param int $newCategory
      * @param string $newPrice
      * @param int $newQtt_stock

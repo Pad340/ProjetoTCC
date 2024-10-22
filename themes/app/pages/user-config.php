@@ -9,7 +9,6 @@ if (isset($_POST['register_btn'])) {
     $seller->register($_POST['seller_name'], $_POST['seller_cpf'], $_POST['phone_number']);
 
     echo $seller->getMessage();
-    refresh(3);
 }
 
 // Espera o click no botão de ativar conta

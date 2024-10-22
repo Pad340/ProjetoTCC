@@ -25,7 +25,7 @@ $product = $result[0];
 <div class="product-page">
     <div class="product">
         <div class="product-picture">
-            <p>(imagem maior)</p>
+            <img class="product-icon" src="/projetotcc/storage/images/icon_product_PLACEHOLDER.png" alt="product-icon">
         </div>
 
         <div class="product_data">
