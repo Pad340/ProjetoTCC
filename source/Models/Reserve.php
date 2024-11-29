@@ -110,14 +110,14 @@ class Reserve
 
         $order = null;
         foreach ($this->cart->products as $product) {
-            $quantity = $search->selectFirst(
+            $data = $search->selectFirst(
                 'product',
                 'WHERE product_id = :id',
                 "id={$product['id']}",
-                'qtt_stock'
-            )['qtt_stock'];
+                'price, qtt_stock'
+            );
 
-            $newQuantity = $quantity - $product['quantity'];
+            $newQuantity = $data['qtt_stock'] - $product['quantity'];
 
             if ($newQuantity < 0) {
                 throw new Exception('O produto ' . $product['name'] . ' está fora de estoque.');
@@ -128,7 +128,8 @@ class Reserve
             $order[] = [
                 'product_id' => $product['id'],
                 'reserve_id' => $orderID,
-                'quantity' => $product['quantity']
+                'quantity' => $product['quantity'],
+                'total_value' => $product['price'] * $product['quantity'],
             ];
         }
 

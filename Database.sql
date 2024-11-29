@@ -98,23 +98,16 @@ CREATE TABLE `reserve`
 
 CREATE TABLE `product_reserve`
 (
-    `product_reserve_id` int(11) NOT NULL AUTO_INCREMENT,
-    `product_id`         int(11) NOT NULL,
-    `reserve_id`         int(11) NOT NULL,
-    `quantity`           int(11) NOT NULL,
+    `product_reserve_id` int(11)        NOT NULL AUTO_INCREMENT,
+    `product_id`         int(11)        NOT NULL,
+    `reserve_id`         int(11)        NOT NULL,
+    `quantity`           int(11)        NOT NULL,
+    `total_value`        decimal(10, 2) NOT NULL,
     PRIMARY KEY (`product_reserve_id`),
     KEY `reseved_product_idx` (`product_id`),
     KEY `reseve_idx` (`reserve_id`),
-    CONSTRAINT `reserve`
-        FOREIGN KEY (`reserve_id`)
-            REFERENCES `reserve` (`reserve_id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION,
-    CONSTRAINT `reserved_product`
-        FOREIGN KEY (`product_id`)
-            REFERENCES `product` (`product_id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
+    CONSTRAINT `reserve` FOREIGN KEY (`reserve_id`) REFERENCES `reserve` (`reserve_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `reserved_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_general_ci;

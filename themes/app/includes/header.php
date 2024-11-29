@@ -37,6 +37,10 @@
                         <img class="profileIcon" src="/projetotcc/storage/images/icon_profile.png" alt="profile-icon">
                     </div>
                     <div class="dropdown-content">
+                        <a href="<?= url('app/history') ?>">Minhas compras</a>
+                        <?php if ($session->has('authSeller')) { ?>
+                            <a href="<?= url('app/sales_report') ?>">Relatório de vendas</a>
+                        <?php } ?>
                         <a href="<?= url('app/user-config') ?>">Configurações</a>
                         <a href="<?= url('app/logout') ?>">Sair</a>
                     </div>
