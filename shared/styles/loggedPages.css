@@ -701,6 +701,157 @@ isso aqui n funfa pq a table n tem fim :(
     font-size: 40px;
 }
 
+/* Página do carrinho =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+/* Cart Page Container */
+.cart-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cart-page h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.cart {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.product-in-cart {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.product-in-cart p {
+    margin: 5px 0;
+    color: #333;
+}
+
+.product-in-cart a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.product-in-cart a:hover {
+    text-decoration: underline;
+}
+
+.cart-less, .cart-more {
+    background-color: #007bff;
+    color: white;
+    font-size: 1.2rem;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
+}
+
+.cart-less:hover, .cart-more:hover {
+    background-color: #0056b3;
+}
+
+.cart-less[onclick] {
+    background-color: #dc3545;
+    color: white;
+    padding: 6px 14px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.remove-button[onclick] {
+    background-color: #dc3545;
+    color: white;
+    padding: 6px 14px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.cart-less[onclick]:hover,
+.remove-button[onclick]:hover {
+    background-color: #c82333;
+}
+
+.empty-cart-btn button {
+    background-color: #ffc400;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px 5px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.empty-cart-btn button:hover {
+    background-color: #ff9900;
+}
+
+.cart-total {
+    text-align: right;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #333;
+    margin-top: 20px;
+}
+
+.cart-total span {
+    color: #28a745;
+}
+
+.cart-form button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px 5px;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.cart-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.cart-form button:hover:not(:disabled) {
+    background-color: #218838;
+}
+
 
 /* Modal =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
