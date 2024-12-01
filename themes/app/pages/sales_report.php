@@ -8,44 +8,52 @@ if (!$session->has('authSeller')) {
 
 $search = new Select();
 $reports = $search->executeQuery('
-SELECT p.name as product_name, pr.quantity, pr.total_value as value, r.user_id, r.reserved_at, r.total_value, r.redeemed
+SELECT r.reserve_id, p.name as product_name, pr.quantity, pr.total_value as value, r.user_id, r.reserved_at, r.total_value, r.redeemed
 FROM product_reserve pr
 LEFT JOIN product p ON p.product_id = pr.product_id
 LEFT JOIN reserve r ON pr.reserve_id = r.reserve_id
 WHERE p.seller_id = :seller_id
 ORDER BY reserved_at DESC', "seller_id={$session->authSeller}");
 
-$last_date = null;
+$lastDate = null;
+$lastReserve = null;
 ?>
 
 <div class="sales_report">
-    <?php
-    if (empty($reports)) { ?>
-        <p class="phrase">Nenhum produto vendido!</p>
-    <?php } else { ?>
+    <h1>Relatórios</h1>
 
-        <?php foreach ($reports as $key => $report) { ?>
+    <?php if (empty($reports)) { ?>
+        <p class="phrase">Nenhum produto vendido!</p>
+
+    <?php } else { ?>
+        <?php foreach ($reports as $report) { ?>
             <div class="data">
                 <?php
-                if ($last_date != date_fmt($report['reserved_at'], 'd/m/Y')) {
-                    $last_date = date_fmt($report['reserved_at'], 'd/m/Y'); ?>
+                if ($lastDate != date_fmt($report['reserved_at'], 'd/m/Y')) {
+                    $lastDate = date_fmt($report['reserved_at'], 'd/m/Y'); ?>
 
-                    <div class='date'><?= $last_date ?></div>
+                    <div class='date'>
+                        <h2><?= $lastDate ?></h2>
+                    </div>
+                <?php } ?>
 
+                <?php if ($lastReserve != $report['reserve_id']) {
+                    $lastReserve = $report['reserve_id']; ?>
+                    <h3>ID da reserva: <?= $lastReserve ?></h3>
+                    <h3>Total da reserva: <?= $report['total_value'] ?></h3>
                 <?php } ?>
 
                 <div class="sales_data" style="border: black 1px solid; margin: 1px">
-                    <p><b>Produto:</b> <?= $report['product_name'] ?></p>
-                    <p><b>Preço Un.: R$</b>
-                        <?= brl_price_format($report['value']) ?></p>
-                    <p><b>Quantidade:</b> <?= $report['quantity'] ?></p>
-                    <p><b>Total:</b> <?= brl_price_format($report['total_value']) ?></p>
-                    <p><b>Produto foi retirado? </b><?= $report['redeemed'] ?></p>
-                    <p><b>Reservado para:</b>
+                    <p><?= $report['product_name'] ?></p>
+                    <p>Preço Un.: R$
+                        <?= brl_price_format($report['value'] / $report['quantity']) ?></p>
+                    <p>Quantidade: <?= $report['quantity'] ?></p>
+                    <p>Total (preço x quantidade): <?= $report['value'] ?></p>
+                    <p>Reservado para:
                         <?= $search->selectFirst('user', 'WHERE user_id = :id', "id={$report['user_id']}", 'name')['name'] ?>
                     </p>
+                    <p>Produto foi retirado? <?= $report['redeemed'] == 1 ? 'Sim' : 'Não' ?></p>
                 </div>
-
             </div>
         <?php } ?>
     <?php } ?>
