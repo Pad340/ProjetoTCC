@@ -35,12 +35,11 @@ $product = $result[0];
         </div>
 
         <div class="product-cart">
-            <p>Quantidade em estoque: <?= $product['qtt_stock'] ?></p>
-
             <?php if ($product['qtt_stock'] > 0) { ?>
+                <p>Quantidade em estoque: <?= $product['qtt_stock'] ?></p>
                 <button onclick="addToCart('<?= $productID ?>')">Adicionar ao carrinho</button>
             <?php } else { ?>
-                <p>Produto indisponível para compra.</p>
+                <p>Produto fora de estoque.</p>
             <?php } ?>
         </div>
     </div>
