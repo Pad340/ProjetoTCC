@@ -23,57 +23,71 @@ main {
 
 .navdiv {
     background-color: #FF881C;
-    border-bottom: 18px #FFB776 solid;
+    border-bottom: 15px #FFB776 solid;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-left: 15px;
-    padding-right: 60px;
+    padding-left: 1vw;
+    padding-right: 2vw;
 
     color: #ffe7d3;
 }
 
+.header-logo {
+    height: 5vw;
+    transition: .3s;
+}
+
 .navdiv>ul>li {
+    padding: 0 1vw;
     list-style: none;
     display: inline-block;
 }
 
-.navdiv > ul > li > a {
+.navdiv>ul>li>a {
     font-size: 25px;
     padding: 5px 30px;
     color: white;
     text-decoration: none;
     display: inline-block;
+    transform-origin: center;
+}
+
+/* Precisa aplicar o transition aqui pra o efeito de hover funcionar in e out */
+.navdiv>ul>li>.home-div>a,
+.navdiv>ul>li>.products-div>a,
+.navdiv>ul>li>.cart-div>a,
+.navdiv>ul>li>.dropdown>.profile-div>h1,
+.navdiv>ul>li>.dropdown>.profile-div {
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.navdiv > ul > li > a:hover {
-    transform: scale(1.05);
-    color: rgba(255, 255, 255, 0.770);
-}
-
-.navdiv > ul > li > .home-div > a:hover,
-.navdiv > ul > li > .products-div > a:hover,
-.navdiv > ul > li > .cart-div > a:hover,
-.navdiv > ul > li > .dropdown > .profile-div > h1:hover {
+.navdiv>ul>li>.home-div>a:hover,
+.navdiv>ul>li>.products-div>a:hover,
+.navdiv>ul>li>.cart-div>a:hover,
+.navdiv>ul>li>.dropdown>.profile-div>h1:hover,
+.navdiv>ul>li>.dropdown>.profile-div:hover,
+.header-logo:hover {
+    cursor: pointer;
     transform: scale(1.05);
     color: rgba(255, 255, 255, 0.770);
     transition: transform 0.3s ease, color 0.3s ease;
+    backface-visibility: hidden;
+    /*  tentativa 1 de tirar o blur do texto (deu ruim)*/
+    -webkit-font-smoothing: antialiased;
+    /* tentativa 2 de tirar o blur (fudeu) */
 }
-
 
 /* Home (texto)  -------------------------------- */
 
 .homeIcon {
-    height: 35px;
+    height: 27px;
     width: auto;
     margin-left: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
 .home-div>a {
-    padding-left: 15px;
-    padding-right: 15px;
     display: inline-flex;
     align-items: center;
 
@@ -85,15 +99,13 @@ main {
 /* Produtos  -------------------------------- */
 
 .productsIcon {
-    height: 35px;
+    height: 27px;
     width: auto;
     margin-left: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
 .products-div>a {
-    padding-left: 15px;
-    padding-right: 15px;
     display: inline-flex;
     align-items: center;
 
@@ -105,8 +117,6 @@ main {
 /* Carrinho  -------------------------------- */
 
 .cart-div>a {
-    padding-left: 15px;
-    padding-right: 30px;
     display: inline-flex;
     align-items: center;
 
@@ -116,10 +126,10 @@ main {
 }
 
 .cartIcon {
-    height: 35px;
+    height: 27px;
     width: auto;
-    margin-left: 5px;
-    margin-bottom: 15px;
+    margin-left: 10px;
+    margin-bottom: 8px;
 }
 
 /* Perfil Dropdown --------------------------------- */
@@ -134,10 +144,10 @@ main {
 }
 
 .profileIcon {
-    height: 35px;
+    height: 27px;
     width: auto;
-    margin-left: 5px;
-    margin-bottom: 15px;
+    margin-left: 10px;
+    margin-bottom: 8px;
 }
 
 .dropdown {
@@ -151,6 +161,7 @@ main {
     display: none;
     position: absolute;
     margin-top: -10px;
+    width: 9vw;
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
@@ -163,7 +174,7 @@ main {
 .dropdown-content a {
     border-radius: 5px;
     color: black;
-    padding: 12px 20px;
+    padding: 10px 12px;
     text-decoration: none;
     display: block;
 }
@@ -190,6 +201,10 @@ main {
     display: block;
 }
 
+#logoutButton {
+    color: red;
+}
+
 /* Footer =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
 .footer-div {
@@ -204,102 +219,238 @@ main {
 /* Configuração da conta =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
 .UC-main {
-    margin-top: 50px;
-    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    margin-top: 1vh;
+    margin-bottom: 6vh;
+}
+
+/* Usuário --------------------- */
+
+#user-config-page-title {
+    font-size: 2.2rem;
+    text-align: center;
+}
+
+#user-config-text {
+    text-align: center;
+}
+
+.user-config-container {
+    background: #fffbe1;
+    margin: 0 2vw;
+    padding: 2vh 2vw;
+    width: 18vw;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+}
+
+.user-config-name,
+.user-config-email,
+.user-config-member-since {
+    background-color: white;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 1.1rem;
+    margin: 2vh 0;
+    padding: 0.1vh 1vw;
+    transition: transform 0.2s, background-color 0.3s, color 0.3s;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+
+    &>p {
+        color: black;
+        font-size: 1.1rem;
+        text-align: center;
+    }
+}
+
+.user-config-name:hover,
+.user-config-email:hover,
+.user-config-member-since:hover {
+    color: black;
+    background-color: white;
+    transform: scale(1.05);
+}
+
+
+/* Vendedor ------------------- */
+
+#seller-config-text {
+    text-align: center;
+}
+
+.seller-config-container {
+    background: #fffbe1;
+    margin: 0 2vw;
+    padding: 2vh 5vw;
+    margin-top: 6.5vh;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+}
+
+.seller-name,
+.seller-cpf,
+.seller-phone {
+    background-color: white;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 1.1rem;
+    margin: 2vh 0;
+    padding: 0.1vh 1vw;
+    transition: transform 0.2s, background-color 0.3s, color 0.3s;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+
+    &>p {
+        color: black;
+        font-size: 1.1rem;
+        text-align: center;
+    }
+}
+
+.seller-name:hover,
+.seller-cpf:hover,
+.seller-phone:hover {
+    color: black;
+    background-color: white;
+    transform: scale(1.05);
+}
+
+.seller-deactivate-button {
+    text-align: center;
+
+    &>form>button {
+        transition: background-color 0.3s;
+        font-size: 1rem;
+        font-weight: bolder;
+        padding: 2vh 2vw;
+        background-color: white;
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+        border-radius: 30px;
+        border: 2px solid rgba(0, 0, 0, 0.15);
+    }
+}
+
+.seller-deactivate-button>form>button:hover {
+    cursor: pointer;
+    background-color: rgb(228, 228, 228);
+}
+
+/* Warn */
+
+.admin-auth-text {
+    width: 600px;
+    padding: 1vh 0;
+    margin: 6vh auto;
+    border-radius: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    background-color: #fffbe1;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Botão de ativação de vendedor */
+
+.seller-activate-button {
+    text-align: center;
+
+    &>form>button {
+        transition: background-color 0.3s;
+        font-size: 1rem;
+        font-weight: bolder;
+        padding: 2vh 2vw;
+        margin: 2vh 0;
+        background-color: #fffbe1;
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+        border-radius: 30px;
+        border: 2px solid rgba(0, 0, 0, 0.15);
+    }
+}
+
+.seller-activate-button>form>button:hover {
+    cursor: pointer;
+    background-color: #eee8c5;
+}
+
+
+/* Vendedor Formulario */
+
+.seller-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
 
-.UC-container {
+    background: #fffbe1;
+    margin: 0 2vw;
+    padding: 2vh 5vw;
+    border-radius: 8px;
     border: 2px solid rgba(0, 0, 0, 0.15);
-    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.115);
-    width: 80vw;
-    margin-top: 50px 0px;
-    padding: 10px 45px;
-    background-color: #ffedd2;
-    border-radius: 10px;
 }
 
-.UC-info {
-    font-size: 16px;
-    color: rgb(0, 0, 0);
-}
 
-#UC-text {
-    text-align: center;
-}
 
-#UC-button {
-    text-align: center;
-    font-size: 20px;
-    padding: 15px 20px;
-    border: 2px solid rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
+.seller-form-name,
+.seller-form-cpf,
+.seller-form-phone {
     background-color: white;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 1.1rem;
+    margin: 1vh 0;
+    padding: 2vh 1vw;
+    width: 18vw;
+    transition: transform 0.2s, background-color 0.3s, color 0.3s;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+
+    &>input {
+        color: black;
+        font-size: 1.1rem;
+        text-align: center;
+        width: calc(100% - 1vw);
+        margin: 0.75vh 0;
+        padding: 0.75vh 0.5vw;
+        border-radius: 8px;
+        border: 2px solid rgba(0, 0, 0, 0.1);
+    }
+}
+.seller-form-submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#UC-button:hover {
-    cursor: pointer;
-}
-
-#UC-button-reactivate {
+.seller-form-submit-button>button {
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    font-weight: bolder;
+    padding: 2vh 2vw;
+    margin: 1vh 0;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border-radius: 30px;
     border: 2px solid rgba(0, 0, 0, 0.15);
-    margin: 50px 0;
-    text-align: center;
-    font-size: 20px;
-    padding: 15px 20px;
-    border-radius: 10px;
-    background-color: #ffedd2;
+}
+
+.seller-form-submit-button>button:hover {
     cursor: pointer;
+    background-color: rgb(228, 228, 228);
 }
 
-.UC-text-div>h2 {
-    margin: 0;
+.seller-form-name:hover,
+.seller-form-cpf:hover,
+.seller-form-phone:hover {
+    color: black;
+    background-color: white;
+    transform: scale(1.05);
 }
 
-.UC-text-div>p {
-    margin-top: 5px;
-    padding: 10px 15px;
-    width: 25vw;
-    border-bottom: 2px rgba(0, 0, 0, 0.300) solid;
-}
-
-.UC-member-div>p {
-    margin-top: 5px;
-    padding: 0 15px;
-}
-
-.seller-form>form>input {
-    outline: none;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    font-size: 20px;
-    padding: 5px 15px;
-
-    /* isso aqui é pecado mas n funciona da maneira de "gente" (margin: 20px 0;) */
-    margin-bottom: 30px;
-    margin-top: 10px;
-
-    width: 25vw;
-    background-color: transparent;
-}
-
-.seller-form>form>label {
-    font-size: 20px;
-}
-
-.SC-container {
-    border: 2px solid rgba(0, 0, 0, 0.15);
-    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.115);
-    width: 80vw;
-    margin-top: 50px;
-    padding: 10px 45px;
-    background-color: #ffedd2;
-    border-radius: 10px;
-}
 
 /* Produtos =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
 
@@ -319,7 +470,7 @@ main {
     font-size: 18px;
     border-radius: 8px 8px 0 0;
     overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
 
 .products-table thead tr {
@@ -448,21 +599,21 @@ isso aqui n funfa pq a table n tem fim :(
     border: 2px solid rgba(0, 0, 0, 0.15);
     border-right: none;
     border-left: none;
-    background: #FFFDD0;
+    background: #fffbe1;
 }
 
 #slides .slide_2 {
     border: 2px solid rgba(0, 0, 0, 0.15);
     border-right: none;
     border-left: none;
-    background: #FFFDD0;
+    background: #fffbe1;
 }
 
 #slides .slide_3 {
     border: 2px solid rgba(0, 0, 0, 0.15);
     border-right: none;
     border-left: none;
-    background: #FFFDD0;
+    background: #fffbe1;
 }
 
 #bullets {
@@ -521,7 +672,7 @@ isso aqui n funfa pq a table n tem fim :(
     height: auto;
 }
 
-.lower-content > a {
+.lower-content>a {
     border: 2px solid rgba(0, 0, 0, 0.15);
     border-radius: 50px;
     padding: 20px 20px;
@@ -532,7 +683,7 @@ isso aqui n funfa pq a table n tem fim :(
     display: inline-block;
 }
 
-.lower-content > a:hover {
+.lower-content>a:hover {
     transform: scale(1.05);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -549,7 +700,7 @@ isso aqui n funfa pq a table n tem fim :(
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;       
+    padding: 20px;
 }
 
 .product-grid {
@@ -561,7 +712,7 @@ isso aqui n funfa pq a table n tem fim :(
 }
 
 .product-item {
-    background-color: #FFFDD0;
+    background-color: #fffbe1;
     border: 2px solid rgba(0, 0, 0, 0.15);
     border-radius: 8px;
     padding: 15px;
@@ -621,7 +772,7 @@ isso aqui n funfa pq a table n tem fim :(
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
     padding: 20px;
-    background-color: #FFFDD0;
+    background-color: #fffbe1;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     max-width: 800px;
@@ -633,7 +784,7 @@ isso aqui n funfa pq a table n tem fim :(
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e9ecef;
+    background-color: #fffcfc00;
     border-radius: 8px;
     padding: 20px;
     min-height: 300px;
@@ -706,17 +857,18 @@ isso aqui n funfa pq a table n tem fim :(
 /* Cart Page Container */
 .cart-page {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 35px auto;
     padding: 20px;
-    background-color: #f4f4f4;
+    border: 2px rgba(0, 0, 0, 0.1) solid;
+    background-color: #fffbe1;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .cart-page h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
     color: #333;
 }
 
@@ -730,10 +882,10 @@ isso aqui n funfa pq a table n tem fim :(
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
     font-size: 1rem;
-    background-color: #fff;
+    background-color: #fffdf4;
     margin-bottom: 10px;
     border-radius: 8px;
 }
@@ -750,7 +902,7 @@ isso aqui n funfa pq a table n tem fim :(
 }
 
 .product-in-cart a {
-    color: #007bff;
+    color: #7bbbff;
     text-decoration: none;
     font-weight: bold;
 }
@@ -759,7 +911,8 @@ isso aqui n funfa pq a table n tem fim :(
     text-decoration: underline;
 }
 
-.cart-less, .cart-more {
+.cart-less,
+.cart-more {
     background-color: #007bff;
     color: white;
     font-size: 1.2rem;
@@ -772,12 +925,13 @@ isso aqui n funfa pq a table n tem fim :(
     transition: background-color 0.3s ease;
 }
 
-.cart-less:hover, .cart-more:hover {
+.cart-less:hover,
+.cart-more:hover {
     background-color: #0056b3;
 }
 
 .cart-less[onclick] {
-    background-color: #dc3545;
+    background-color: #ff6767;
     color: white;
     padding: 6px 14px;
     font-size: 1.2rem;
@@ -788,7 +942,7 @@ isso aqui n funfa pq a table n tem fim :(
 }
 
 .remove-button[onclick] {
-    background-color: #dc3545;
+    background-color: #ff6767;
     color: white;
     padding: 6px 14px;
     font-size: 1.2rem;
@@ -800,14 +954,18 @@ isso aqui n funfa pq a table n tem fim :(
 
 .cart-less[onclick]:hover,
 .remove-button[onclick]:hover {
-    background-color: #c82333;
+    background-color: #ff0019;
+}
+
+.empty-cart-btn {
+    text-align: center;
 }
 
 .empty-cart-btn button {
     background-color: #ffc400;
     color: white;
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     border-radius: 4px;
     cursor: pointer;
     margin: 10px 5px;
@@ -820,25 +978,33 @@ isso aqui n funfa pq a table n tem fim :(
 }
 
 .cart-total {
-    text-align: right;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     font-weight: bold;
-    font-size: 1.5rem;
     color: #333;
-    margin-top: 20px;
+}
+
+.cart-total>p {
+    font-size: 1.5rem;
 }
 
 .cart-total span {
     color: #28a745;
 }
 
+.cart-form {
+    text-align: center;
+}
+
 .cart-form button {
     background-color: #28a745;
     color: white;
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     border-radius: 4px;
     cursor: pointer;
-    margin: 10px 5px;
+    margin: 0 5px;
     border: none;
     transition: background-color 0.3s ease;
 }
@@ -852,6 +1018,24 @@ isso aqui n funfa pq a table n tem fim :(
     background-color: #218838;
 }
 
+/* Página do histórico =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+
+.sales-report {
+    border: 1px black solid;
+}
+
+.history-item-grid {
+    border: 1px black solid;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.history-grid-item {
+    border: 1px black solid;
+}
 
 /* Modal =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 

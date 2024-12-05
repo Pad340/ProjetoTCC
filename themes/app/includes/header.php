@@ -1,7 +1,7 @@
 <header>
     <nav class="navdiv">
         <a href="<?= url('app/home') ?>">
-            <img class="headerLogo" src="/projetotcc/storage/images/logo_white.png" alt="header-logo" height="100">
+            <img class="header-logo" src="/projetotcc/storage/images/logo_white.png" alt="header-logo">
         </a>
         <ul>
             <li>
@@ -42,7 +42,7 @@
                             <a href="<?= url('app/sales_report') ?>">Relatório de vendas</a>
                         <?php } ?>
                         <a href="<?= url('app/user-config') ?>">Configurações</a>
-                        <a href="<?= url('app/logout') ?>">Sair</a>
+                        <a id="logoutButton" href="<?= url('app/logout') ?>">Sair</a>
                     </div>
                 </div>
             </li>

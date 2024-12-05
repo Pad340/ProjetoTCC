@@ -15,7 +15,7 @@ $lastDate = null;
 $lastReserve = null;
 ?>
 
-<div class="sales_report">
+<div class="sales-report">
     <h1>Minhas reservas!</h1>
 
     <?php if (empty($reports)) { ?>
@@ -27,27 +27,29 @@ $lastReserve = null;
 
             <?php if ($lastDate != date_fmt($report['reserved_at'], 'd/m/Y')) {
                 $lastDate = date_fmt($report['reserved_at'], 'd/m/Y'); ?>
-
-                <div class="date">
-                    <h2>Reservas do dia: <?= $lastDate ?></h2>
+                <div class="date-separator">
+                    <h2>Reservas do dia <?= $lastDate ?></h2>
                 </div>
             <?php } ?>
 
-                <?php if ($lastReserve != $report['reserve_id']) {
-                    $lastReserve = $report['reserve_id']; ?>
-                    <h3>Número da reserva: <?= $lastReserve ?></h3>
-                    <h3>Total da reserva: <?= $report['total_value'] ?></h3>
-                <?php } ?>
+            <?php if ($lastReserve != $report['reserve_id']) {
+                $lastReserve = $report['reserve_id']; ?>
+                <div class="history-items-info">
+                    <h3 id="num-reserva-text">Número da reserva: <?= $lastReserve ?></h3>
+                    <h3 id="total-reserva-text">Total da reserva: <?= $report['total_value'] ?></h3>
+                </div>
+            <?php } ?>
 
-            <div class="data" style="border: black 1px solid; margin: 1px">
-
-                <p><?= $report['product_name'] ?></p>
-                <p>Preço Un.: R$
-                    <?= brl_price_format($report['value'] / $report['quantity']) ?></p>
-                <p>Quantidade: <?= $report['quantity'] ?></p>
-                <p>Total (preço x quantidade): <?= $report['value'] ?></p>
-                <p>Produto foi retirado? <?= $report['redeemed'] == 1 ? 'Sim' : 'Não' ?></p>
+            <div class="history-item-grid">
+                <div class="history-grid-item">
+                    <p class="history-item-name"><?= $report['product_name'] ?></p>
+                    <p class="history-item-price">Preço Un.: R$ <?= brl_price_format($report['value'] / $report['quantity']) ?></p>
+                    <p class="history-item-amount">Quantidade: <?= $report['quantity'] ?></p>
+                    <p class="history-item-total-price">Total (preço x quantidade): <?= $report['value'] ?></p>
+                    <p class="history-was-item-removed">Produto foi retirado? <?= $report['redeemed'] == 1 ? 'Sim' : 'Não' ?></p>
+                </div>
             </div>
         <?php } ?>
+
     <?php } ?>
 </div>
