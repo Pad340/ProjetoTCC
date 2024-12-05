@@ -14,59 +14,14 @@ ORDER BY reserved_at DESC', "user_id={$session->authUser}");
 $lastDate = null;
 $lastReserve = null;
 ?>
-<style>
-    .sales-report {
-        margin: 20px;
-        font-family: Arial, sans-serif;
-    }
 
-    .date-separator h2 {
-        background-color: #f4f4f4;
-        padding: 10px;
-        margin: 0;
-        border-bottom: 2px solid #ddd;
-    }
-
-    .reserve-group {
-        margin: 20px 0;
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-    }
-
-    .history-items-info {
-        margin-bottom: 10px;
-        padding: 10px;
-        background-color: #e8f4ff;
-        border-radius: 5px;
-    }
-
-    .history-grid-item {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin-bottom: 10px;
-        padding: 10px;
-        background-color: #ffffff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-    }
-
-    .history-grid-item p {
-        margin: 5px 0;
-    }
-</style>
-
-<div class="sales-report">
-    <h1>Minhas reservas!</h1>
+<div class="history">
+    <h1>Meu histórico de compras</h1>
 
     <?php if (empty($reports)) { ?>
         <p class="phrase">Nenhum produto comprado!</p>
-
     <?php } else { ?>
         <?php foreach ($reports as $report): ?>
-
             <?php if ($lastDate != date_fmt($report['reserved_at'], 'd/m/Y')): ?>
                 <?php $lastDate = date_fmt($report['reserved_at'], 'd/m/Y'); ?>
                 <div class="date-separator">
@@ -81,6 +36,7 @@ $lastReserve = null;
                     <h3>Número da reserva: <?= $lastReserve ?></h3>
                     <h3>Total da reserva: R$ <?= number_format($report['total_value'], 2, ',', '.') ?></h3>
                 </div>
+                <div class="history-item-grid">
             <?php endif; ?>
 
             <div class="history-grid-item">
@@ -92,6 +48,7 @@ $lastReserve = null;
             </div>
 
             <?php if (end($reports) === $report || $lastReserve != $reports[array_search($report, $reports) + 1]['reserve_id']): ?>
+                </div> <!-- Fechando o grid -->
                 </div> <!-- Fechando o grupo de reserva -->
             <?php endif; ?>
 

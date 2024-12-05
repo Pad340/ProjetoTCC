@@ -1020,22 +1020,87 @@ isso aqui n funfa pq a table n tem fim :(
 
 /* Página do histórico =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
-.sales-report {
-    border: 1px black solid;
+.history {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 5vh 0;
+}
+
+.date-separator {
+    margin: 2vh 0;
+}
+
+.history-items-info {
+    border-top: 2px solid rgba(0, 0, 0, 0.15);
+    background-color: #fff2c9;
+    width: 30%;
+    padding: 0.5vh 4vw;
+    border-radius: 30px 30px 0px 0px;
 }
 
 .history-item-grid {
-    border: 1px black solid;
     display: grid;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+    background-color: #fffbe1;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
+    padding: 4vh 4vw;
+    margin-bottom: 5vh;
     max-width: 1200px;
     width: 100%;
+    border-radius:0px 30px 30px 30px;
 }
 
 .history-grid-item {
-    border: 1px black solid;
+    text-align: center;
+    padding: 1vh 1vw;
+    background-color: #fffdf4;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+
+
 }
+
+/* Relatórios =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+/* Table dos relatórios */
+
+.sales-report {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 20px;
+}
+
+.sales-report-table {
+    width: 65vw;
+    margin: 25px 0;
+    border-collapse: collapse;
+    font-size: 18px;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+.sales-report-table thead tr {
+    background-color: #FFB776;
+    color: white;
+    text-align: left;
+    font-weight: bold;
+}
+
+.sales-report-table th,
+.sales-report-table td {
+    text-align: center;
+    padding: 12px 15px;
+}
+
+.sales-report-table tbody tr {
+    border: 1px solid #dddddd;
+}
+
 
 /* Modal =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
