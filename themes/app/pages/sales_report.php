@@ -40,21 +40,37 @@ $lastReserve = null;
                 <th>Foi retirado?</th>
             </tr>
             </thead>
+            <tbody>
+            <?php
+            $lastReserveId = null;
+            $rowCount = 0;
+            foreach ($reports as $key => $report) {
+                $isNewReserve = ($lastReserveId !== $report['reserve_id']);
+                $nextReserveId = $reports[$key + 1]['reserve_id'] ?? null;
 
-            <?php foreach ($reports as $report) { ?>
+                if ($isNewReserve) {
+                    // Conta quantas linhas a reserva ocupa
+                    $rowCount = count(array_filter($reports, fn($r) => $r['reserve_id'] === $report['reserve_id']));
+                }
+                ?>
                 <tr>
-                    <td><?= date_fmt($report['reserved_at'], 'd/m/Y H:i:s') ?></td>
-                    <td><?= $report['reserve_id'] ?></td>
-                    <td><?= $report['total_value'] ?></td>
+                    <?php if ($isNewReserve) { ?>
+                        <td rowspan="<?= $rowCount ?>"><?= date_fmt($report['reserved_at'], 'd/m/Y H:i:s') ?></td>
+                        <td rowspan="<?= $rowCount ?>"><?= $report['reserve_id'] ?></td>
+                        <td rowspan="<?= $rowCount ?>">R$ <?= brl_price_format($report['total_value']) ?></td>
+                    <?php } ?>
                     <td><?= $report['product_name'] ?></td>
                     <td>R$ <?= brl_price_format($report['value'] / $report['quantity']) ?></td>
                     <td><?= $report['quantity'] ?></td>
                     <td>R$ <?= brl_price_format($report['value']) ?></td>
                     <td><?= $report['user_id'] ?></td>
-                    <td><?= $report['redeemed'] ?></td>
+                    <td><?= $report['redeemed'] ? 'Sim' : 'Não' ?></td>
                 </tr>
-            <?php } ?>
+                <?php
+                $lastReserveId = $report['reserve_id'];
+            }
+            ?>
+            </tbody>
         </table>
-
     <?php } ?>
 </div>

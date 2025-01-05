@@ -58,31 +58,29 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
 
     <!-- Não é vendedor na sessão e não possui conta de vendedor -->
     <?php if (!$session->has('authSeller') and !$seller_result) { ?>
-        <div class="seller-form">
-            <h1>Criar uma conta de vendedor</h1>
-            <form action="" method="post" autocomplete="off">
-                <div class="seller-form-name">
-                    <label for="seller_name">Nome de vendedor ou turma</label>
-                    <input type="text" name="seller_name" required />
-                </div>
-                <div class="seller-form-cpf">
-                    <label for="seller_cpf">CPF do vendedor ou responsável pelas vendas da turma</label>
-                    <input type="text" id="seller_cpf" name="seller_cpf" maxlength="14" required />
-                </div>
-                <div class="seller-form-phone">
-                    <label for="phone_number">
-                        Número de telefone do vendedor ou responsável pelas vendas da turma
-                    </label>
-                    <input type="text" id="phone_number" name="phone_number" maxlength="15" required />
-                </div>
-                <div class="seller-form-submit-button">
-                    <button type="submit" name="register_btn">Cadastrar</button>
-                </div>
-            </form>
-        </div>
-</div> <!-- div pro main fechar -->
+    <div class="seller-form">
+        <h1>Criar uma conta de vendedor</h1>
+        <form action="" method="post" autocomplete="off">
+            <div class="seller-form-name">
+                <label for="seller_name">Nome de vendedor ou turma</label>
+                <input type="text" id="seller_name" name="seller_name" required/>
+            </div>
+            <div class="seller-form-cpf">
+                <label for="seller_cpf">CPF do vendedor ou responsável pelas vendas da turma</label>
+                <input type="text" id="seller_cpf" name="seller_cpf" maxlength="14" required/>
+            </div>
+            <div class="seller-form-phone">
+                <label for="phone_number">Número de telefone do vendedor ou responsável pelas vendas da turma</label>
+                <input type="text" id="phone_number" name="phone_number" maxlength="15" required/>
+            </div>
+            <div class="seller-form-submit-button">
+                <button type="submit" name="register_btn">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</div><!-- div pro main fechar -->
 
-<!-- Não tem autorização para ser vendedor -->
+    <!-- Não tem autorização para ser vendedor -->
 <?php } elseif ($seller_result['licensed'] == 0) { ?>
     </div> <!-- div pro main fechar -->
     <div class="admin-auth-text">
@@ -98,7 +96,6 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
         </form>
     </div>
 
-
     <!-- Conta Ativada -->
 <?php } else { ?>
     <div class="seller-config-container">
@@ -110,11 +107,11 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
         </div>
         <div class="seller-cpf">
             <h2>CPF</h2>
-            <p><span><?= $seller_result['cpf'] ?></span></p>
+            <p><span id="seller_cpf"><?= $seller_result['cpf'] ?></span></p>
         </div>
         <div class="seller-phone">
             <h2>Telefone</h2>
-            <p><span><?= $seller_result['phone_number'] ?></span></p>
+            <p><span id="phone_number"><?= $seller_result['phone_number'] ?></span></p>
         </div>
         <div class="seller-deactivate-button">
             <form action="" method="post">
@@ -127,16 +124,16 @@ $seller_result = $search->selectFirst('seller', 'WHERE user_id = :id', "id={$ses
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Máscara para CPF
         $('#seller_cpf').mask('000.000.000-00');
 
         // Máscara para o número de telefone
-        const phoneMaskBehavior = function(val) {
+        const phoneMaskBehavior = function (val) {
                 return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
             },
             phoneOptions = {
-                onKeyPress: function(val, e, field, options) {
+                onKeyPress: function (val, e, field, options) {
                     field.mask(phoneMaskBehavior.apply({}, arguments), options);
                 }
             };

@@ -15,10 +15,7 @@ use JetBrains\PhpStorm\NoReturn;
  */
 function is_name(string $name): bool
 {
-    if (
-        is_numeric(filter_var(filter_var($name, FILTER_SANITIZE_SPECIAL_CHARS), FILTER_SANITIZE_NUMBER_INT))
-        or preg_match('/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/', $name)
-    ) {
+    if (preg_match('/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/', $name)) {
         return false;
     }
     return true;
@@ -144,7 +141,8 @@ function brl_price_format(string $price): string
  * @param string $price
  * @return string
  */
-function brl_to_decimal(string $price): string {
+function brl_to_decimal(string $price): string
+{
     return str_replace(',', '.', str_replace('.', '', $price));
 }
 

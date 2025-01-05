@@ -147,7 +147,7 @@ class Seller
 
         // Nome
         if (!is_name($name)) {
-            $this->message = 'O nome não deve conter números e nem carácteres especiais.';
+            $this->message = 'O nome não deve conter caracteres especiais.';
             $this->messageType = ALERT_WARNING;
             return null;
         }
